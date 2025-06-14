@@ -47,12 +47,13 @@ const buttonColor = computed(() => theme.global.current.value.dark ? 'white' : '
 
 const supabase = useSupabaseClient()
 const loading = ref(false)
+const config = useRuntimeConfig()
 
 const handleSignIn = async () => {
   try {
     loading.value = true
-    const redirectTo = process.env.VERCEL_PROJECT_PRODUCTION_URL 
-      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}/confirm`
+    const redirectTo = config.public.vercelProjectProductionUrl 
+      ? `https://${config.public.vercelProjectProductionUrl}/confirm`
       : `${window.location.origin}/confirm`
     
     const { error } = await supabase.auth.signInWithOAuth({
