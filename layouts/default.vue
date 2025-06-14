@@ -42,6 +42,8 @@ const { getProfile } = useProfile()
 
 const handleEntrySaved = () => {
   showAddDialog.value = false
+  // Refresh the weight entries
+  refreshNuxtData('weight-entries')
 }
 
 const handleProfileSaved = () => {

@@ -29,20 +29,20 @@ const props = defineProps<{
 
 const { getProfile } = useProfile()
 const { data: profile } = await useAsyncData<UserProfile>('user-profile', () => getProfile())
-const theme = useTheme()
 
 const chartOptions = computed<EChartsOption>(() => {
   if (props.entries.length === 0) return {}
-
-  const dates = props.entries.map(entry => new Date(entry.date).getTime())
-  const minDate = Math.min(...dates)
-  const maxDate = Math.max(...dates)
 
   const series = [
     {
       name: 'Weight',
       type: 'line' as const,
-      data: props.entries.map(entry => [new Date(entry.date).getTime(), entry.weight]),
+      data: props.entries.map(entry => {
+        const date = new Date(entry.date)
+        const day = date.getDate().toString().padStart(2, '0')
+        const month = (date.getMonth() + 1).toString().padStart(2, '0')
+        return [`${day}-${month}`, entry.weight]
+      }),
       smooth: true,
       symbol: 'circle',
       lineStyle: {
@@ -55,7 +55,7 @@ const chartOptions = computed<EChartsOption>(() => {
       markLine: profile.value?.goal_weight != null ? {
         symbol: 'none',
         label: {
-          formatter: 'Goal Weight',
+          formatter: 'Goal',
           position: 'end' as const,
           color: '#7209b7'
         },
@@ -74,8 +74,7 @@ const chartOptions = computed<EChartsOption>(() => {
     tooltip: {
       trigger: 'axis',
       formatter: (params: any) => {
-        const date = new Date(params[0].axisValue)
-        let tooltip = `${formatDate(date)}<br/>`
+        let tooltip = `${params[0].axisValue}<br/>`
         params.forEach((param: any) => {
           if (param.seriesName === 'Weight') {
             tooltip += `<span style='color:${param.color}'>●</span> Weight: ${param.data[1].toFixed(1)} kg<br/>`
@@ -87,22 +86,10 @@ const chartOptions = computed<EChartsOption>(() => {
       }
     },
     grid: {
-      top: 60,
-      right: 30,
-      bottom: 40,
-      left: 20,
       containLabel: true
     },
     xAxis: {
-      type: 'time',
-      axisLabel: {
-        formatter: (value: number) => {
-          const date = new Date(value)
-          const day = date.getDate().toString().padStart(2, '0')
-          const month = (date.getMonth() + 1).toString().padStart(2, '0')
-          return `${day}-${month}`
-        }
-      }
+      type: 'category'
     },
     yAxis: {
       type: 'value',
