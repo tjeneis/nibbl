@@ -35,6 +35,7 @@
                 required
               />
             </VCol>
+            
             <VCol cols="12" md="6">
               <VTextField
                 v-model.number="formData.weight"
@@ -44,15 +45,7 @@
                 required
               />
             </VCol>
-            <VCol cols="12" md="6">
-              <VTextField
-                v-model.number="formData.bmi"
-                label="BMI"
-                type="number"
-                step="0.1"
-                required
-              />
-            </VCol>
+
             <VCol cols="12" md="6">
               <VTextField
                 v-model.number="formData.fat_percentage"
@@ -62,6 +55,7 @@
                 required
               />
             </VCol>
+
             <VCol cols="12" md="6">
               <VTextField
                 v-model.number="formData.visceral_level"
@@ -71,6 +65,7 @@
                 required
               />
             </VCol>
+
             <VCol cols="12" md="6">
               <VTextField
                 v-model.number="formData.muscle_mass"
@@ -80,6 +75,7 @@
                 required
               />
             </VCol>
+
             <VCol cols="12" md="6">
               <VTextField
                 v-model.number="formData.physique_level"
@@ -89,6 +85,7 @@
                 required
               />
             </VCol>
+
             <VCol cols="12" md="6">
               <VTextField
                 v-model.number="formData.bone_mass"
@@ -98,6 +95,7 @@
                 required
               />
             </VCol>
+
             <VCol cols="12" md="6">
               <VTextField
                 v-model.number="formData.kcal_intake"
@@ -106,14 +104,7 @@
                 required
               />
             </VCol>
-            <VCol cols="12" md="6">
-              <VTextField
-                v-model.number="formData.kj_intake"
-                label="Energy Intake (kJ)"
-                type="number"
-                required
-              />
-            </VCol>
+
             <VCol cols="12" md="6">
               <VTextField
                 v-model.number="formData.metabolic_age"
@@ -122,6 +113,7 @@
                 required
               />
             </VCol>
+
             <VCol cols="12" md="6">
               <VTextField
                 v-model.number="formData.body_water_percentage"
@@ -161,14 +153,12 @@ const loading = ref(false)
 const formData = ref<WeightFormData>({
   date: new Date().toISOString().split('T')[0],
   weight: undefined,
-  bmi: undefined,
   fat_percentage: undefined,
   visceral_level: undefined,
   muscle_mass: undefined,
   physique_level: undefined,
   bone_mass: undefined,
   kcal_intake: undefined,
-  kj_intake: undefined,
   metabolic_age: undefined,
   body_water_percentage: undefined
 })
@@ -186,15 +176,3 @@ const handleSubmit = async () => {
   }
 }
 </script>
-
-<style>
-.dialog-bottom-transition-enter-active,
-.dialog-bottom-transition-leave-active {
-  transition: transform 0.2s ease-in-out;
-}
-
-.dialog-bottom-transition-enter-from,
-.dialog-bottom-transition-leave-to {
-  transform: translateY(100%);
-}
-</style> 

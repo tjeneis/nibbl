@@ -25,15 +25,36 @@
       v-model="showAddDialog"
       @saved="handleEntrySaved"
     />
+
+    <ProfileSetupDialog
+      v-model="showProfileSetup"
+      @saved="handleProfileSaved"
+    />
   </VApp>
 </template>
 
 <script setup lang="ts">
 const showAddDialog = ref(false)
+const showProfileSetup = ref(false)
+const { getProfile } = useProfile()
 
 const handleEntrySaved = () => {
   showAddDialog.value = false
 }
+
+const handleProfileSaved = () => {
+  showProfileSetup.value = false
+}
+
+// Check if profile exists when app loads
+onMounted(async () => {
+  try {
+    await getProfile()
+  } catch (error) {
+    // If profile doesn't exist, show setup dialog
+    showProfileSetup.value = true
+  }
+})
 </script>
 
 <style>

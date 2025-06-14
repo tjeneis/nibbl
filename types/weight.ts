@@ -3,14 +3,12 @@ export interface WeightEntry {
   user_id: string
   date: string
   weight: number
-  bmi: number
   fat_percentage: number
   visceral_level: number
   muscle_mass: number
   physique_level: number
   bone_mass: number
   kcal_intake: number
-  kj_intake: number
   metabolic_age: number
   body_water_percentage: number
   created_at: string
@@ -20,14 +18,12 @@ export interface WeightEntry {
 export interface WeightFormData {
   date: string
   weight: number | undefined
-  bmi: number | undefined
   fat_percentage: number | undefined
   visceral_level: number | undefined
   muscle_mass: number | undefined
   physique_level: number | undefined
   bone_mass: number | undefined
   kcal_intake: number | undefined
-  kj_intake: number | undefined
   metabolic_age: number | undefined
   body_water_percentage: number | undefined
 }

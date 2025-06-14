@@ -38,30 +38,44 @@ SUPABASE_URL=your_supabase_url
 SUPABASE_KEY=your_supabase_anon_key
 ```
 
-4. Create the following table in your Supabase database:
+4. Create the following tables in your Supabase database:
 ```sql
+create table user_profiles (
+  id uuid default uuid_generate_v4() primary key,
+  user_id uuid references auth.users not null unique,
+  height decimal not null,
+  age integer not null,
+  gender text not null check (gender in ('male', 'female', 'other')),
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
 create table weight_entries (
   id uuid default uuid_generate_v4() primary key,
   user_id uuid references auth.users not null,
+  date string not null,
   weight decimal not null,
-  bmi decimal not null,
-  fat_percentage decimal not null,
-  visceral_level decimal not null,
-  muscle_mass decimal not null,
-  physique_level decimal not null,
-  bone_mass decimal not null,
-  kcal_intake integer not null,
-  kj_intake integer not null,
-  metabolic_age integer not null,
-  body_water_percentage decimal not null,
+  fat_percentage decimal,
+  visceral_level decimal,
+  muscle_mass decimal,
+  physique_level decimal,
+  bone_mass decimal,
+  kcal_intake integer,
+  metabolic_age integer,
+  body_water_percentage decimal,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
   updated_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
 -- Enable Row Level Security
+alter table user_profiles enable row level security;
 alter table weight_entries enable row level security;
 
--- Create policy to allow users to only see their own entries
+-- Create policies to allow users to only see their own data
+create policy "Users can only access their own profile"
+  on user_profiles for all
+  using (auth.uid() = user_id);
+
 create policy "Users can only access their own entries"
   on weight_entries for all
   using (auth.uid() = user_id);
