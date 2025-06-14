@@ -31,6 +31,9 @@ export default defineNuxtConfig({
         },
         VChip: {
           variant: 'flat'
+        },
+        VTextField: {
+          hideDetails: 'auto'
         }
       },
       theme: {
