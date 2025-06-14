@@ -25,10 +25,39 @@ export default defineNuxtConfig({
         VBtn: {
           variant: 'flat',
           class: 'text-none letter-spacing-normal'
+        },
+        VChip: {
+          variant: 'flat'
         }
       },
       theme: {
-        defaultTheme: 'dark'
+        defaultTheme: 'dark',
+        themes: {
+          light: {
+            dark: false,
+            colors: {
+              primary: '#f72585',
+              secondary: '#7209b7',
+              accent: '#4361ee',
+              info: '#4cc9f0',
+              success: '#3f37c9',
+              warning: '#b5179e',
+              error: '#560bad',
+            }
+          },
+          dark: {
+            dark: true,
+            colors: {
+              primary: '#f72585',
+              secondary: '#7209b7',
+              accent: '#4361ee',
+              info: '#4cc9f0',
+              success: '#3f37c9',
+              warning: '#b5179e',
+              error: '#560bad',
+            }
+          }
+        }
       }
     }
   },

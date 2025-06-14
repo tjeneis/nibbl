@@ -19,10 +19,13 @@
 <script setup lang="ts">
 import type { WeightEntry } from '~/types/weight'
 import type { EChartsOption } from 'echarts'
+import { useTheme } from 'vuetify'
 
 const props = defineProps<{
   entry?: WeightEntry | null
 }>()
+
+const theme = useTheme()
 
 const chartOptions = computed<EChartsOption>(() => {
   if (!props.entry) return {}
@@ -38,24 +41,23 @@ const chartOptions = computed<EChartsOption>(() => {
     },
     legend: {
       orient: 'vertical',
-      left: 'left'
+      left: 'left',
+      textStyle: {
+        color: theme.current.value.dark == true ? '#fff' : '#000'
+      }
     },
     series: [
       {
         type: 'pie',
         radius: '50%',
+        label: {
+          color: theme.current.value.dark == true ? '#fff' : '#000'
+        },
         data: [
-          { value: fatMass, name: 'Fat' },
-          { value: muscleMass, name: 'Muscle' },
-          { value: boneMass, name: 'Bone' }
-        ],
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)'
-          }
-        }
+          { value: fatMass, name: 'Fat', itemStyle: { color: '#f72585' } },
+          { value: muscleMass, name: 'Muscle', itemStyle: { color: '#7209b7' } },
+          { value: boneMass, name: 'Bone', itemStyle: { color: '#4361ee' } }
+        ]
       }
     ]
   }

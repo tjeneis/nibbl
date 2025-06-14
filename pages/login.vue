@@ -10,6 +10,7 @@
             Track your weight and body composition
           </VCardSubtitle>
           <VCardText>
+            {{ config.public.vercelProjectProductionUrl }}
             <VBtn
               block
               :color="buttonColor"

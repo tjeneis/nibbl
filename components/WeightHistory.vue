@@ -8,7 +8,7 @@
         :loading="loading"
       >
         <template v-slot:item.date="{ item }">
-          {{ new Date(item.date).toLocaleDateString() }}
+          <div class="text-no-wrap">{{ formatDate(item.date) }}</div>
         </template>
         <template v-slot:item.weight="{ item }">
           {{ item.weight.toFixed(1) }} kg
@@ -58,6 +58,7 @@
 
 <script setup lang="ts">
 import type { WeightEntry } from '~/types/weight'
+import { formatDate } from '~/utils/date'
 
 defineProps<{
   entries: WeightEntry[]
@@ -72,7 +73,7 @@ const { deleteWeightEntry } = useWeight()
 const deleting = ref(false)
 
 const handleDelete = async (entry: WeightEntry) => {
-  if (!confirm(`Are you sure you want to delete the weight entry from ${new Date(entry.date).toLocaleDateString()}?`)) {
+  if (!confirm(`Are you sure you want to delete the weight entry from ${formatDate(entry.date)}?`)) {
     return
   }
 

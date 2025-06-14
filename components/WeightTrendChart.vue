@@ -19,6 +19,7 @@
 <script setup lang="ts">
 import type { WeightEntry } from '~/types/weight'
 import type { EChartsOption } from 'echarts'
+import { formatDate } from '~/utils/date'
 
 const props = defineProps<{
   entries: WeightEntry[]
@@ -32,20 +33,21 @@ const chartOptions = computed<EChartsOption>(() => {
       trigger: 'axis',
       formatter: (params: any) => {
         const date = new Date(params[0].value[0])
-        return `${date.toLocaleDateString()}: ${params[0].value[1].toFixed(1)} kg`
+        return `${formatDate(date)}: ${params[0].value[1].toFixed(1)} kg`
       }
     },
     xAxis: {
       type: 'time',
       axisLabel: {
-        formatter: (value: string) => {
-          return new Date(value).toLocaleDateString()
+        formatter: (value: number) => {
+          return formatDate(new Date(value))
         }
       }
     },
     yAxis: {
       type: 'value',
       name: 'Weight (kg)',
+      min: 60,
       axisLabel: {
         formatter: '{value} kg'
       }
@@ -57,8 +59,7 @@ const chartOptions = computed<EChartsOption>(() => {
           new Date(entry.date).getTime(),
           entry.weight
         ]),
-        smooth: true,
-        showSymbol: false
+        smooth: true
       }
     ]
   }
