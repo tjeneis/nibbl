@@ -13,7 +13,6 @@
         Add Entry
       </VBtn>
 
-      <ThemeToggle />
       <UserMenu />
     </VAppBar>
 
