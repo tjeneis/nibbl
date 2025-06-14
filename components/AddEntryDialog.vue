@@ -160,17 +160,17 @@ const loading = ref(false)
 
 const formData = ref<WeightFormData>({
   date: new Date().toISOString().split('T')[0],
-  weight: 0,
-  bmi: 0,
-  fat_percentage: 0,
-  visceral_level: 0,
-  muscle_mass: 0,
-  physique_level: 0,
-  bone_mass: 0,
-  kcal_intake: 0,
-  kj_intake: 0,
-  metabolic_age: 0,
-  body_water_percentage: 0
+  weight: undefined,
+  bmi: undefined,
+  fat_percentage: undefined,
+  visceral_level: undefined,
+  muscle_mass: undefined,
+  physique_level: undefined,
+  bone_mass: undefined,
+  kcal_intake: undefined,
+  kj_intake: undefined,
+  metabolic_age: undefined,
+  body_water_percentage: undefined
 })
 
 const handleSubmit = async () => {

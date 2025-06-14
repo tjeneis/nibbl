@@ -3,6 +3,9 @@ export default defineNuxtConfig({
     head: {
       meta: [
         { name: 'color-scheme', content: 'light dark' }
+      ],
+      link: [
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' }
       ]
     }
   },
