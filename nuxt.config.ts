@@ -1,5 +1,12 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  app: {
+    head: {
+      meta: [
+        { name: 'color-scheme', content: 'light dark' }
+      ]
+    }
+  },
+
   compatibilityDate: '2025-05-15',
   
   devtools: { enabled: false },
