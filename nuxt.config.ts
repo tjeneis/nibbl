@@ -83,10 +83,4 @@ export default defineNuxtConfig({
   typescript: {
     strict: true
   },
-
-  runtimeConfig: {
-    public: {
-      vercelProjectProductionUrl: process.env.NUXT_ENV_VERCEL_PROJECT_PRODUCTION_URL
-    }
-  }
 })
