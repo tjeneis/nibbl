@@ -55,7 +55,7 @@ const handleSignIn = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/confirm`
+        redirectTo: `https://nibbl.thomasneis.nl/confirm`
       }
     })
     if (error) throw error
