@@ -9,7 +9,7 @@
           <VCardSubtitle class="text-center">
             Track your weight and body composition
           </VCardSubtitle>
-          <VCardText>{{ `https://${config.public.vercelProjectProductionUrl}/confirm` }}
+          <VCardText>
             <VBtn
               block
               :color="buttonColor"
@@ -55,6 +55,8 @@ const handleSignIn = async () => {
     const redirectTo = config.public.vercelProjectProductionUrl 
       ? `https://${config.public.vercelProjectProductionUrl}/confirm`
       : `${window.location.origin}/confirm`
+
+    alert(redirectTo)
     
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',

@@ -25,11 +25,14 @@ definePageMeta({
 })
 
 const user = useSupabaseUser()
+const redirectInfo = useSupabaseCookieRedirect()
 
-// Watch for user changes and redirect when logged in
 watch(user, () => {
   if (user.value) {
-    return navigateTo('/')
+    // Get redirect path, and clear it from the cookie
+    const path = redirectInfo.pluck()
+    // Redirect to the saved path, or fallback to home
+    return navigateTo(path || '/') 
   }
 }, { immediate: true })
 </script> 
