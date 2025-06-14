@@ -4,12 +4,10 @@
       <VBtn
         v-bind="props"
         icon
-        class="ml-2"
       >
         <VAvatar
           :image="user?.user_metadata?.avatar_url"
           :text="user?.email?.[0].toUpperCase()"
-          size="32"
           color="primary"
         />
       </VBtn>

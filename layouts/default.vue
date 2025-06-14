@@ -1,19 +1,28 @@
 <template>
   <VApp>
     <VAppBar>
-      <Logo height="32" class="ml-4" />
+      <VContainer fluid class="d-flex align-center ga-3">
+        <Logo height="32" />
 
-      <VSpacer />
-      
-      <VBtn
-        color="primary"
-        prepend-icon="mdi-plus"
-        @click="showAddDialog = true"
-      >
-        Add Entry
-      </VBtn>
+        <VSpacer />
+        
+        <VBtn
+          color="primary"
+          :variant="mdAndUp ? 'text' : 'flat'"
+          :size="mdAndUp ? 'default' : 'small'"
+          @click="showAddDialog = true"
+          :icon="mdAndUp ? undefined : 'mdi-plus'"
+        >
+          <template #prepend v-if="mdAndUp">
+            <VIcon icon="mdi-plus" />
+          </template>
+          <template #default v-if="mdAndUp">
+            Add entry
+          </template>
+        </VBtn>
 
-      <UserMenu />
+        <UserMenu />
+      </VContainer>
     </VAppBar>
 
     <VMain>
@@ -37,6 +46,7 @@
 const showAddDialog = ref(false)
 const showProfileSetup = ref(false)
 const isNewProfile = ref(false)
+const { mdAndUp } = useDisplay()
 const { getProfile } = useProfile()
 
 const handleEntrySaved = () => {
