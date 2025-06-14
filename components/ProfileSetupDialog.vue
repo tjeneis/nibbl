@@ -22,11 +22,9 @@
           </VCol>
           <VCol cols="12">
             <VTextField
-              v-model.number="age"
-              label="Age"
-              type="number"
-              min="1"
-              max="120"
+              v-model="dateOfBirth"
+              label="Date of Birth"
+              type="date"
               required
               :error-messages="error"
             />
@@ -68,7 +66,7 @@
           size="large"
           @click="handleSubmit"
           :loading="loading"
-          :disabled="loading || !height || !age || !gender"
+          :disabled="loading || !height || !dateOfBirth || !gender"
         >
           {{ isNewProfile ? 'Save' : 'Update' }}
         </VBtn>
@@ -98,7 +96,7 @@ const dialog = computed({
 const { createProfile, updateProfile, getProfile } = useProfile()
 const loading = ref(false)
 const height = ref<number>()
-const age = ref<number>()
+const dateOfBirth = ref<string>()
 const gender = ref<Gender>()
 const goalWeight = ref<number>()
 const error = ref<string>()
@@ -114,7 +112,7 @@ onMounted(async () => {
     try {
       const profile = await getProfile()
       height.value = profile.height
-      age.value = profile.age
+      dateOfBirth.value = profile.date_of_birth
       gender.value = profile.gender
       goalWeight.value = profile.goal_weight
     } catch (error) {
@@ -124,8 +122,8 @@ onMounted(async () => {
 })
 
 const handleSubmit = async () => {
-  if (!height.value || !age.value || !gender.value) {
-    error.value = 'Height, age, and gender are required'
+  if (!height.value || !dateOfBirth.value || !gender.value) {
+    error.value = 'Height, date of birth, and gender are required'
     return
   }
 
@@ -134,14 +132,14 @@ const handleSubmit = async () => {
     if (props.isNewProfile) {
       await createProfile({ 
         height: height.value,
-        age: age.value,
+        date_of_birth: dateOfBirth.value,
         gender: gender.value,
         goal_weight: goalWeight.value
       })
     } else {
       await updateProfile({
         height: height.value,
-        age: age.value,
+        date_of_birth: dateOfBirth.value,
         gender: gender.value,
         goal_weight: goalWeight.value
       })

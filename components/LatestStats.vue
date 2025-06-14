@@ -80,10 +80,10 @@
             <VChip
               size="x-small"
               label
-              :color="getMetabolicAgeColor(entry.metabolic_age, profile?.age || 0)"
+              :color="getMetabolicAgeColor(entry.metabolic_age, age)"
               class="ml-1"
             >
-              {{ getMetabolicAgeStatus(entry.metabolic_age, profile?.age || 0) }}
+              {{ getMetabolicAgeStatus(entry.metabolic_age, age) }}
             </VChip>
           </div>
         </VCol>
@@ -160,5 +160,17 @@ const bmi = computed(() => {
 const gender = computed<Gender>(() => {
   if (!profile.value?.gender) return 'male'
   return profile.value.gender
+})
+
+const age = computed(() => {
+  if (!profile.value?.date_of_birth) return 0
+  const birthDate = new Date(profile.value.date_of_birth)
+  const today = new Date()
+  let age = today.getFullYear() - birthDate.getFullYear()
+  const monthDiff = today.getMonth() - birthDate.getMonth()
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+    age--
+  }
+  return age
 })
 </script> 
