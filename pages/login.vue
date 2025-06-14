@@ -51,10 +51,14 @@ const loading = ref(false)
 const handleSignIn = async () => {
   try {
     loading.value = true
+    const redirectTo = process.env.VERCEL_PROJECT_PRODUCTION_URL 
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}/confirm`
+      : `${window.location.origin}/confirm`
+    
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/confirm`
+        redirectTo
       }
     })
     if (error) throw error
