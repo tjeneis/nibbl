@@ -1,7 +1,8 @@
 <template>
   <VApp>
     <VAppBar>
-      <VAppBarTitle>Weighly</VAppBarTitle>
+      <Logo height="32" class="ml-4" />
+
       <VSpacer />
       
       <VBtn
@@ -34,3 +35,9 @@ const handleEntrySaved = () => {
   showAddDialog.value = false
 }
 </script>
+
+<style>
+.theme-logo {
+  filter: brightness(0) saturate(100%) invert(var(--v-theme-on-surface));
+}
+</style>

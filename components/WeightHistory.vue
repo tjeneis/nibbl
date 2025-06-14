@@ -43,6 +43,14 @@
         <template v-slot:item.body_water_percentage="{ item }">
           {{ item.body_water_percentage.toFixed(1) }}%
         </template>
+        <template v-slot:item.actions="{ item }">
+          <VBtn
+            icon="mdi-delete-outline"
+            variant="text"
+            size="small"
+            @click="handleDelete(item)"
+          />
+        </template>
       </VDataTable>
     </VCardText>
   </VCard>
@@ -56,6 +64,29 @@ defineProps<{
   loading: boolean
 }>()
 
+const emit = defineEmits<{
+  (e: 'update'): void
+}>()
+
+const { deleteWeightEntry } = useWeight()
+const deleting = ref(false)
+
+const handleDelete = async (entry: WeightEntry) => {
+  if (!confirm(`Are you sure you want to delete the weight entry from ${new Date(entry.date).toLocaleDateString()}?`)) {
+    return
+  }
+
+  try {
+    deleting.value = true
+    await deleteWeightEntry(entry.id)
+    emit('update')
+  } catch (error) {
+    console.error('Error deleting entry:', error)
+  } finally {
+    deleting.value = false
+  }
+}
+
 const headers = [
   { title: 'Date', key: 'date' },
   { title: 'Weight', key: 'weight' },
@@ -68,6 +99,7 @@ const headers = [
   { title: 'Calorie Intake', key: 'kcal_intake' },
   { title: 'Energy Intake', key: 'kj_intake' },
   { title: 'Metabolic Age', key: 'metabolic_age' },
-  { title: 'Body Water %', key: 'body_water_percentage' }
+  { title: 'Body Water %', key: 'body_water_percentage' },
+  { title: 'Actions', key: 'actions', sortable: false }
 ]
 </script> 

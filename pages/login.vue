@@ -3,10 +3,10 @@
     <VRow justify="center" align="center">
       <VCol cols="12" sm="8" md="6" lg="4">
         <VCard class="pa-4">
-          <VCardTitle class="text-center text-h4">
-            Weighly
-          </VCardTitle>
-          <VCardSubtitle class="text-center mb-4">
+          <div class="text-center my-4">
+            <Logo height="48" />
+          </div>
+          <VCardSubtitle class="text-center">
             Track your weight and body composition
           </VCardSubtitle>
           <VCardText>
@@ -37,8 +37,6 @@
 
 <script setup lang="ts">
 import { useSupabaseClient } from '#imports'
-import { useTheme } from 'vuetify'
-import { computed } from 'vue'
 
 definePageMeta({
   layout: 'login'

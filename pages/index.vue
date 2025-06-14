@@ -16,7 +16,8 @@
       <VCol cols="12">
         <WeightHistory
           :entries="entries"
-          :loading="loading"
+          :loading="pending"
+          @update="refresh"
         />
       </VCol>
     </VRow>
@@ -31,23 +32,12 @@ definePageMeta({
 })
 
 const { getWeightEntries } = useWeight()
-const entries = ref<WeightEntry[]>([])
-const loading = ref(true)
 
-const latestEntry = computed(() => entries.value[0])
+const { data: entries, pending, refresh } = await useAsyncData<WeightEntry[]>(
+  'weight-entries',
+  () => getWeightEntries(),
+  { default: () => [] }
+)
 
-async function loadEntries() {
-  try {
-    loading.value = true
-    entries.value = await getWeightEntries()
-  } catch (error) {
-    console.error('Error loading entries:', error)
-  } finally {
-    loading.value = false
-  }
-}
-
-onMounted(() => {
-  loadEntries()
-})
+const latestEntry = computed(() => entries.value?.[0])
 </script> 

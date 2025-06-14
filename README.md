@@ -1,4 +1,4 @@
-# Weighly - Weight Tracking Application
+# Nibbl - Weight Tracking Application
 
 A modern web application for tracking weight and body composition statistics, built with Nuxt 4, TypeScript, Vuetify, and Supabase.
 
@@ -17,12 +17,14 @@ A modern web application for tracking weight and body composition statistics, bu
 - pnpm package manager
 - Supabase account
 
-## Setup
+## Installation
 
-1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd weighly
+# clone the repository
+git clone https://github.com/yourusername/nibbl.git
+
+# navigate to the project directory
+cd nibbl
 ```
 
 2. Install dependencies:
