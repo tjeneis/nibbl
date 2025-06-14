@@ -42,10 +42,10 @@ export default defineNuxtConfig({
               primary: '#f72585',
               secondary: '#7209b7',
               accent: '#4361ee',
-              info: '#4cc9f0',
-              success: '#3f37c9',
-              warning: '#b5179e',
-              error: '#560bad',
+              success: '#4cc9f0',
+              error: '#f72585',
+              warning: '#7209b7',
+              info: '#4361ee'
             }
           },
           dark: {
@@ -54,10 +54,10 @@ export default defineNuxtConfig({
               primary: '#f72585',
               secondary: '#7209b7',
               accent: '#4361ee',
-              info: '#4cc9f0',
-              success: '#3f37c9',
-              warning: '#b5179e',
-              error: '#560bad',
+              success: '#4cc9f0',
+              error: '#f72585',
+              warning: '#7209b7',
+              info: '#4361ee'
             }
           }
         }

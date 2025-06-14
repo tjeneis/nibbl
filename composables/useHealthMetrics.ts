@@ -36,13 +36,13 @@ export const useHealthMetrics = () => {
       if (fatPercentage < 6) return 'warning'
       if (fatPercentage < 14) return 'success'
       if (fatPercentage < 18) return 'info'
-      if (fatPercentage < 25) return 'primary'
+      if (fatPercentage < 25) return 'warning'
       return 'error'
     } else {
       if (fatPercentage < 14) return 'warning'
       if (fatPercentage < 21) return 'success'
       if (fatPercentage < 25) return 'info'
-      if (fatPercentage < 32) return 'primary'
+      if (fatPercentage < 32) return 'warning'
       return 'error'
     }
   }
@@ -67,14 +67,14 @@ export const useHealthMetrics = () => {
     if (gender === 'male') {
       if (muscleMass < 30) return 'error'
       if (muscleMass < 35) return 'warning'
-      if (muscleMass < 40) return 'primary'
-      if (muscleMass < 45) return 'info'
+      if (muscleMass < 40) return 'info'
+      if (muscleMass < 45) return 'success'
       return 'success'
     } else {
       if (muscleMass < 25) return 'error'
       if (muscleMass < 30) return 'warning'
-      if (muscleMass < 35) return 'primary'
-      if (muscleMass < 40) return 'info'
+      if (muscleMass < 35) return 'info'
+      if (muscleMass < 40) return 'success'
       return 'success'
     }
   }
@@ -119,8 +119,8 @@ export const useHealthMetrics = () => {
   const getPhysiqueLevelColor = (level: number): string => {
     if (level < 1) return 'error'
     if (level < 2) return 'warning'
-    if (level < 3) return 'primary'
-    if (level < 4) return 'info'
+    if (level < 3) return 'info'
+    if (level < 4) return 'success'
     if (level < 5) return 'success'
     return 'success'
   }
@@ -141,18 +141,15 @@ export const useHealthMetrics = () => {
 
   const getMetabolicAgeStatus = (age: number, chronologicalAge: number): string => {
     const diff = age - chronologicalAge
-    if (diff < -5) return 'Excellent'
-    if (diff < 0) return 'Good'
-    if (diff < 5) return 'Average'
-    if (diff < 10) return 'High'
-    return 'Very High'
+    if (Math.abs(diff) < 1) return 'At Age'
+    return diff > 0 ? `+${diff.toFixed(0)}` : `${diff.toFixed(0)}`
   }
 
   const getMetabolicAgeColor = (age: number, chronologicalAge: number): string => {
     const diff = age - chronologicalAge
     if (diff < -5) return 'success'
     if (diff < 0) return 'info'
-    if (diff < 5) return 'primary'
+    if (diff < 5) return 'warning'
     if (diff < 10) return 'warning'
     return 'error'
   }
@@ -160,13 +157,13 @@ export const useHealthMetrics = () => {
   const getWeightStatus = (currentWeight: number, goalWeight: number): string => {
     const diff = currentWeight - goalWeight
     if (Math.abs(diff) < 0.5) return 'At Goal'
-    return diff > 0 ? `+${diff.toFixed(1)} kg` : `${diff.toFixed(1)} kg`
+    return diff > 0 ? `+${diff.toFixed(1)}` : `${diff.toFixed(1)}`
   }
 
   const getWeightColor = (currentWeight: number, goalWeight: number): string => {
     const diff = currentWeight - goalWeight
     if (Math.abs(diff) < 0.5) return 'success'
-    return diff > 0 ? 'warning' : 'info'
+    return diff > 0 ? 'error' : 'success'
   }
 
   return {
