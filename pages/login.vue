@@ -3,7 +3,7 @@
     <VRow justify="center" align="center">
       <VCol cols="12" sm="8" md="6" lg="4">
         <VCard class="pa-4">
-          <VCardTitle class="text-center text-h4 mb-4">
+          <VCardTitle class="text-center text-h4">
             Weighly
           </VCardTitle>
           <VCardSubtitle class="text-center mb-4">
@@ -12,13 +12,20 @@
           <VCardText>
             <VBtn
               block
-              color="primary"
+              :color="buttonColor"
               size="large"
               :loading="loading"
               :disabled="loading"
+              class="text-none letter-spacing-normal"
               @click="handleSignIn"
             >
-              <VIcon start icon="mdi-google" />
+              <img
+                src="~/assets/Google__G__logo.svg"
+                alt="Google"
+                class="me-2"
+                width="24"
+                height="24"
+              />
               Sign in with Google
             </VBtn>
           </VCardText>
@@ -30,10 +37,15 @@
 
 <script setup lang="ts">
 import { useSupabaseClient } from '#imports'
+import { useTheme } from 'vuetify'
+import { computed } from 'vue'
 
 definePageMeta({
   layout: 'login'
 })
+
+const theme = useTheme()
+const buttonColor = computed(() => theme.global.current.value.dark ? 'white' : 'black')
 
 const supabase = useSupabaseClient()
 const loading = ref(false)
@@ -54,4 +66,4 @@ const handleSignIn = async () => {
     loading.value = false
   }
 }
-</script> 
+</script>

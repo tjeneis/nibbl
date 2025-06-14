@@ -16,11 +16,12 @@ export default defineNuxtConfig({
       },
       defaults: {
         VBtn: {
-          variant: 'flat'
+          variant: 'flat',
+          class: 'text-none letter-spacing-normal'
         }
       },
       theme: {
-        defaultTheme: 'light'
+        defaultTheme: 'dark'
       }
     }
   },
@@ -33,7 +34,11 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@use "vuetify/styles" as *;'
+          additionalData: `
+            @use "vuetify/styles" as *;
+            $button-text-transform: none;
+            $button-letter-spacing: normal;
+          `
         }
       }
     }
