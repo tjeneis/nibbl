@@ -86,7 +86,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      vercelProjectProductionUrl: process.env.VERCEL_PROJECT_PRODUCTION_URL
+      vercelProjectProductionUrl: process.env.NUXT_ENV_VERCEL_PROJECT_PRODUCTION_URL
     }
   }
 })

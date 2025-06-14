@@ -9,8 +9,7 @@
           <VCardSubtitle class="text-center">
             Track your weight and body composition
           </VCardSubtitle>
-          <VCardText>
-            {{ config.public.vercelProjectProductionUrl }}
+          <VCardText>{{ `https://${config.public.vercelProjectProductionUrl}/confirm` }}
             <VBtn
               block
               :color="buttonColor"
