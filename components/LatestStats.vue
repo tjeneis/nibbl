@@ -1,11 +1,21 @@
 <template>
   <VCard>
-    <VCardTitle>Latest Stats</VCardTitle>
-    <VCardText>
+    <VCardTitle class="pa-6">Latest Stats</VCardTitle>
+    <VCardText class="px-6 pb-8">
       <VRow v-if="entry">
         <VCol cols="6">
           <div class="text-subtitle-2">Weight</div>
-          <div class="text-body-1 text-medium-emphasis">{{ entry.weight.toFixed(1) }} kg</div>
+          <div class="text-body-1 text-medium-emphasis">
+            {{ entry.weight.toFixed(1) }} kg
+            <VChip
+              size="x-small"
+              label
+              :color="getWeightColor(entry.weight, profile?.goal_weight || 0)"
+              class="ml-1"
+            >
+              {{ getWeightStatus(entry.weight, profile?.goal_weight || 0) }}
+            </VChip>
+          </div>
         </VCol>
         <VCol cols="6">
           <div class="text-subtitle-2">BMI</div>
@@ -65,14 +75,47 @@
         </VCol>
         <VCol cols="6">
           <div class="text-subtitle-2">Metabolic Age</div>
-          <div class="text-body-1 text-medium-emphasis">{{ entry.metabolic_age }} years</div>
+          <div class="text-body-1 text-medium-emphasis">
+            {{ entry.metabolic_age }} years
+            <VChip
+              size="x-small"
+              label
+              :color="getMetabolicAgeColor(entry.metabolic_age, profile?.age || 0)"
+              class="ml-1"
+            >
+              {{ getMetabolicAgeStatus(entry.metabolic_age, profile?.age || 0) }}
+            </VChip>
+          </div>
+        </VCol>
+        <VCol cols="6">
+          <div class="text-subtitle-2">Physique Level</div>
+          <div class="text-body-1 text-medium-emphasis">
+            {{ entry.physique_level.toFixed(1) }}
+            <VChip
+              size="x-small"
+              label
+              :color="getPhysiqueLevelColor(entry.physique_level)"
+              class="ml-1"
+            >
+              {{ getPhysiqueLevelStatus(entry.physique_level) }}
+            </VChip>
+          </div>
+        </VCol>
+        <VCol cols="6">
+          <div class="text-subtitle-2">Visceral Fat</div>
+          <div class="text-body-1 text-medium-emphasis">
+            {{ entry.visceral_level.toFixed(1) }}
+            <VChip
+              size="x-small"
+              label
+              :color="getVisceralFatColor(entry.visceral_level)"
+              class="ml-1"
+            >
+              {{ getVisceralFatStatus(entry.visceral_level) }}
+            </VChip>
+          </div>
         </VCol>
       </VRow>
-      <VAlert
-        v-else
-        type="info"
-        text="No entries yet"
-      />
     </VCardText>
   </VCard>
 </template>
@@ -94,7 +137,15 @@ const {
   getMuscleMassStatus,
   getMuscleMassColor,
   getBodyWaterStatus,
-  getBodyWaterColor
+  getBodyWaterColor,
+  getPhysiqueLevelStatus,
+  getPhysiqueLevelColor,
+  getVisceralFatStatus,
+  getVisceralFatColor,
+  getMetabolicAgeStatus,
+  getMetabolicAgeColor,
+  getWeightStatus,
+  getWeightColor
 } = useHealthMetrics()
 
 const { data: profile } = await useAsyncData('user-profile', () => getProfile())

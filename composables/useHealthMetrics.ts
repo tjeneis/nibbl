@@ -107,6 +107,68 @@ export const useHealthMetrics = () => {
     }
   }
 
+  const getPhysiqueLevelStatus = (level: number): string => {
+    if (level < 1) return 'Very Low'
+    if (level < 2) return 'Low'
+    if (level < 3) return 'Average'
+    if (level < 4) return 'Good'
+    if (level < 5) return 'Very Good'
+    return 'Excellent'
+  }
+
+  const getPhysiqueLevelColor = (level: number): string => {
+    if (level < 1) return 'error'
+    if (level < 2) return 'warning'
+    if (level < 3) return 'primary'
+    if (level < 4) return 'info'
+    if (level < 5) return 'success'
+    return 'success'
+  }
+
+  const getVisceralFatStatus = (level: number): string => {
+    if (level < 5) return 'Healthy'
+    if (level < 10) return 'Moderate'
+    if (level < 15) return 'High'
+    return 'Very High'
+  }
+
+  const getVisceralFatColor = (level: number): string => {
+    if (level < 5) return 'success'
+    if (level < 10) return 'info'
+    if (level < 15) return 'warning'
+    return 'error'
+  }
+
+  const getMetabolicAgeStatus = (age: number, chronologicalAge: number): string => {
+    const diff = age - chronologicalAge
+    if (diff < -5) return 'Excellent'
+    if (diff < 0) return 'Good'
+    if (diff < 5) return 'Average'
+    if (diff < 10) return 'High'
+    return 'Very High'
+  }
+
+  const getMetabolicAgeColor = (age: number, chronologicalAge: number): string => {
+    const diff = age - chronologicalAge
+    if (diff < -5) return 'success'
+    if (diff < 0) return 'info'
+    if (diff < 5) return 'primary'
+    if (diff < 10) return 'warning'
+    return 'error'
+  }
+
+  const getWeightStatus = (currentWeight: number, goalWeight: number): string => {
+    const diff = currentWeight - goalWeight
+    if (Math.abs(diff) < 0.5) return 'At Goal'
+    return diff > 0 ? `+${diff.toFixed(1)} kg` : `${diff.toFixed(1)} kg`
+  }
+
+  const getWeightColor = (currentWeight: number, goalWeight: number): string => {
+    const diff = currentWeight - goalWeight
+    if (Math.abs(diff) < 0.5) return 'success'
+    return diff > 0 ? 'warning' : 'info'
+  }
+
   return {
     getBmiStatus,
     getBmiColor,
@@ -116,5 +178,13 @@ export const useHealthMetrics = () => {
     getMuscleMassColor,
     getBodyWaterStatus,
     getBodyWaterColor,
+    getPhysiqueLevelStatus,
+    getPhysiqueLevelColor,
+    getVisceralFatStatus,
+    getVisceralFatColor,
+    getMetabolicAgeStatus,
+    getMetabolicAgeColor,
+    getWeightStatus,
+    getWeightColor
   }
 } 

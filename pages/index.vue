@@ -1,8 +1,12 @@
 <template>
   <VContainer fluid>
-    <VRow>
+    <VRow dense>
       <VCol cols="12" md="4">
         <WeightTrendChart :entries="entries" class="fill-height" />
+      </VCol>
+
+      <VCol cols="12" md="4">
+        <BodyFatTrendChart :entries="entries" class="fill-height" />
       </VCol>
 
       <VCol cols="12" md="4">
@@ -13,8 +17,9 @@
         <LatestStats :entry="latestEntry" class="fill-height" />
       </VCol>
 
-      <VCol cols="12">
+      <VCol cols="12" md="8">
         <WeightHistory
+          class="fill-height"
           :entries="entries"
           :loading="pending"
           @update="refresh"

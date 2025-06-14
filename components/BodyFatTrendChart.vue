@@ -1,16 +1,11 @@
 <template>
   <VCard>
-    <VCardTitle class="pt-6 px-6">Weight Trend</VCardTitle>
+    <VCardTitle class="pt-6 px-6">Body Fat Trend</VCardTitle>
     <VCardText>
       <BaseChart
         v-if="entries.length > 0"
         :options="chartOptions"
         :height="300"
-      />
-      <VAlert
-        v-else
-        type="info"
-        text="No data available"
       />
     </VCardText>
   </VCard>
@@ -35,13 +30,13 @@ const chartOptions = computed<EChartsOption>(() => {
 
   const series = [
     {
-      name: 'Weight',
+      name: 'Body Fat',
       type: 'line' as const,
       data: props.entries.map(entry => {
         const date = new Date(entry.date)
         const day = date.getDate().toString().padStart(2, '0')
         const month = (date.getMonth() + 1).toString().padStart(2, '0')
-        return [`${day}-${month}`, entry.weight]
+        return [`${day}-${month}`, entry.fat_percentage]
       }),
       smooth: true,
       symbol: 'circle',
@@ -52,7 +47,7 @@ const chartOptions = computed<EChartsOption>(() => {
       itemStyle: {
         color: '#f72585'
       },
-      markLine: profile.value?.goal_weight != null ? {
+      markLine: profile.value?.goal_fat_percentage != null ? {
         symbol: 'none',
         label: {
           formatter: 'Goal',
@@ -64,7 +59,7 @@ const chartOptions = computed<EChartsOption>(() => {
           width: 2
         },
         data: [
-          { yAxis: profile.value.goal_weight }
+          { yAxis: profile.value.goal_fat_percentage }
         ]
       } : undefined
     }
@@ -76,10 +71,10 @@ const chartOptions = computed<EChartsOption>(() => {
       formatter: (params: any) => {
         let tooltip = `${params[0].axisValue}<br/>`
         params.forEach((param: any) => {
-          if (param.seriesName === 'Weight') {
-            tooltip += `<span style='color:${param.color}'>●</span> Weight: ${param.data[1].toFixed(1)} kg<br/>`
-          } else if (param.seriesName === 'Goal Weight' && param.data != null) {
-            tooltip += `<span style='color:${param.color}'>●</span> Goal Weight: ${param.data[1].toFixed(1)} kg<br/>`
+          if (param.seriesName === 'Body Fat') {
+            tooltip += `<span style='color:${param.color}'>●</span> Body Fat: ${param.data[1].toFixed(1)}%<br/>`
+          } else if (param.seriesName === 'Goal Body Fat' && param.data != null) {
+            tooltip += `<span style='color:${param.color}'>●</span> Goal Body Fat: ${param.data[1].toFixed(1)}%<br/>`
           }
         })
         return tooltip
@@ -93,17 +88,17 @@ const chartOptions = computed<EChartsOption>(() => {
     },
     yAxis: {
       type: 'value',
-      name: 'Weight (kg)',
+      name: 'Body Fat (%)',
       min: Math.min(
-        ...props.entries.map(entry => entry.weight),
-        profile.value?.goal_weight ?? Infinity
+        ...props.entries.map(entry => entry.fat_percentage),
+        profile.value?.goal_fat_percentage ?? Infinity
       ) - 2,
       max: Math.max(
-        ...props.entries.map(entry => entry.weight),
-        profile.value?.goal_weight ?? -Infinity
+        ...props.entries.map(entry => entry.fat_percentage),
+        profile.value?.goal_fat_percentage ?? -Infinity
       ) + 2,
       axisLabel: {
-        formatter: '{value} kg'
+        formatter: '{value}%'
       }
     },
     series

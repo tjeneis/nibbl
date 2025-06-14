@@ -1,16 +1,11 @@
 <template>
   <VCard>
-    <VCardTitle>Body Composition</VCardTitle>
+    <VCardTitle class="pt-6 px-6">Body Composition</VCardTitle>
     <VCardText>
       <BaseChart
         v-if="entry"
         :options="chartOptions"
         :height="300"
-      />
-      <VAlert
-        v-else
-        type="info"
-        text="No data available"
       />
     </VCardText>
   </VCard>
