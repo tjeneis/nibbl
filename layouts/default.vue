@@ -8,7 +8,8 @@
         
         <VBtn
           color="primary"
-          :variant="mdAndUp ? 'text' : 'flat'"
+          variant="flat"
+          rounded
           :size="mdAndUp ? 'default' : 'small'"
           @click="showAddDialog = true"
           :icon="mdAndUp ? undefined : 'mdi-plus'"

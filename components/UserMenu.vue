@@ -7,34 +7,15 @@
       >
         <VAvatar
           :image="user?.user_metadata?.avatar_url"
-          :text="user?.email?.[0].toUpperCase()"
-          color="primary"
         />
       </VBtn>
     </template>
     <VList>
-      <VListItem>
-        <VListItemTitle>{{ user?.email }}</VListItemTitle>
-      </VListItem>
+      <VListItem class="px-5 pb-3" :title="user?.user_metadata?.full_name" :subtitle="user?.email" />
       <VDivider />
-      <VListItem @click="showProfileSetup = true">
-        <VListItemTitle>Edit Profile</VListItemTitle>
-        <template v-slot:prepend>
-          <VIcon>mdi-account-edit</VIcon>
-        </template>
-      </VListItem>
-      <VListItem @click="toggleTheme">
-        <VListItemTitle>{{ isDark ? 'Light Mode' : 'Dark Mode' }}</VListItemTitle>
-        <template v-slot:prepend>
-          <VIcon>{{ isDark ? 'mdi-weather-sunny' : 'mdi-weather-night' }}</VIcon>
-        </template>
-      </VListItem>
-      <VListItem @click="handleSignOut">
-        <VListItemTitle>Sign Out</VListItemTitle>
-        <template v-slot:prepend>
-          <VIcon>mdi-logout</VIcon>
-        </template>
-      </VListItem>
+      <VListItem @click="showProfileSetup = true" prepend-icon="mdi-account-edit" title="Edit profile" />
+      <VListItem @click="toggleTheme" :prepend-icon="isDark ? 'mdi-weather-sunny' : 'mdi-weather-night'" :title="isDark ? 'Light Mode' : 'Dark Mode'" />
+      <VListItem @click="handleSignOut" prepend-icon="mdi-logout" title="Sign out" />
     </VList>
   </VMenu>
 
