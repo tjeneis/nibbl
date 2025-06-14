@@ -19,6 +19,12 @@
         <VListItemTitle>{{ user?.email }}</VListItemTitle>
       </VListItem>
       <VDivider />
+      <VListItem @click="showProfileSetup = true">
+        <VListItemTitle>Edit Profile</VListItemTitle>
+        <template v-slot:prepend>
+          <VIcon>mdi-account-edit</VIcon>
+        </template>
+      </VListItem>
       <VListItem @click="handleSignOut">
         <VListItemTitle>Sign Out</VListItemTitle>
         <template v-slot:prepend>
@@ -27,14 +33,24 @@
       </VListItem>
     </VList>
   </VMenu>
+
+  <ProfileSetupDialog
+    v-model="showProfileSetup"
+    @saved="handleProfileSaved"
+  />
 </template>
 
 <script setup lang="ts">
 const user = useSupabaseUser()
 const client = useSupabaseClient()
+const showProfileSetup = ref(false)
 
 const handleSignOut = async () => {
   await client.auth.signOut()
   navigateTo('/login')
+}
+
+const handleProfileSaved = () => {
+  showProfileSetup.value = false
 }
 </script> 

@@ -28,6 +28,7 @@
 
     <ProfileSetupDialog
       v-model="showProfileSetup"
+      :is-new-profile="isNewProfile"
       @saved="handleProfileSaved"
     />
   </VApp>
@@ -36,6 +37,7 @@
 <script setup lang="ts">
 const showAddDialog = ref(false)
 const showProfileSetup = ref(false)
+const isNewProfile = ref(false)
 const { getProfile } = useProfile()
 
 const handleEntrySaved = () => {
@@ -52,6 +54,7 @@ onMounted(async () => {
     await getProfile()
   } catch (error) {
     // If profile doesn't exist, show setup dialog
+    isNewProfile.value = true
     showProfileSetup.value = true
   }
 })

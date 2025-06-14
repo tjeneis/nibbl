@@ -10,14 +10,14 @@
         <VCol cols="6">
           <div class="text-subtitle-2">BMI</div>
           <div class="text-body-1 text-medium-emphasis">
-            {{ entry.bmi.toFixed(1) }}
+            {{ bmi.toFixed(1) }}
             <VChip
               size="x-small"
               label
-              :color="getBmiColor(entry.bmi)"
+              :color="getBmiColor(bmi)"
               class="ml-1"
             >
-              {{ getBmiStatus(entry.bmi) }}
+              {{ getBmiStatus(bmi) }}
             </VChip>
           </div>
         </VCol>
@@ -28,10 +28,10 @@
             <VChip
               size="x-small"
               label
-              :color="getBodyFatColor(entry.fat_percentage)"
+              :color="getBodyFatColor(entry.fat_percentage, gender)"
               class="ml-1"
             >
-              {{ getBodyFatStatus(entry.fat_percentage) }}
+              {{ getBodyFatStatus(entry.fat_percentage, gender) }}
             </VChip>
           </div>
         </VCol>
@@ -42,10 +42,10 @@
             <VChip
               size="x-small"
               label
-              :color="getMuscleMassColor(entry.muscle_mass)"
+              :color="getMuscleMassColor(entry.muscle_mass, gender)"
               class="ml-1"
             >
-              {{ getMuscleMassStatus(entry.muscle_mass) }}
+              {{ getMuscleMassStatus(entry.muscle_mass, gender) }}
             </VChip>
           </div>
         </VCol>
@@ -56,10 +56,10 @@
             <VChip
               size="x-small"
               label
-              :color="getBodyWaterColor(entry.body_water_percentage)"
+              :color="getBodyWaterColor(entry.body_water_percentage, gender)"
               class="ml-1"
             >
-              {{ getBodyWaterStatus(entry.body_water_percentage) }}
+              {{ getBodyWaterStatus(entry.body_water_percentage, gender) }}
             </VChip>
           </div>
         </VCol>
@@ -79,68 +79,35 @@
 
 <script setup lang="ts">
 import type { WeightEntry } from '~/types/weight'
+import type { Gender } from '~/types/profile'
 
-defineProps<{
+const props = defineProps<{
   entry?: WeightEntry
 }>()
 
-const getBmiStatus = (bmi: number): string => {
-  if (bmi < 18.5) return 'Underweight'
-  if (bmi < 25) return 'Normal weight'
-  if (bmi < 30) return 'Overweight'
-  return 'Obese'
-}
+const { getProfile } = useProfile()
+const { 
+  getBmiStatus,
+  getBmiColor,
+  getBodyFatStatus,
+  getBodyFatColor,
+  getMuscleMassStatus,
+  getMuscleMassColor,
+  getBodyWaterStatus,
+  getBodyWaterColor
+} = useHealthMetrics()
 
-const getBmiColor = (bmi: number): string => {
-  if (bmi < 18.5) return 'warning'
-  if (bmi < 25) return 'success'
-  if (bmi < 30) return 'warning'
-  return 'error'
-}
+const { data: profile } = await useAsyncData('user-profile', () => getProfile())
 
-const getBodyFatStatus = (fatPercentage: number): string => {
-  if (fatPercentage < 6) return 'Essential'
-  if (fatPercentage < 14) return 'Athletic'
-  if (fatPercentage < 18) return 'Fitness'
-  if (fatPercentage < 25) return 'Average'
-  return 'High'
-}
+const bmi = computed(() => {
+  if (!props.entry?.weight || !profile.value?.height) return 0
+  // Convert height from cm to m and calculate BMI
+  const heightInMeters = profile.value.height / 100
+  return props.entry.weight / (heightInMeters * heightInMeters)
+})
 
-const getBodyFatColor = (fatPercentage: number): string => {
-  if (fatPercentage < 6) return 'warning'
-  if (fatPercentage < 14) return 'success'
-  if (fatPercentage < 18) return 'info'
-  if (fatPercentage < 25) return 'primary'
-  return 'error'
-}
-
-const getMuscleMassStatus = (muscleMass: number): string => {
-  if (muscleMass < 30) return 'Low'
-  if (muscleMass < 35) return 'Below Average'
-  if (muscleMass < 40) return 'Average'
-  if (muscleMass < 45) return 'Above Average'
-  return 'High'
-}
-
-const getMuscleMassColor = (muscleMass: number): string => {
-  if (muscleMass < 30) return 'error'
-  if (muscleMass < 35) return 'warning'
-  if (muscleMass < 40) return 'primary'
-  if (muscleMass < 45) return 'info'
-  return 'success'
-}
-
-const getBodyWaterStatus = (waterPercentage: number): string => {
-  if (waterPercentage < 45) return 'Low'
-  if (waterPercentage < 50) return 'Below Average'
-  if (waterPercentage < 65) return 'Normal'
-  return 'High'
-}
-
-const getBodyWaterColor = (waterPercentage: number): string => {
-  if (waterPercentage < 45) return 'error'
-  if (waterPercentage < 50) return 'warning'
-  if (waterPercentage < 65) return 'success'
-  return 'info'
-}
+const gender = computed<Gender>(() => {
+  if (!profile.value?.gender) return 'male'
+  return profile.value.gender
+})
 </script> 

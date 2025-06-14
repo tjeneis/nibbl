@@ -5,8 +5,8 @@
     max-width="500"
   >
     <VCard class="pa-6 pa-md-8">
-      <h2 class="mb-2">Welcome to Nibbl</h2>
-      <p class="mb-6">Please set up your profile to get started.</p>
+      <h2 class="mb-2">{{ isNewProfile ? 'Welcome to Nibbl' : 'Edit Profile' }}</h2>
+      <p class="mb-6">{{ isNewProfile ? 'Please set up your profile to get started.' : 'Update your profile information.' }}</p>
 
       <VForm @submit.prevent="handleSubmit">
         <VRow dense>
@@ -32,6 +32,15 @@
             />
           </VCol>
           <VCol cols="12">
+            <VTextField
+              v-model.number="goalWeight"
+              label="Goal Weight (kg)"
+              type="number"
+              step="0.1"
+              :error-messages="error"
+            />
+          </VCol>
+          <VCol cols="12">
             <VSelect
               v-model="gender"
               label="Gender"
@@ -43,7 +52,16 @@
         </VRow>
       </VForm>
 
-      <div class="d-flex justify-end">
+      <div class="d-flex align-center">
+        <VBtn
+          variant="flat"
+          size="large"
+          @click="dialog = false"
+          :disabled="loading"
+        >
+          Cancel
+        </VBtn>
+        <VSpacer />
         <VBtn
           color="primary"
           variant="flat"
@@ -52,7 +70,7 @@
           :loading="loading"
           :disabled="loading || !height || !age || !gender"
         >
-          Save
+          {{ isNewProfile ? 'Save' : 'Update' }}
         </VBtn>
       </div>
     </VCard>
@@ -64,6 +82,7 @@ import type { Gender } from '~/types/profile'
 
 const props = defineProps<{
   modelValue: boolean
+  isNewProfile?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -76,11 +95,12 @@ const dialog = computed({
   set: (value) => emit('update:modelValue', value)
 })
 
-const { createProfile } = useProfile()
+const { createProfile, updateProfile, getProfile } = useProfile()
 const loading = ref(false)
 const height = ref<number>()
 const age = ref<number>()
 const gender = ref<Gender>()
+const goalWeight = ref<number>()
 const error = ref<string>()
 
 const genderOptions = [
@@ -88,23 +108,48 @@ const genderOptions = [
   { title: 'Female', value: 'female' }
 ]
 
+// Load existing profile data when editing
+onMounted(async () => {
+  if (!props.isNewProfile) {
+    try {
+      const profile = await getProfile()
+      height.value = profile.height
+      age.value = profile.age
+      gender.value = profile.gender
+      goalWeight.value = profile.goal_weight
+    } catch (error) {
+      console.error('Error loading profile:', error)
+    }
+  }
+})
+
 const handleSubmit = async () => {
   if (!height.value || !age.value || !gender.value) {
-    error.value = 'All fields are required'
+    error.value = 'Height, age, and gender are required'
     return
   }
 
   try {
     loading.value = true
-    await createProfile({ 
-      height: height.value,
-      age: age.value,
-      gender: gender.value
-    })
+    if (props.isNewProfile) {
+      await createProfile({ 
+        height: height.value,
+        age: age.value,
+        gender: gender.value,
+        goal_weight: goalWeight.value
+      })
+    } else {
+      await updateProfile({
+        height: height.value,
+        age: age.value,
+        gender: gender.value,
+        goal_weight: goalWeight.value
+      })
+    }
     dialog.value = false
     emit('saved')
   } catch (error) {
-    console.error('Error creating profile:', error)
+    console.error('Error saving profile:', error)
   } finally {
     loading.value = false
   }

@@ -46,6 +46,7 @@ create table user_profiles (
   height decimal not null,
   age integer not null,
   gender text not null check (gender in ('male', 'female', 'other')),
+  goal_weight decimal not null,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
   updated_at timestamp with time zone default timezone('utc'::text, now()) not null
 );

@@ -6,6 +6,7 @@ export interface UserProfile {
   height: number
   age: number
   gender: Gender
+  goal_weight: number
   created_at: string
   updated_at: string
 } 
