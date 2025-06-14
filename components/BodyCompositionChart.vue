@@ -51,7 +51,7 @@ const chartOptions = computed<EChartsOption>(() => {
         data: [
           { value: fatMass, name: 'Fat', itemStyle: { color: '#f72585' } },
           { value: muscleMass, name: 'Muscle', itemStyle: { color: '#7209b7' } },
-          { value: boneMass, name: 'Bone', itemStyle: { color: '#4361ee' } }
+          { value: boneMass, name: 'Bone', itemStyle: { color: '#4cc9f0' } }
         ]
       }
     ]

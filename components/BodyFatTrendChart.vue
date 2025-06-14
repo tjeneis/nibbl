@@ -115,10 +115,16 @@ const chartOptions = computed<EChartsOption>(() => {
     yAxis: {
       type: 'value',
       name: 'Body Fat (%)',
-      min: Math.min(...props.entries.map(entry => entry.fat_percentage)) - 5,
-      max: Math.max(...props.entries.map(entry => entry.fat_percentage)) + 5,
+      min: Math.floor(Math.min(...props.entries.map(entry => entry.fat_percentage)) - 5),
+      max: Math.ceil(Math.max(...props.entries.map(entry => entry.fat_percentage)) + 5),
       axisLabel: {
         formatter: '{value}%'
+      },
+      splitLine: {
+        lineStyle: {
+          color: '#666',
+          width: 1
+        }
       }
     },
     series

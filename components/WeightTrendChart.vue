@@ -7,11 +7,6 @@
         :options="chartOptions"
         :height="300"
       />
-      <VAlert
-        v-else
-        type="info"
-        text="No data available"
-      />
     </VCardText>
   </VCard>
 </template>
@@ -20,8 +15,6 @@
 import type { WeightEntry } from '~/types/weight'
 import type { UserProfile } from '~/types/profile'
 import type { EChartsOption } from 'echarts'
-import { formatDate } from '~/utils/date'
-import { useTheme } from 'vuetify'
 
 const props = defineProps<{
   entries: WeightEntry[]
@@ -94,16 +87,22 @@ const chartOptions = computed<EChartsOption>(() => {
     yAxis: {
       type: 'value',
       name: 'Weight (kg)',
-      min: Math.min(
+      min: Math.floor(Math.min(
         ...props.entries.map(entry => entry.weight),
         profile.value?.goal_weight ?? Infinity
-      ) - 2,
-      max: Math.max(
+      ) - 2),
+      max: Math.ceil(Math.max(
         ...props.entries.map(entry => entry.weight),
         profile.value?.goal_weight ?? -Infinity
-      ) + 2,
+      ) + 2),
       axisLabel: {
         formatter: '{value} kg'
+      },
+      splitLine: {
+        lineStyle: {
+          color: '#666',
+          width: 1
+        }
       }
     },
     series
