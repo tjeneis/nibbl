@@ -24,7 +24,7 @@ export const useWeight = () => {
       .from('weight_entries')
       .select('*')
       .eq('user_id', user.value.id)
-      .order('date', { ascending: false })
+      .order('date', { ascending: true })
 
     if (error) throw error
     return data as WeightEntry[]
