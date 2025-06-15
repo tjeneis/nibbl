@@ -6,6 +6,7 @@
         :headers="headers"
         :items="entries"
         :loading="loading"
+        :sort-by="[{ key: 'date', order: 'desc' }]"
       >
         <template v-slot:item.date="{ item }">
           <div class="text-no-wrap">{{ formatDate(item.date) }}</div>
