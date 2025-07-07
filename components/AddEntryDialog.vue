@@ -11,12 +11,6 @@
         <VSpacer />
         <VToolbarItems>
           <VBtn @click="dialog = false" text="Cancel" />
-          <VBtn
-            @click="handleSubmit"
-            :loading="loading"
-            :disabled="loading"
-            text="Save"
-          />
         </VToolbarItems>
       </VToolbar>
 
@@ -116,6 +110,18 @@
               type="number"
               step="0.1"
               required
+            />
+          </VCol>
+
+          <VCol cols="12">
+            <VBtn
+              @click="handleSubmit"
+              block
+              color="primary"
+              size="large"
+              :loading="loading"
+              :disabled="loading"
+              text="Save"
             />
           </VCol>
         </VRow>
