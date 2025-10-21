@@ -16,7 +16,8 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxtjs/supabase',
-    'vuetify-nuxt-module'
+    'vuetify-nuxt-module',
+    '@nuxtjs/i18n'
   ],
 
   vuetify: {
@@ -27,7 +28,6 @@ export default defineNuxtConfig({
       defaults: {
         VBtn: {
           variant: 'flat',
-          class: 'text-none letter-spacing-normal'
         },
         VChip: {
           variant: 'flat'
@@ -88,5 +88,20 @@ export default defineNuxtConfig({
 
   typescript: {
     strict: true
+  },
+
+  i18n: {
+    locales: [
+      { code: 'en', name: 'English', file: 'en.json' },
+      { code: 'nl', name: 'Nederlands', file: 'nl.json' }
+    ],
+    defaultLocale: 'en',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      redirectOn: 'root'
+    },
+    langDir: 'locales/',
+    strategy: 'prefix'
   },
 })

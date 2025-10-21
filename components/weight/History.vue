@@ -1,6 +1,6 @@
 <template>
   <VCard>
-    <VCardTitle>Weight History</VCardTitle>
+    <VCardTitle>{{ t('history.weightHistory') }}</VCardTitle>
     <VCardText>
       <VDataTable
         :headers="headers"
@@ -15,7 +15,7 @@
           {{ item.weight.toFixed(1) }} kg
         </template>
         <template v-slot:item.fat_percentage="{ item }">
-          {{ item.fat_percentage.toFixed(1) }}%
+          {{ item.fat_percentage.toFixed(1) }}{{ t('stats.percent') }}
         </template>
         <template v-slot:item.visceral_level="{ item }">
           {{ item.visceral_level.toFixed(1) }}
@@ -33,10 +33,10 @@
           {{ item.kcal_intake }} kcal
         </template>
         <template v-slot:item.metabolic_age="{ item }">
-          {{ item.metabolic_age }} years
+          {{ item.metabolic_age }} {{ t('stats.years') }}
         </template>
         <template v-slot:item.body_water_percentage="{ item }">
-          {{ item.body_water_percentage.toFixed(1) }}%
+          {{ item.body_water_percentage.toFixed(1) }}{{ t('stats.percent') }}
         </template>
         <template v-slot:item.actions="{ item }">
           <VBtn
@@ -55,20 +55,24 @@
 import type { WeightEntry } from '~/types/weight'
 import { formatDate } from '~/utils/date'
 
-defineProps<{
+interface Props {
   entries: WeightEntry[]
-  loading: boolean
-}>()
+  loading?: boolean
+}
 
-const emit = defineEmits<{
+interface Emits {
   (e: 'update'): void
-}>()
+}
+
+const props = defineProps<Props>()
+const emit = defineEmits<Emits>()
 
 const { deleteWeightEntry } = useWeight()
+const { t } = useI18n()
 const deleting = ref(false)
 
 const handleDelete = async (entry: WeightEntry) => {
-  if (!confirm(`Are you sure you want to delete the weight entry from ${formatDate(entry.date)}?`)) {
+  if (!confirm(t('weight.confirmDelete', { date: formatDate(entry.date) }))) {
     return
   }
 
@@ -83,17 +87,17 @@ const handleDelete = async (entry: WeightEntry) => {
   }
 }
 
-const headers = [
-  { title: 'Date', key: 'date' },
-  { title: 'Weight', key: 'weight' },
-  { title: 'Body Fat %', key: 'fat_percentage' },
-  { title: 'Visceral Level', key: 'visceral_level' },
-  { title: 'Muscle Mass', key: 'muscle_mass' },
-  { title: 'Physique Level', key: 'physique_level' },
-  { title: 'Bone Mass', key: 'bone_mass' },
-  { title: 'Calorie Intake', key: 'kcal_intake' },
-  { title: 'Metabolic Age', key: 'metabolic_age' },
-  { title: 'Body Water %', key: 'body_water_percentage' },
-  { title: 'Actions', key: 'actions', sortable: false }
-]
+const headers = computed(() => [
+  { title: t('history.date'), key: 'date' },
+  { title: t('history.weight'), key: 'weight' },
+  { title: t('history.bodyFatPercent'), key: 'fat_percentage' },
+  { title: t('history.visceralLevel'), key: 'visceral_level' },
+  { title: t('history.muscleMass'), key: 'muscle_mass' },
+  { title: t('history.physiqueLevel'), key: 'physique_level' },
+  { title: t('history.boneMass'), key: 'bone_mass' },
+  { title: t('history.calorieIntake'), key: 'kcal_intake' },
+  { title: t('history.metabolicAge'), key: 'metabolic_age' },
+  { title: t('history.bodyWaterPercent'), key: 'body_water_percentage' },
+  { title: t('history.actions'), key: 'actions', sortable: false }
+])
 </script> 

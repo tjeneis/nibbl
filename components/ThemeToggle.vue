@@ -1,6 +1,7 @@
 <template>
   <VBtn
     icon
+    theme="light"
     @click="toggleTheme"
   >
     <VIcon>

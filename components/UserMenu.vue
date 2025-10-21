@@ -13,9 +13,9 @@
     <VList>
       <VListItem class="px-5 pb-3" :title="user?.user_metadata?.full_name" :subtitle="user?.email" />
       <VDivider />
-      <VListItem @click="showProfileSetup = true" prepend-icon="mdi-account-edit" title="Edit profile" />
-      <VListItem @click="toggleTheme" :prepend-icon="isDark ? 'mdi-weather-sunny' : 'mdi-weather-night'" :title="isDark ? 'Light Mode' : 'Dark Mode'" />
-      <VListItem @click="handleSignOut" prepend-icon="mdi-logout" title="Sign out" />
+      <VListItem @click="showProfileSetup = true" prepend-icon="mdi-account-edit" :title="t('navigation.editProfile')" />
+      <VListItem @click="toggleTheme" :prepend-icon="isDark ? 'mdi-weather-sunny' : 'mdi-weather-night'" :title="isDark ? t('navigation.lightMode') : t('navigation.darkMode')" />
+      <VListItem @click="handleSignOut" prepend-icon="mdi-logout" :title="t('auth.signOut')" />
     </VList>
   </VMenu>
 
@@ -26,10 +26,13 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
+
 const user = useSupabaseUser()
 const client = useSupabaseClient()
 const showProfileSetup = ref(false)
 const { global } = useTheme()
+const localePath = useLocalePath()
 
 const isDark = computed(() => global.name.value === 'dark')
 
@@ -39,7 +42,7 @@ function toggleTheme() {
 
 const handleSignOut = async () => {
   await client.auth.signOut()
-  navigateTo('/login')
+  navigateTo(localePath('login'))
 }
 
 const handleProfileSaved = () => {

@@ -5,15 +5,15 @@
     max-width="500"
   >
     <VCard class="pa-6 pa-md-8">
-      <h2 class="mb-2">{{ isNewProfile ? 'Welcome to Nibbl' : 'Edit Profile' }}</h2>
-      <p class="mb-6">{{ isNewProfile ? 'Please set up your profile to get started.' : 'Update your profile information.' }}</p>
+      <h2 class="mb-2">{{ isNewProfile ? t('profile.welcome') : t('profile.editProfile') }}</h2>
+      <p class="mb-6">{{ isNewProfile ? t('profile.setupDescription') : t('profile.updateDescription') }}</p>
 
       <VForm @submit.prevent="handleSubmit">
         <VRow dense>
           <VCol cols="12">
             <VTextField
               v-model.number="height"
-              label="Height (cm)"
+              :label="t('profile.height')"
               type="number"
               step="0.1"
               required
@@ -23,7 +23,7 @@
           <VCol cols="12">
             <VTextField
               v-model="dateOfBirth"
-              label="Date of Birth"
+              :label="t('profile.dateOfBirth')"
               type="date"
               required
               :error-messages="error"
@@ -32,7 +32,7 @@
           <VCol cols="12">
             <VTextField
               v-model.number="goalWeight"
-              label="Goal Weight (kg)"
+              :label="t('profile.goalWeight')"
               type="number"
               step="0.1"
               :error-messages="error"
@@ -41,7 +41,7 @@
           <VCol cols="12">
             <VSelect
               v-model="gender"
-              label="Gender"
+              :label="t('profile.gender')"
               :items="genderOptions"
               required
               :error-messages="error"
@@ -57,7 +57,7 @@
           @click="dialog = false"
           :disabled="loading"
         >
-          Cancel
+          {{ t('profile.cancel') }}
         </VBtn>
         <VSpacer />
         <VBtn
@@ -68,7 +68,7 @@
           :loading="loading"
           :disabled="loading || !height || !dateOfBirth || !gender"
         >
-          {{ isNewProfile ? 'Save' : 'Update' }}
+          {{ isNewProfile ? t('profile.save') : t('profile.update') }}
         </VBtn>
       </div>
     </VCard>
@@ -101,10 +101,12 @@ const gender = ref<Gender>()
 const goalWeight = ref<number>()
 const error = ref<string>()
 
-const genderOptions = [
-  { title: 'Male', value: 'male' },
-  { title: 'Female', value: 'female' }
-]
+const { t } = useI18n()
+
+const genderOptions = computed(() => [
+  { title: t('profile.male'), value: 'male' },
+  { title: t('profile.female'), value: 'female' }
+])
 
 // Load existing profile data when editing
 onMounted(async () => {
@@ -123,7 +125,7 @@ onMounted(async () => {
 
 const handleSubmit = async () => {
   if (!height.value || !dateOfBirth.value || !gender.value) {
-    error.value = 'Height, date of birth, and gender are required'
+    error.value = t('profile.requiredFields')
     return
   }
 

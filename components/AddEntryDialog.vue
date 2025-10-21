@@ -7,10 +7,10 @@
   >
     <VCard>
       <VToolbar color="primary">
-        <VToolbarTitle>New Entry</VToolbarTitle>
+        <VToolbarTitle>{{ t('weight.newEntry') }}</VToolbarTitle>
         <VSpacer />
         <VToolbarItems>
-          <VBtn @click="dialog = false" text="Cancel" />
+          <VBtn @click="dialog = false" :text="t('profile.cancel')" />
         </VToolbarItems>
       </VToolbar>
 
@@ -19,7 +19,7 @@
           <VCol cols="12" md="6">
             <VTextField
               v-model="formData.date"
-              label="Date"
+              :label="t('weight.date')"
               type="date"
               required
             />
@@ -28,7 +28,7 @@
           <VCol cols="12" md="6">
             <VTextField
               v-model.number="formData.weight"
-              label="Weight (kg)"
+              :label="t('weight.weight')"
               type="number"
               step="0.1"
               required
@@ -38,7 +38,7 @@
           <VCol cols="12" md="6">
             <VTextField
               v-model.number="formData.fat_percentage"
-              label="Body Fat %"
+              :label="t('weight.bodyFat')"
               type="number"
               step="0.1"
               required
@@ -48,7 +48,7 @@
           <VCol cols="12" md="6">
             <VTextField
               v-model.number="formData.visceral_level"
-              label="Visceral Level"
+              :label="t('weight.visceralLevel')"
               type="number"
               step="0.1"
               required
@@ -58,7 +58,7 @@
           <VCol cols="12" md="6">
             <VTextField
               v-model.number="formData.muscle_mass"
-              label="Muscle Mass (kg)"
+              :label="t('weight.muscleMass')"
               type="number"
               step="0.1"
               required
@@ -68,7 +68,7 @@
           <VCol cols="12" md="6">
             <VTextField
               v-model.number="formData.physique_level"
-              label="Physique Level"
+              :label="t('weight.physiqueLevel')"
               type="number"
               step="0.1"
               required
@@ -78,7 +78,7 @@
           <VCol cols="12" md="6">
             <VTextField
               v-model.number="formData.bone_mass"
-              label="Bone Mass (kg)"
+              :label="t('weight.boneMass')"
               type="number"
               step="0.1"
               required
@@ -88,7 +88,7 @@
           <VCol cols="12" md="6">
             <VTextField
               v-model.number="formData.kcal_intake"
-              label="Calorie Intake (kcal)"
+              :label="t('weight.calorieIntake')"
               type="number"
               required
             />
@@ -97,7 +97,7 @@
           <VCol cols="12" md="6">
             <VTextField
               v-model.number="formData.metabolic_age"
-              label="Metabolic Age"
+              :label="t('weight.metabolicAge')"
               type="number"
               required
             />
@@ -106,7 +106,7 @@
           <VCol cols="12" md="6">
             <VTextField
               v-model.number="formData.body_water_percentage"
-              label="Body Water %"
+              :label="t('weight.bodyWater')"
               type="number"
               step="0.1"
               required
@@ -121,7 +121,7 @@
               size="large"
               :loading="loading"
               :disabled="loading"
-              text="Save"
+              :text="t('weight.save')"
             />
           </VCol>
         </VRow>
@@ -132,6 +132,8 @@
 
 <script setup lang="ts">
 import type { WeightFormData } from '~/types/weight'
+
+const { t } = useI18n()
 
 const props = defineProps<{
   modelValue: boolean

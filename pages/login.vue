@@ -1,49 +1,38 @@
 <template>
-  <VContainer class="fill-height">
-    <VRow justify="center" align="center">
-      <VCol cols="12" sm="8" md="6" lg="4">
-        <VCard class="pa-4">
-          <div class="text-center my-4">
-            <Logo height="48" />
-          </div>
-          <VCardSubtitle class="text-center">
-            Track your weight and body composition
-          </VCardSubtitle>
-          <VCardText>
-            <VBtn
-              block
-              :color="buttonColor"
-              size="large"
-              :loading="loading"
-              :disabled="loading"
-              class="text-none letter-spacing-normal"
-              @click="handleSignIn"
-            >
-              <img
-                src="~/assets/Google__G__logo.svg"
-                alt="Google"
-                class="me-2"
-                width="24"
-                height="24"
-              />
-              Sign in with Google
-            </VBtn>
-          </VCardText>
-        </VCard>
-      </VCol>
-    </VRow>
-  </VContainer>
+  <VRow class="fill-height" no-gutters>
+    <VCol md="4" class="pa-6 pa-md-8 d-flex flex-column">
+      <div class="d-flex flex-grow-1 flex-column align-start justify-center ga-6">
+        <Logo height="36" />
+
+         <div class="d-flex flex-column ga-3">
+           <h1 class="text-h4">
+             {{ $t('app.tagline') }}
+           </h1>
+           <p class="text-medium-emphasis">
+             {{ $t('app.description') }}
+           </p>
+         </div>
+
+        <VBtn
+          color="surface"
+          size="large"
+          :loading="loading"
+          :disabled="loading"
+          class="font-weight-medium px-4"
+          @click="handleSignIn"
+          :text="t('auth.signIn')"
+        />
+      </div>
+    </VCol>
+  </VRow>
 </template>
 
 <script setup lang="ts">
-import { useSupabaseClient } from '#imports'
+const { t } = useI18n()
 
 definePageMeta({
   layout: 'login'
 })
-
-const theme = useTheme()
-const buttonColor = computed(() => theme.global.current.value.dark ? 'white' : 'black')
 
 const supabase = useSupabaseClient()
 const loading = ref(false)
@@ -66,3 +55,10 @@ const handleSignIn = async () => {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.v-col {
+  background-color: rgba(var(--v-theme-surface), 0.5);
+  backdrop-filter: blur(10px);
+}
+</style>

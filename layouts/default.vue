@@ -1,48 +1,50 @@
 <template>
-  <VApp>
-    <VAppBar>
-      <VContainer fluid class="d-flex align-center ga-3">
-        <Logo height="32" />
+  <VAppBar>
+    <VContainer fluid class="d-flex align-center ga-3">
+      <Logo height="32" />
 
-        <VSpacer />
-        
-        <VBtn
-          color="primary"
-          variant="flat"
-          :size="mdAndUp ? 'default' : 'small'"
-          @click="showAddDialog = true"
-          :icon="mdAndUp ? undefined : 'mdi-plus'"
-        >
-          <template #prepend v-if="mdAndUp">
-            <VIcon icon="mdi-plus" />
-          </template>
-          <template #default v-if="mdAndUp">
-            Add entry
-          </template>
-        </VBtn>
+      <VSpacer />
+      
+      <VBtn
+        color="primary"
+        variant="flat"
+        :size="mdAndUp ? 'default' : 'small'"
+        @click="showAddDialog = true"
+        :icon="mdAndUp ? undefined : 'mdi-plus'"
+      >
+        <template #prepend v-if="mdAndUp">
+          <VIcon icon="mdi-plus" />
+        </template>
+        <template #default v-if="mdAndUp">
+          {{ t('navigation.addEntry') }}
+        </template>
+      </VBtn>
 
-        <UserMenu />
-      </VContainer>
-    </VAppBar>
+      <LanguageSwitcher />
 
-    <VMain>
-      <slot />
-    </VMain>
+      <UserMenu />
+    </VContainer>
+  </VAppBar>
 
-    <AddEntryDialog
-      v-model="showAddDialog"
-      @saved="handleEntrySaved"
-    />
+  <VMain>
+    <slot />
+  </VMain>
 
-    <ProfileSetupDialog
-      v-model="showProfileSetup"
-      :is-new-profile="isNewProfile"
-      @saved="handleProfileSaved"
-    />
-  </VApp>
+  <AddEntryDialog
+    v-model="showAddDialog"
+    @saved="handleEntrySaved"
+  />
+
+  <ProfileSetupDialog
+    v-model="showProfileSetup"
+    :is-new-profile="isNewProfile"
+    @saved="handleProfileSaved"
+  />
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
+
 const showAddDialog = ref(false)
 const showProfileSetup = ref(false)
 const isNewProfile = ref(false)

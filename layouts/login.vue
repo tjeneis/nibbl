@@ -1,19 +1,16 @@
 <template>
-  <VApp>
-    <VImg
-      src="~/assets/background.jpg"
-      cover
-      class="d-flex align-center justify-center"
-    >
-      <VMain>
-        <slot />
-      </VMain>
-    </VImg>
-  </VApp>
+  <VMain class="height-screen">
+    <slot />
+
+    <div class="position-absolute top-0 right-0 pa-6 d-flex align-center justify-end ga-3">
+      <LanguageSwitch />
+      <ThemeToggle />
+    </div>
+  </VMain>
 </template>
 
-<style scoped>
-.login-background {
-  min-height: 100vh;
+<style lang="scss" scoped>
+.v-main {
+  background: url('~/assets/background.jpg') center/cover no-repeat;
 }
 </style>

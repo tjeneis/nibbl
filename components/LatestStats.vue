@@ -1,12 +1,12 @@
 <template>
   <VCard>
-    <VCardTitle class="pa-6">Latest Stats</VCardTitle>
+    <VCardTitle class="pa-6">{{ t('stats.latestStats') }}</VCardTitle>
     <VCardText class="px-6 pb-8">
       <VRow v-if="entry">
         <VCol cols="6">
-          <div class="text-subtitle-2">Weight</div>
+          <div class="text-subtitle-2">{{ t('stats.weight') }}</div>
           <div class="text-body-1 text-medium-emphasis">
-            {{ entry.weight.toFixed(1) }} kg
+            {{ entry.weight.toFixed(1) }} {{ t('stats.kg') }}
             <VChip
               size="x-small"
               label
@@ -18,7 +18,7 @@
           </div>
         </VCol>
         <VCol cols="6">
-          <div class="text-subtitle-2">BMI</div>
+          <div class="text-subtitle-2">{{ t('stats.bmi') }}</div>
           <div class="text-body-1 text-medium-emphasis">
             {{ bmi.toFixed(1) }}
             <VChip
@@ -32,9 +32,9 @@
           </div>
         </VCol>
         <VCol cols="6">
-          <div class="text-subtitle-2">Body Fat</div>
+          <div class="text-subtitle-2">{{ t('stats.bodyFat') }}</div>
           <div class="text-body-1 text-medium-emphasis">
-            {{ entry.fat_percentage.toFixed(1) }}%
+            {{ entry.fat_percentage.toFixed(1) }}{{ t('stats.percent') }}
             <VChip
               size="x-small"
               label
@@ -46,9 +46,9 @@
           </div>
         </VCol>
         <VCol cols="6">
-          <div class="text-subtitle-2">Muscle Mass</div>
+          <div class="text-subtitle-2">{{ t('stats.muscleMass') }}</div>
           <div class="text-body-1 text-medium-emphasis">
-            {{ entry.muscle_mass.toFixed(1) }} kg
+            {{ entry.muscle_mass.toFixed(1) }} {{ t('stats.kg') }}
             <VChip
               size="x-small"
               label
@@ -60,9 +60,9 @@
           </div>
         </VCol>
         <VCol cols="6">
-          <div class="text-subtitle-2">Body Water</div>
+          <div class="text-subtitle-2">{{ t('stats.bodyWater') }}</div>
           <div class="text-body-1 text-medium-emphasis">
-            {{ entry.body_water_percentage.toFixed(1) }}%
+            {{ entry.body_water_percentage.toFixed(1) }}{{ t('stats.percent') }}
             <VChip
               size="x-small"
               label
@@ -74,9 +74,9 @@
           </div>
         </VCol>
         <VCol cols="6">
-          <div class="text-subtitle-2">Metabolic Age</div>
+          <div class="text-subtitle-2">{{ t('stats.metabolicAge') }}</div>
           <div class="text-body-1 text-medium-emphasis">
-            {{ entry.metabolic_age }} years
+            {{ entry.metabolic_age }} {{ t('stats.years') }}
             <VChip
               size="x-small"
               label
@@ -88,7 +88,7 @@
           </div>
         </VCol>
         <VCol cols="6">
-          <div class="text-subtitle-2">Physique Level</div>
+          <div class="text-subtitle-2">{{ t('stats.physiqueLevel') }}</div>
           <div class="text-body-1 text-medium-emphasis">
             {{ entry.physique_level.toFixed(1) }}
             <VChip
@@ -102,7 +102,7 @@
           </div>
         </VCol>
         <VCol cols="6">
-          <div class="text-subtitle-2">Visceral Fat</div>
+          <div class="text-subtitle-2">{{ t('stats.visceralFat') }}</div>
           <div class="text-body-1 text-medium-emphasis">
             {{ entry.visceral_level.toFixed(1) }}
             <VChip
@@ -123,6 +123,8 @@
 <script setup lang="ts">
 import type { WeightEntry } from '~/types/weight'
 import type { Gender } from '~/types/profile'
+
+const { t } = useI18n()
 
 const props = defineProps<{
   entry?: WeightEntry

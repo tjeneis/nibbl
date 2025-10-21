@@ -1,24 +1,21 @@
 <template>
-  <VContainer class="fill-height">
-    <VRow justify="center" align="center">
-      <VCol cols="12" sm="8" md="6" lg="4">
-        <VCard class="pa-4">
-          <VCardText class="text-center">
-            <VProgressCircular
-              indeterminate
-              color="primary"
-              class="mb-4"
-            />
-            <p>Completing sign in...</p>
-          </VCardText>
-        </VCard>
-      </VCol>
-    </VRow>
-  </VContainer>
+  <VRow class="fill-height" no-gutters align="center" justify="center">
+    <VCol cols="auto">
+      <VCard class="pa-6 pa-md-8 d-flex flex-column align-center justify-center ga-4" min-width="300">
+        <VProgressCircular
+          indeterminate
+          color="primary"
+        />
+        <p>{{ t('auth.completingSignIn') }}</p>
+      </VCard>
+    </VCol>
+  </VRow>
 </template>
 
 <script setup lang="ts">
 import { useSupabaseUser } from '#imports'
+
+const { t } = useI18n()
 
 definePageMeta({
   layout: 'login'
@@ -26,13 +23,21 @@ definePageMeta({
 
 const user = useSupabaseUser()
 const redirectInfo = useSupabaseCookieRedirect()
+const localePath = useLocalePath()
 
 watch(user, () => {
   if (user.value) {
     // Get redirect path, and clear it from the cookie
     const path = redirectInfo.pluck()
     // Redirect to the saved path, or fallback to home
-    return navigateTo(path || '/') 
+    return navigateTo(path || localePath('index')) 
   }
 }, { immediate: true })
-</script> 
+</script>
+
+<style lang="scss" scoped>
+.v-card {
+  background-color: rgba(var(--v-theme-surface), 0.5);
+  backdrop-filter: blur(10px);
+}
+</style>

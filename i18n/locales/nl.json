@@ -1,0 +1,107 @@
+{
+  "app": {
+    "title": "Nibbl",
+    "tagline": "Klaar om je weg naar betere gezondheid te knabbelen?",
+    "description": "Volg je gewicht en lichaamssamenstelling reis - beetje bij beetje!"
+  },
+  "auth": {
+    "signIn": "Inloggen",
+    "signOut": "Uitloggen",
+    "completingSignIn": "Inloggen voltooien...",
+    "errorSigningIn": "Fout bij inloggen:"
+  },
+  "navigation": {
+    "addEntry": "Voeg invoer toe",
+    "editProfile": "Profiel bewerken",
+    "lightMode": "Lichte modus",
+    "darkMode": "Donkere modus"
+  },
+  "profile": {
+    "welcome": "Welkom bij Nibbl",
+    "editProfile": "Profiel bewerken",
+    "setupDescription": "Stel je profiel in om te beginnen.",
+    "updateDescription": "Werk je profielinformatie bij.",
+    "height": "Lengte (cm)",
+    "dateOfBirth": "Geboortedatum",
+    "goalWeight": "Streefgewicht (kg)",
+    "gender": "Geslacht",
+    "male": "Man",
+    "female": "Vrouw",
+    "cancel": "Annuleren",
+    "save": "Opslaan",
+    "update": "Bijwerken",
+    "requiredFields": "Lengte, geboortedatum en geslacht zijn verplicht",
+    "errorSaving": "Fout bij opslaan profiel:",
+    "errorLoading": "Fout bij laden profiel:"
+  },
+  "weight": {
+    "newEntry": "Nieuwe invoer",
+    "date": "Datum",
+    "weight": "Gewicht (kg)",
+    "bodyFat": "Vetpercentage %",
+    "visceralLevel": "Visceraal niveau",
+    "muscleMass": "Spiermassa (kg)",
+    "physiqueLevel": "Fysiek niveau",
+    "boneMass": "Botmassa (kg)",
+    "calorieIntake": "Calorie-inname (kcal)",
+    "metabolicAge": "Metabole leeftijd",
+    "bodyWater": "Lichaamswater %",
+    "save": "Opslaan",
+    "errorAdding": "Fout bij toevoegen gewichtsinvoer:",
+    "confirmDelete": "Weet je zeker dat je de gewichtsinvoer van {date} wilt verwijderen?",
+    "errorDeleting": "Fout bij verwijderen invoer:"
+  },
+  "stats": {
+    "latestStats": "Laatste statistieken",
+    "weight": "Gewicht",
+    "bmi": "BMI",
+    "bodyFat": "Vetpercentage",
+    "muscleMass": "Spiermassa",
+    "bodyWater": "Lichaamswater",
+    "metabolicAge": "Metabole leeftijd",
+    "physiqueLevel": "Fysiek niveau",
+    "visceralFat": "Visceraal vet",
+    "years": "jaar",
+    "kg": "kg",
+    "percent": "%"
+  },
+  "history": {
+    "weightHistory": "Gewichtsgeschiedenis",
+    "date": "Datum",
+    "weight": "Gewicht",
+    "bodyFatPercent": "Vetpercentage %",
+    "visceralLevel": "Visceraal niveau",
+    "muscleMass": "Spiermassa",
+    "physiqueLevel": "Fysiek niveau",
+    "boneMass": "Botmassa",
+    "calorieIntake": "Calorie-inname",
+    "metabolicAge": "Metabole leeftijd",
+    "bodyWaterPercent": "Lichaamswater %",
+    "actions": "Acties"
+  },
+  "charts": {
+    "weightTrend": "Gewichtstrend",
+    "weight": "Gewicht",
+    "goal": "Doel",
+    "goalWeight": "Streefgewicht",
+    "weightKg": "Gewicht (kg)"
+  },
+  "healthMetrics": {
+    "underweight": "Ondergewicht",
+    "normal": "Normaal",
+    "overweight": "Overgewicht",
+    "obese": "Obesitas",
+    "essential": "Essentieel",
+    "athletes": "Atleten",
+    "fitness": "Fitness",
+    "average": "Gemiddeld",
+    "aboveAverage": "Boven gemiddeld",
+    "excellent": "Uitstekend",
+    "low": "Laag",
+    "high": "Hoog",
+    "veryHigh": "Zeer hoog",
+    "belowGoal": "Onder doel",
+    "atGoal": "Op doel",
+    "aboveGoal": "Boven doel"
+  }
+}

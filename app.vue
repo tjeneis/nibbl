@@ -1,7 +1,9 @@
 <template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
+  <VApp>
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </VApp>
 </template>
 
 <script setup>
@@ -10,7 +12,9 @@ const { global } = useTheme()
 onMounted(() => {
   const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
   const updateTheme = () => {
-    global.name.value = mediaQuery.matches ? 'dark' : 'light'
+    if (global?.name?.value !== undefined) {
+      global.name.value = mediaQuery.matches ? 'dark' : 'light'
+    }
   }
 
   updateTheme()
