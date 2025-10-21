@@ -25,6 +25,7 @@ export default defineNuxtConfig({
   },
 
   supabase: {
+    redirect: true,
     redirectOptions: {
       include: ['/nl/(/.*)?', '/en/(/.*)?'],
       exclude: ['/en/login', '/en/confirm'],

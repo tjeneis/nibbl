@@ -5,7 +5,7 @@
         v-bind="props"
         variant="text"
         size="large"
-        class="px-3"
+        class="px-0 px-md-3"
         :color="color"
       >
         {{ currentLocale }}

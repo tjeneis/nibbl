@@ -2,7 +2,7 @@
   <VMain class="height-screen">
     <slot />
 
-    <div class="position-absolute top-0 right-0 pa-6 d-flex align-center justify-end ga-3">
+    <div class="position-absolute top-0 right-0 pa-3 pa-md-6 d-flex align-center justify-end ga-md-2">
       <LanguageSwitch color="white" />
       <ThemeToggle color="white" />
     </div>
