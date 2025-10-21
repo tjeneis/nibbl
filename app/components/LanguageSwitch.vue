@@ -6,9 +6,12 @@
         variant="text"
         size="large"
         class="px-3"
-        append-icon="mdi-chevron-down"
+        :color="color"
       >
         {{ currentLocale }}
+        <template #append>
+          <VIcon icon="mdi-chevron-down" class="ml-n2" />
+        </template>
       </VBtn>
     </template>
     <VList>
@@ -30,4 +33,8 @@ const switchLocalePath = useSwitchLocalePath()
 
 const currentLocale = computed(() => locale.value)
 const availableLocales = computed(() => locales.value.filter(i => i.code !== locale.value))
+
+defineProps<{
+  color?: string
+}>()
 </script>

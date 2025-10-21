@@ -1,14 +1,14 @@
 {
   "app": {
     "title": "Nibbl",
-    "tagline": "Klaar om je weg naar betere gezondheid te knabbelen?",
-    "description": "Volg je gewicht en lichaamssamenstelling reis - beetje bij beetje!"
+    "tagline": "Klaar om stap voor stap gezonder te worden?",
+    "description": "Volg je gewichts- en lichaamssamenstelling - elke dag dichterbij je doel!"
   },
   "auth": {
     "signIn": "Inloggen",
     "signOut": "Uitloggen",
-    "completingSignIn": "Inloggen voltooien...",
-    "errorSigningIn": "Fout bij inloggen:"
+    "completingSignIn": "Inloggen wordt voltooid...",
+    "errorSigningIn": "Fout bij het inloggen:"
   },
   "navigation": {
     "addEntry": "Voeg invoer toe",
@@ -19,8 +19,8 @@
   "profile": {
     "welcome": "Welkom bij Nibbl",
     "editProfile": "Profiel bewerken",
-    "setupDescription": "Stel je profiel in om te beginnen.",
-    "updateDescription": "Werk je profielinformatie bij.",
+    "setupDescription": "Stel je profiel in om te beginnen met het bijhouden van je gezondheidsgegevens.",
+    "updateDescription": "Werk je profielinformatie bij om je voortgang te blijven volgen.",
     "height": "Lengte (cm)",
     "dateOfBirth": "Geboortedatum",
     "goalWeight": "Streefgewicht (kg)",
@@ -30,24 +30,24 @@
     "cancel": "Annuleren",
     "save": "Opslaan",
     "update": "Bijwerken",
-    "requiredFields": "Lengte, geboortedatum en geslacht zijn verplicht",
-    "errorSaving": "Fout bij opslaan profiel:",
+    "requiredFields": "Lengte, geboortedatum en geslacht zijn verplichte velden",
+    "errorSaving": "Fout bij het opslaan van je profiel:",
     "errorLoading": "Fout bij laden profiel:"
   },
   "weight": {
     "newEntry": "Nieuwe invoer",
     "date": "Datum",
     "weight": "Gewicht (kg)",
-    "bodyFat": "Vetpercentage %",
-    "visceralLevel": "Visceraal niveau",
+    "bodyFat": "Vetpercentage (%)",
+    "visceralLevel": "Visceraal vet niveau",
     "muscleMass": "Spiermassa (kg)",
-    "physiqueLevel": "Fysiek niveau",
+    "physiqueLevel": "Lichaamstype niveau",
     "boneMass": "Botmassa (kg)",
     "calorieIntake": "Calorie-inname (kcal)",
-    "metabolicAge": "Metabole leeftijd",
-    "bodyWater": "Lichaamswater %",
+    "metabolicAge": "Stofwisselingsleeftijd",
+    "bodyWater": "Lichaamswater (%)",
     "save": "Opslaan",
-    "errorAdding": "Fout bij toevoegen gewichtsinvoer:",
+    "errorAdding": "Fout bij het toevoegen van een gewichtsinvoer:",
     "confirmDelete": "Weet je zeker dat je de gewichtsinvoer van {date} wilt verwijderen?",
     "errorDeleting": "Fout bij verwijderen invoer:"
   },
@@ -58,8 +58,8 @@
     "bodyFat": "Vetpercentage",
     "muscleMass": "Spiermassa",
     "bodyWater": "Lichaamswater",
-    "metabolicAge": "Metabole leeftijd",
-    "physiqueLevel": "Fysiek niveau",
+    "metabolicAge": "Stofwisselingsleeftijd",
+    "physiqueLevel": "Lichaamstype niveau",
     "visceralFat": "Visceraal vet",
     "years": "jaar",
     "kg": "kg",
@@ -69,14 +69,14 @@
     "weightHistory": "Gewichtsgeschiedenis",
     "date": "Datum",
     "weight": "Gewicht",
-    "bodyFatPercent": "Vetpercentage %",
-    "visceralLevel": "Visceraal niveau",
+    "bodyFatPercent": "Vetpercentage (%)",
+    "visceralLevel": "Visceraal vet niveau",
     "muscleMass": "Spiermassa",
-    "physiqueLevel": "Fysiek niveau",
+    "physiqueLevel": "Lichaamstype niveau",
     "boneMass": "Botmassa",
     "calorieIntake": "Calorie-inname",
-    "metabolicAge": "Metabole leeftijd",
-    "bodyWaterPercent": "Lichaamswater %",
+    "metabolicAge": "Stofwisselingsleeftijd",
+    "bodyWaterPercent": "Lichaamswater (%)",
     "actions": "Acties"
   },
   "charts": {

@@ -1,7 +1,8 @@
 <template>
   <VBtn
     icon
-    theme="light"
+    variant="text"
+    :color="color"
     @click="toggleTheme"
   >
     <VIcon>
@@ -12,6 +13,10 @@
 
 <script setup lang="ts">
 const { global } = useTheme()
+
+defineProps<{
+  color?: string
+}>()
 
 function toggleTheme () {
   global.name.value = global.current.value.dark ? 'light' : 'dark'
