@@ -22,15 +22,11 @@ definePageMeta({
 })
 
 const user = useSupabaseUser()
-const redirectInfo = useSupabaseCookieRedirect()
 const localePath = useLocalePath()
 
 watch(user, () => {
   if (user.value) {
-    // Get redirect path, and clear it from the cookie
-    const path = redirectInfo.pluck()
-    // Redirect to the saved path, or fallback to home
-    return navigateTo(path || localePath('index')) 
+    return navigateTo(localePath('index')) 
   }
 }, { immediate: true })
 </script>
