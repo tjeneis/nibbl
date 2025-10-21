@@ -32,10 +32,6 @@
 <script setup lang="ts">
 import type { WeightEntry } from '~/types/weight'
 
-definePageMeta({
-  middleware: ['auth']
-})
-
 const { getWeightEntries } = useWeight()
 
 const { data: entries, pending, refresh } = await useAsyncData<WeightEntry[]>(

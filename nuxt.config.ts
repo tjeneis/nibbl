@@ -15,10 +15,24 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
 
   modules: [
+    '@nuxtjs/i18n',
     '@nuxtjs/supabase',
     'vuetify-nuxt-module',
-    '@nuxtjs/i18n'
   ],
+
+  experimental: {
+    payloadExtraction: false,
+  },
+
+  supabase: {
+    redirectOptions: {
+      include: ['/nl/(/.*)?', '/en/(/.*)?'],
+      exclude: ['/en/login', '/en/confirm'],
+      saveRedirectToCookie: true,
+      login: '/en/login',
+      callback: '/en/confirm',
+    }
+  },
 
   vuetify: {
     vuetifyOptions: {
@@ -96,12 +110,11 @@ export default defineNuxtConfig({
       { code: 'nl', name: 'Nederlands', file: 'nl.json' }
     ],
     defaultLocale: 'en',
+    strategy: 'prefix',
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
       redirectOn: 'root'
     },
-    langDir: 'locales/',
-    strategy: 'prefix'
   },
 })

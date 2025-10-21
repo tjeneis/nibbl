@@ -38,7 +38,7 @@ const chartOptions = computed<EChartsOption>(() => {
       orient: 'vertical',
       left: 'left',
       textStyle: {
-        color: theme.current.value.dark == true ? '#fff' : '#000'
+        color: theme.current.value.dark ? '#fff' : '#000'
       }
     },
     series: [
@@ -46,7 +46,7 @@ const chartOptions = computed<EChartsOption>(() => {
         type: 'pie',
         radius: '50%',
         label: {
-          color: theme.current.value.dark == true ? '#fff' : '#000'
+          color: theme.current.value.dark ? '#fff' : '#000'
         },
         data: [
           { value: fatMass, name: 'Fat', itemStyle: { color: '#f72585' } },

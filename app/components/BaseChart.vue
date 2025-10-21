@@ -1,5 +1,5 @@
 <template>
-  <div ref="chartRef" :style="{ height: `${height}px` }"></div>
+  <div ref="chartRef" :style="{ height: height ? `${height}px` : '400px' }"></div>
 </template>
 
 <script setup lang="ts">

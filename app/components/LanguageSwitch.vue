@@ -15,8 +15,8 @@
       <VListItem
         v-for="locale in availableLocales"
         :key="locale.code"
-        @click="setLocale(locale.code)"
-        :class="{ 'bg-primary': locale.code === currentLocale }"
+        :to="switchLocalePath(locale.code)"
+        :active="locale.code === currentLocale"
       >
         <VListItemTitle>{{ locale.name }}</VListItemTitle>
       </VListItem>
@@ -25,8 +25,9 @@
 </template>
 
 <script setup lang="ts">
-const { locale, locales, setLocale } = useI18n()
+const { locale, locales } = useI18n()
+const switchLocalePath = useSwitchLocalePath()
 
 const currentLocale = computed(() => locale.value)
-const availableLocales = computed(() => locales.value)
+const availableLocales = computed(() => locales.value.filter(i => i.code !== locale.value))
 </script>

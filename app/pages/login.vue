@@ -6,10 +6,10 @@
 
          <div class="d-flex flex-column ga-3">
            <h1 class="text-h4">
-             {{ $t('app.tagline') }}
+             {{ t('app.tagline') }}
            </h1>
            <p class="text-medium-emphasis">
-             {{ $t('app.description') }}
+             {{ t('app.description') }}
            </p>
          </div>
 
@@ -28,14 +28,22 @@
 </template>
 
 <script setup lang="ts">
-const { t } = useI18n()
-
 definePageMeta({
   layout: 'login'
 })
 
+const { t } = useI18n()
 const supabase = useSupabaseClient()
+const localePath = useLocalePath()
+const user = useSupabaseUser()
 const loading = ref(false)
+
+// Redirect authenticated users to home
+watch(user, (newUser) => {
+  if (newUser) {
+    navigateTo(localePath('index'))
+  }
+}, { immediate: true })
 
 const handleSignIn = async () => {
   try {
@@ -44,7 +52,7 @@ const handleSignIn = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/confirm`
+        redirectTo: `${window.location.origin}${localePath('confirm')}`
       }
     })
     if (error) throw error

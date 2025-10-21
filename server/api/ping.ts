@@ -1,4 +1,4 @@
-import { supabase } from '../utils/supabase'
+import { serverSupabaseClient } from '#supabase/server'
 
 export default defineEventHandler(async event => {
   // Verify that this is a Vercel Cron request
@@ -11,7 +11,8 @@ export default defineEventHandler(async event => {
   }
 
   // Simple query to keep the connection alive
-  await supabase.from('user_profiles').select('*').limit(1)
+  const client = await serverSupabaseClient(event)
+  await client.from('user_profiles').select('*').limit(1)
 
   return { success: true }
 }) 

@@ -20,7 +20,7 @@
         </template>
       </VBtn>
 
-      <LanguageSwitcher />
+      <LanguageSwitch />
 
       <UserMenu />
     </VContainer>
