@@ -1,13 +1,14 @@
 <template>
   <VAppBar>
-    <VContainer fluid class="d-flex align-center ga-3">
+    <VContainer fluid class="d-flex align-center ga-1 ga-md-3">
       <Logo height="32" />
 
       <VSpacer />
       
       <VBtn
-        variant="text"
+        :variant="mdAndUp ? 'text' : 'flat'"
         :size="mdAndUp ? 'default' : 'small'"
+        color="surface"
         @click="showAddDialog = true"
         :icon="mdAndUp ? undefined : 'mdi-plus'"
       >

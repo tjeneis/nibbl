@@ -1,6 +1,7 @@
 export default defineNuxtConfig({
   app: {
     head: {
+      title: 'Nibbl',
       meta: [
         { name: 'color-scheme', content: 'light dark' }
       ],
@@ -21,9 +22,10 @@ export default defineNuxtConfig({
     '@nuxt/test-utils/module',
     'nuxt-echarts'
   ],
-
-  experimental: {
-    payloadExtraction: false,
+  
+  echarts: {
+    charts: ['PieChart', 'LineChart'],
+    components: ['TooltipComponent', 'LegendComponent', 'GridComponent'],
   },
 
   supabase: {

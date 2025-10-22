@@ -1,7 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import type { Tables } from '~/types/database.types'
-
-type WeightEntry = Tables<'weight_entries'>
+import { formatDate } from '../../app/utils/date'
 
 // Example utility function to test
 export function formatWeight(weight: number): string {
@@ -76,6 +74,24 @@ describe('Utility Functions', () => {
       expect(result.errors).toContain('Weight must be greater than 0')
       expect(result.errors).toContain('Date is required')
       expect(result.errors).toContain('Body fat percentage must be between 0 and 100')
+    })
+  })
+
+  describe('formatDate', () => {
+    it('should format date string correctly', () => {
+      expect(formatDate('2024-01-15')).toBe('15-01-2024')
+      expect(formatDate('2024-12-25')).toBe('25-12-2024')
+      expect(formatDate('2023-03-08')).toBe('08-03-2023')
+    })
+
+    it('should format Date object correctly', () => {
+      const date = new Date('2024-06-15')
+      expect(formatDate(date)).toBe('15-06-2024')
+    })
+
+    it('should handle single digit days and months', () => {
+      expect(formatDate('2024-01-05')).toBe('05-01-2024')
+      expect(formatDate('2024-05-01')).toBe('01-05-2024')
     })
   })
 })

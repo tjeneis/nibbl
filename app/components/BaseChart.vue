@@ -1,5 +1,5 @@
 <template>
-  <ECharts
+  <VChartFull
     :option="options"
     :style="{ height: height ? `${height}px` : '400px' }"
     autoresize

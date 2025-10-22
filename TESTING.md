@@ -1,6 +1,6 @@
 # Testing Setup
 
-This project uses the official Nuxt testing utilities following the [Nuxt Testing Documentation](https://nuxt.com/docs/4.x/getting-started/testing).
+This project uses Vitest for unit tests and Playwright for end-to-end testing, following modern testing best practices.
 
 ## Test Structure
 
@@ -8,30 +8,16 @@ This project uses the official Nuxt testing utilities following the [Nuxt Testin
 test/
 ├── e2e/           # End-to-end tests (Playwright)
 │   └── app.spec.ts
-├── nuxt/          # Tests requiring Nuxt runtime environment
-│   ├── components/
-│   │   └── LanguageSwitch.test.ts
-│   └── composables/
-│       └── useWeight.test.ts
 └── unit/          # Pure unit tests (Node environment)
-    └── utils.test.ts
+    ├── utils.test.ts
+    └── useHealthMetrics.test.ts
 ```
 
 ## Running Tests
 
-### All Tests
-```bash
-pnpm test
-```
-
-### Unit Tests Only (Fast, Node environment)
+### Unit Tests (Fast, Node environment)
 ```bash
 pnpm test:unit
-```
-
-### Nuxt Tests Only (Components, Composables)
-```bash
-pnpm test:nuxt
 ```
 
 ### End-to-End Tests
@@ -39,64 +25,51 @@ pnpm test:nuxt
 pnpm test:e2e
 ```
 
-### Test Coverage
+### All Tests
 ```bash
-pnpm test:coverage
-```
-
-### Interactive Test UI
-```bash
-pnpm test:ui
+pnpm test:unit && pnpm test:e2e
 ```
 
 ## Test Types
 
 ### Unit Tests (`test/unit/`)
 - Pure functions and utilities
-- No Nuxt runtime required
-- Fast execution
-- Use standard Vitest patterns
-
-### Nuxt Tests (`test/nuxt/`)
-- Vue components with `mountSuspended`
-- Composables that use Nuxt APIs
-- Tests requiring Nuxt runtime environment
-- Use `@nuxt/test-utils/runtime`
+- Composables with mocked dependencies
+- Fast execution in Node environment
+- Use standard Vitest patterns with comprehensive mocking
 
 ### E2E Tests (`test/e2e/`)
 - Full application testing
 - Browser automation with Playwright
 - Use `@nuxt/test-utils/playwright`
+- Test real user workflows
 
 ## Key Features
 
-- **Project-based testing**: Separate environments for different test types
-- **Built-in mocks**: IntersectionObserver, IndexedDB
-- **Nuxt integration**: Full Nuxt runtime in tests
-- **TypeScript support**: Full type safety
-- **Coverage reporting**: Built-in coverage with thresholds
+- **Comprehensive mocking**: Supabase, i18n, and Nuxt composables mocked for unit tests
+- **Fast unit tests**: Pure Node environment for quick feedback
+- **Real E2E testing**: Full browser automation with Playwright
+- **TypeScript support**: Full type safety across all tests
+- **Simplified setup**: Uses main `nuxt.config.ts` for both development and testing
 - **CI/CD ready**: Optimized for continuous integration
 
 ## Writing Tests
 
-### Component Tests
+### Unit Tests
 ```typescript
-import { mountSuspended } from '@nuxt/test-utils/runtime'
-import MyComponent from '~/components/MyComponent.vue'
+import { describe, it, expect, vi } from 'vitest'
+import { useHealthMetrics } from '~/composables/useHealthMetrics'
 
-test('renders component', async () => {
-  const component = await mountSuspended(MyComponent)
-  expect(component.text()).toContain('Expected text')
-})
-```
+// Mock dependencies
+vi.mock('#app', () => ({
+  useI18n: () => ({ t: (key: string) => key })
+}))
 
-### Composable Tests
-```typescript
-import { useMyComposable } from '~/composables/useMyComposable'
-
-test('composable works', () => {
-  const { data, error } = useMyComposable()
-  expect(data.value).toBeDefined()
+describe('useHealthMetrics', () => {
+  it('calculates BMI correctly', () => {
+    const { calculateBMI } = useHealthMetrics()
+    expect(calculateBMI(70, 1.75)).toBe(22.86)
+  })
 })
 ```
 
@@ -104,23 +77,38 @@ test('composable works', () => {
 ```typescript
 import { expect, test } from '@nuxt/test-utils/playwright'
 
-test('page loads', async ({ page, goto }) => {
-  await goto('/', { waitUntil: 'hydration' })
-  await expect(page).toHaveTitle(/My App/)
+test('should load the homepage', async ({ page, goto }) => {
+  await goto('/', { waitUntil: 'domcontentloaded' })
+  
+  // Wait for the page to load and check if the app loads
+  await expect(page).toHaveTitle(/Nibbl/)
+  
+  // Check if body is visible
+  await expect(page.locator('body')).toBeVisible()
 })
 ```
 
 ## Configuration
 
-- **Vitest**: `vitest.config.ts` - Project-based configuration
-- **Playwright**: `playwright.config.ts` - Browser testing configuration
-- **Nuxt**: `nuxt.config.ts` - Includes `@nuxt/test-utils/module`
+- **Vitest**: `vitest.config.ts` - Unit test configuration with Node environment
+- **Playwright**: `playwright.config.ts` - E2E test configuration with Chromium
+- **Nuxt**: `nuxt.config.ts` - Main config used for both development and testing
 
-## Coverage Thresholds
+## Test Coverage
 
-- Branches: 70%
-- Functions: 70%
-- Lines: 70%
-- Statements: 70%
+Current test coverage:
+- **Unit Tests**: 56 tests covering utilities and composables
+- **E2E Tests**: 2 tests covering basic app functionality
 
-These can be adjusted in `vitest.config.ts` based on project requirements.
+## Mocking Strategy
+
+Unit tests use comprehensive mocking to isolate functionality:
+- **Supabase**: Mocked client and user authentication
+- **i18n**: Mocked translation functions
+- **Nuxt Composables**: Mocked at module level for consistent behavior
+
+## Git Ignore
+
+Test artifacts are automatically ignored:
+- `test-results/` - Playwright test results and screenshots
+- `playwright-report/` - HTML test reports
