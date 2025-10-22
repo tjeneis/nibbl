@@ -77,26 +77,17 @@ export default defineNuxtConfig({
           }
         }
       }
+    },
+    moduleOptions: {
+      styles: {
+        configFile: './assets/styles/components.scss'
+      },
     }
   },
 
   css: [
     '@mdi/font/css/materialdesignicons.css'
   ],
-
-  vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `
-            @use "vuetify/styles" as *;
-            $button-text-transform: none;
-            $button-letter-spacing: normal;
-          `
-        }
-      }
-    }
-  },
 
   typescript: {
     strict: true

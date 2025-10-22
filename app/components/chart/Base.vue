@@ -13,4 +13,4 @@ defineProps<{
   options: EChartsOption
   height?: number
 }>()
-</script> 
+</script>

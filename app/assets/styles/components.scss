@@ -1,0 +1,14 @@
+@forward 'vuetify/settings' with (
+    $typography: (
+        h6: (
+            letter-spacing: normal,
+            text-transform: none,
+            weight: 600
+        ),
+        button: (
+            letter-spacing: normal,
+            text-transform: none,
+            weight: 600
+        ),
+    ),
+)

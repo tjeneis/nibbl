@@ -2,23 +2,23 @@
   <VContainer fluid>
     <VRow dense>
       <VCol cols="12" md="4">
-        <WeightTrendChart :entries="entries" class="fill-height" />
+        <ChartWeightTrend :entries="entries" class="fill-height" />
       </VCol>
 
       <VCol cols="12" md="4">
-        <BodyFatTrendChart :entries="entries" class="fill-height" />
+        <ChartBodyFatTrend :entries="entries" class="fill-height" />
       </VCol>
 
       <VCol cols="12" md="4">
-        <BodyCompositionChart :entry="latestEntry" class="fill-height" />
+        <ChartBodyComposition :entry="latestEntry" class="fill-height" />
       </VCol>
 
       <VCol cols="12" md="4">
-        <LatestStats :entry="latestEntry" class="fill-height" />
+        <ChartWeightLatestStats :entry="latestEntry" class="fill-height" />
       </VCol>
 
       <VCol cols="12" md="8">
-        <WeightHistory
+        <ChartWeightHistory
           class="fill-height"
           :entries="entries"
           :loading="pending"
@@ -26,6 +26,11 @@
         />
       </VCol>
     </VRow>
+
+    <AddEntryDialog
+      v-model="showDialog"
+      @success="refresh"
+    />
   </VContainer>
 </template>
 
@@ -36,6 +41,7 @@ type WeightEntry = Tables<'weight_entries'>
 
 const { t } = useI18n()
 const { getWeightEntries } = useWeight()
+const { showDialog } = useAddEntry()
 
 definePageMeta({
   middleware: 'auth'

@@ -91,6 +91,11 @@
     "goalWeight": "Goal Weight",
     "weightKg": "Weight (kg)"
   },
+  "emptyState": {
+    "title": "No data available",
+    "description": "Start tracking your progress by adding your first entry.",
+    "action": "Add Entry"
+  },
   "error": {
     "title": "Oops! Something went wrong",
     "defaultMessage": "An unexpected error occurred. Please try again.",

@@ -91,6 +91,11 @@
     "goalWeight": "Streefgewicht",
     "weightKg": "Gewicht (kg)"
   },
+  "emptyState": {
+    "title": "Geen gegevens beschikbaar",
+    "description": "Begin met het bijhouden van je voortgang door je eerste invoer toe te voegen.",
+    "action": "Voeg invoer toe"
+  },
   "error": {
     "title": "Oeps! Er is iets misgegaan",
     "defaultMessage": "Er is een onverwachte fout opgetreden. Probeer het opnieuw.",

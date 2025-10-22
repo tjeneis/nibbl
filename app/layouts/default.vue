@@ -9,7 +9,7 @@
         :variant="mdAndUp ? 'text' : 'flat'"
         :size="mdAndUp ? 'default' : 'small'"
         :color="getInvertedSurfaceColor()"
-        @click="showAddDialog = true"
+        @click="openDialog"
         :icon="mdAndUp ? undefined : 'mdi-plus'"
       >
         <template #prepend v-if="mdAndUp">
@@ -29,7 +29,7 @@
   </VMain>
 
   <AddEntryDialog
-    v-model="showAddDialog"
+    v-model="showDialog"
     @saved="handleEntrySaved"
   />
 
@@ -42,7 +42,7 @@
 
 <script setup lang="ts">
 const { t } = useI18n()
-const showAddDialog = ref(false)
+const { showDialog, openDialog, closeDialog } = useAddEntry()
 const showProfileSetup = ref(false)
 const isNewProfile = ref(false)
 const { mdAndUp } = useDisplay()
@@ -50,7 +50,7 @@ const { getProfile } = useProfile()
 const { getInvertedSurfaceColor } = useThemeColors()
 
 const handleEntrySaved = () => {
-  showAddDialog.value = false
+  closeDialog()
   // Refresh the weight entries
   refreshNuxtData('weight-entries')
 }

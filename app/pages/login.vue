@@ -14,9 +14,11 @@
          </div>
 
         <VBtn
-          :color="getInvertedSurfaceColor()"
+          color="surface"
           :loading="loading"
           :disabled="loading"
+          class="px-4"
+          size="large"
           @click="handleSignIn"
           :text="t('auth.signIn')"
         />
@@ -33,7 +35,6 @@ definePageMeta({
 })
 
 const { t } = useI18n()
-const { getInvertedSurfaceColor } = useThemeColors()
 
 useHead({
   title: () => t('navigation.signIn'),

@@ -131,11 +131,12 @@
 </template>
 
 <script setup lang="ts">
-import type { Tables, TablesInsert } from '~/types/database.types'
+import type { TablesInsert } from '~/types/database.types'
 
 type WeightFormData = Omit<TablesInsert<'weight_entries'>, 'user_id' | 'id' | 'created_at' | 'updated_at'>
 
 const { t } = useI18n()
+const { closeDialog } = useAddEntry()
 const { getInvertedSurfaceColor } = useThemeColors()
 
 const props = defineProps<{
@@ -156,16 +157,16 @@ const { addWeightEntry } = useWeight()
 const loading = ref(false)
 
 const formData = ref<WeightFormData>({
-  date: new Date().toISOString().split('T')[0],
-  weight: undefined,
-  fat_percentage: undefined,
-  visceral_level: undefined,
-  muscle_mass: undefined,
-  physique_level: undefined,
-  bone_mass: undefined,
-  kcal_intake: undefined,
-  metabolic_age: undefined,
-  body_water_percentage: undefined
+  date: new Date().toISOString().split('T')[0] || '',
+  weight: 0,
+  fat_percentage: 0,
+  visceral_level: 0,
+  muscle_mass: 0,
+  physique_level: 0,
+  bone_mass: 0,
+  kcal_intake: 0,
+  metabolic_age: 0,
+  body_water_percentage: 0
 })
 
 const handleSubmit = async () => {

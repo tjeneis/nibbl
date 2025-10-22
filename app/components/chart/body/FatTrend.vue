@@ -2,10 +2,13 @@
   <VCard>
     <VCardTitle class="pt-6 px-6">{{ t('charts.bodyFatTrend') }}</VCardTitle>
     <VCardText>
-      <BaseChart
+      <ChartBase
         v-if="entries.length > 0"
         :options="chartOptions"
         :height="300"
+      />
+      <ChartEmptyState
+        v-else
       />
     </VCardText>
   </VCard>
@@ -137,4 +140,4 @@ const chartOptions = computed<EChartsOption>(() => {
     series
   }
 })
-</script> 
+</script>

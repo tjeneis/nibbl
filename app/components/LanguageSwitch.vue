@@ -7,9 +7,9 @@
         class="px-0"
         :color="computedColor"
       >
-        {{ currentLocale }}
+        {{ currentLocale.toUpperCase() }}
         <template #append>
-          <VIcon icon="mdi-chevron-down" class="ml-n2" />
+          <VIcon icon="mdi-chevron-down" />
         </template>
       </VBtn>
     </template>

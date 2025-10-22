@@ -102,4 +102,4 @@ const headers = computed(() => [
   { title: t('history.bodyWaterPercent'), key: 'body_water_percentage' },
   { title: t('history.actions'), key: 'actions', sortable: false }
 ])
-</script> 
+</script>

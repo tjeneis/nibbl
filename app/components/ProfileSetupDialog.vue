@@ -50,7 +50,7 @@
         </VRow>
       </VForm>
 
-      <div class="d-flex align-center">
+      <div class="d-flex align-center justify-end ga-3">
         <VBtn
           variant="flat"
           size="large"
@@ -59,7 +59,6 @@
         >
           {{ t('profile.cancel') }}
         </VBtn>
-        <VSpacer />
         <VBtn
           :color="getInvertedSurfaceColor()"
           variant="flat"

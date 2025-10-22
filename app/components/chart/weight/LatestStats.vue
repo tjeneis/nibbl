@@ -116,6 +116,10 @@
           </div>
         </VCol>
       </VRow>
+      <ChartEmptyState
+        v-else
+        @action="$emit('addEntry')"
+      />
     </VCardText>
   </VCard>
 </template>
@@ -130,6 +134,10 @@ const { t } = useI18n()
 
 const props = defineProps<{
   entry?: WeightEntry
+}>()
+
+defineEmits<{
+  addEntry: []
 }>()
 
 const { getProfile } = useProfile()
@@ -153,7 +161,7 @@ const {
 } = useHealthMetrics()
 
 const { data: profile } = await useAsyncData('user-profile', () => getProfile(), {
-  default: () => null,
+  default: () => undefined,
   server: false
 })
 

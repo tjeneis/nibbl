@@ -2,10 +2,13 @@
   <VCard>
     <VCardTitle class="pt-6 px-6">{{ t('charts.bodyComposition') }}</VCardTitle>
     <VCardText>
-      <BaseChart
+      <ChartBase
         v-if="entry"
         :options="chartOptions"
         :height="300"
+      />
+      <ChartEmptyState
+        v-else
       />
     </VCardText>
   </VCard>
@@ -60,4 +63,4 @@ const chartOptions = computed<EChartsOption>(() => {
     ]
   }
 })
-</script> 
+</script>
