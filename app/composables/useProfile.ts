@@ -5,13 +5,16 @@ export const useProfile = () => {
   const user = useSupabaseUser()
 
   const getProfile = async () => {
+    console.log(user)
     if (!user.value) throw new Error('User not authenticated')
 
     const { data, error } = await client
       .from('user_profiles')
       .select('*')
-      .eq('user_id', user.value.id)
+      .eq('user_id', user.value.sub)
       .single()
+
+      console.log(data)
 
     if (error) throw error
     return data as UserProfile
@@ -23,7 +26,7 @@ export const useProfile = () => {
     const { data: profile, error } = await client
       .from('user_profiles')
       .update(data)
-      .eq('user_id', user.value.id)
+      .eq('user_id', user.value.sub)
       .select()
       .single()
 
@@ -38,7 +41,7 @@ export const useProfile = () => {
       .from('user_profiles')
       .insert({
         ...data,
-        user_id: user.value.id
+        user_id: user.value.sub
       })
       .select()
       .single()

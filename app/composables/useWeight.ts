@@ -11,7 +11,7 @@ export const useWeight = () => {
       .from('weight_entries')
       .insert({
         ...data,
-        user_id: user.value.id
+        user_id: user.value.sub
       })
 
     if (error) throw error
@@ -23,7 +23,7 @@ export const useWeight = () => {
     const { data, error } = await client
       .from('weight_entries')
       .select('*')
-      .eq('user_id', user.value.id)
+      .eq('user_id', user.value.sub)
       .order('date', { ascending: true })
 
     if (error) throw error
@@ -37,7 +37,7 @@ export const useWeight = () => {
       .from('weight_entries')
       .update(data)
       .eq('id', id)
-      .eq('user_id', user.value.id)
+      .eq('user_id', user.value.sub)
       .select()
       .single()
 
@@ -52,7 +52,7 @@ export const useWeight = () => {
       .from('weight_entries')
       .delete()
       .eq('id', id)
-      .eq('user_id', user.value.id)
+      .eq('user_id', user.value.sub)
 
     if (error) throw error
   }
