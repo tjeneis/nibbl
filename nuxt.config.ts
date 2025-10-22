@@ -27,13 +27,7 @@ export default defineNuxtConfig({
   },
 
   supabase: {
-    redirect: true,
-    redirectOptions: {
-      include: ['/nl', '/en'],
-      exclude: [],
-      login: '/login',
-      callback: '/confirm',
-    }
+    redirect: false
   },
 
   vuetify: {

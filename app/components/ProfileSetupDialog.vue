@@ -76,7 +76,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Gender } from '~/types/profile'
+import type { Gender } from '~/types/common'
 
 const props = defineProps<{
   modelValue: boolean

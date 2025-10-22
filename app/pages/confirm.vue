@@ -13,8 +13,6 @@
 </template>
 
 <script setup lang="ts">
-import { useSupabaseUser } from '#imports'
-
 const { t } = useI18n()
 
 definePageMeta({

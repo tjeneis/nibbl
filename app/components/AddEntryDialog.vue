@@ -131,7 +131,9 @@
 </template>
 
 <script setup lang="ts">
-import type { WeightFormData } from '~/types/weight'
+import type { Tables, TablesInsert } from '~/types/database.types'
+
+type WeightFormData = Omit<TablesInsert<'weight_entries'>, 'user_id' | 'id' | 'created_at' | 'updated_at'>
 
 const { t } = useI18n()
 

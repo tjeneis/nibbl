@@ -12,8 +12,10 @@
 </template>
 
 <script setup lang="ts">
-import type { WeightEntry } from '~/types/weight'
-import type { UserProfile } from '~/types/profile'
+import type { Tables } from '~/types/database.types'
+
+type WeightEntry = Tables<'weight_entries'>
+type UserProfile = Tables<'user_profiles'>
 import type { EChartsOption } from 'echarts'
 
 const { t } = useI18n()
@@ -23,7 +25,10 @@ const props = defineProps<{
 }>()
 
 const { getProfile } = useProfile()
-const { data: profile } = await useAsyncData<UserProfile>('user-profile', () => getProfile())
+const { data: profile } = await useAsyncData<UserProfile>('user-profile', () => getProfile(), {
+  default: () => undefined,
+  server: false
+})
 
 const chartOptions = computed<EChartsOption>(() => {
   if (props.entries.length === 0) return {}
@@ -59,7 +64,7 @@ const chartOptions = computed<EChartsOption>(() => {
           width: 2
         },
         data: [
-          { yAxis: profile.value.goal_weight }
+          { yAxis: profile.value?.goal_weight }
         ]
       } : undefined
     }

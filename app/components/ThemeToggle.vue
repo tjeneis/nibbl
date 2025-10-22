@@ -29,13 +29,17 @@ const computedColor = computed(() => {
 })
 
 function toggleTheme () {
-  global.name.value = global.current.value.dark ? 'light' : 'dark'
+  if (global?.name?.value !== undefined && global?.current?.value !== undefined) {
+    global.name.value = global.current.value.dark ? 'light' : 'dark'
+  }
 }
 
 const isDark = computed(() => global.name.value === 'dark')
 
 onMounted(() => {
   const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-  global.name.value = mediaQuery.matches ? 'dark' : 'light'
+  if (global?.name?.value !== undefined) {
+    global.name.value = mediaQuery.matches ? 'dark' : 'light'
+  }
 })
 </script> 

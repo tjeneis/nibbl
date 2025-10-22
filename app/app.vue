@@ -19,5 +19,10 @@ onMounted(() => {
 
   updateTheme()
   mediaQuery.addEventListener('change', updateTheme)
+  
+  // Cleanup listener on unmount
+  onUnmounted(() => {
+    mediaQuery.removeEventListener('change', updateTheme)
+  })
 })
 </script>

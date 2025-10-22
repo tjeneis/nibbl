@@ -1,8 +1,11 @@
-import type { WeightEntry, WeightFormData } from '~/types/weight'
+import type { Database, Tables, TablesInsert } from '~/types/database.types'
 import { AuthenticationError, CustomError } from '~/types/errors'
 
+type WeightEntry = Tables<'weight_entries'>
+type WeightFormData = Omit<TablesInsert<'weight_entries'>, 'user_id' | 'id' | 'created_at' | 'updated_at'>
+
 export const useWeight = () => {
-  const client = useSupabaseClient<any>()
+  const client = useSupabaseClient<Database>()
   const user = useSupabaseUser()
   const { handleApiError } = useErrorHandler()
 

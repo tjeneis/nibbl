@@ -28,12 +28,14 @@
 </template>
 
 <script setup lang="ts">
+import type { Database } from '~/types/database.types'
+
 definePageMeta({
   layout: 'login'
 })
 
 const { t } = useI18n()
-const supabase = useSupabaseClient()
+const supabase = useSupabaseClient<Database>()
 const localePath = useLocalePath()
 const user = useSupabaseUser()
 const loading = ref(false)

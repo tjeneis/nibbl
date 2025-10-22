@@ -1,4 +1,7 @@
 import { describe, it, expect } from 'vitest'
+import type { Tables } from '~/types/database.types'
+
+type WeightEntry = Tables<'weight_entries'>
 
 // Example utility function to test
 export function formatWeight(weight: number): string {

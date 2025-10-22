@@ -26,10 +26,12 @@
 </template>
 
 <script setup lang="ts">
+import type { Database } from '~/types/database.types'
+
 const { t } = useI18n()
 
 const user = useSupabaseUser()
-const client = useSupabaseClient()
+const client = useSupabaseClient<Database>()
 const showProfileSetup = ref(false)
 const { global } = useTheme()
 const localePath = useLocalePath()
@@ -37,7 +39,9 @@ const localePath = useLocalePath()
 const isDark = computed(() => global.name.value === 'dark')
 
 function toggleTheme() {
-  global.name.value = global.current.value.dark ? 'light' : 'dark'
+  if (global?.name?.value !== undefined && global?.current?.value !== undefined) {
+    global.name.value = global.current.value.dark ? 'light' : 'dark'
+  }
 }
 
 const handleSignOut = async () => {

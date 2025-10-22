@@ -1,4 +1,4 @@
-import type { Gender } from "~/types/profile"
+import type { Gender } from "~/types/common"
 
 export const useHealthMetrics = () => {
   const { t } = useI18n()

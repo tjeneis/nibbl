@@ -121,8 +121,10 @@
 </template>
 
 <script setup lang="ts">
-import type { WeightEntry } from '~/types/weight'
-import type { Gender } from '~/types/profile'
+import type { Tables } from '~/types/database.types'
+import type { Gender } from '~/types/common'
+
+type WeightEntry = Tables<'weight_entries'>
 
 const { t } = useI18n()
 
@@ -150,7 +152,10 @@ const {
   getWeightColor
 } = useHealthMetrics()
 
-const { data: profile } = await useAsyncData('user-profile', () => getProfile())
+const { data: profile } = await useAsyncData('user-profile', () => getProfile(), {
+  default: () => null,
+  server: false
+})
 
 const bmi = computed(() => {
   if (!props.entry?.weight || !profile.value?.height) return 0
@@ -161,7 +166,7 @@ const bmi = computed(() => {
 
 const gender = computed<Gender>(() => {
   if (!profile.value?.gender) return 'male'
-  return profile.value.gender
+  return profile.value.gender as Gender
 })
 
 const age = computed(() => {

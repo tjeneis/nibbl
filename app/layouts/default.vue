@@ -69,9 +69,3 @@ onMounted(async () => {
   }
 })
 </script>
-
-<style>
-.theme-logo {
-  filter: brightness(0) saturate(100%) invert(var(--v-theme-on-surface));
-}
-</style>

@@ -4,7 +4,7 @@
     <VCardText>
       <BaseChart
         v-if="entries.length > 0"
-        :options="chartOptions"
+        :options="chartOptions as any"
         :height="300"
       />
     </VCardText>
@@ -12,8 +12,10 @@
 </template>
 
 <script setup lang="ts">
-import type { WeightEntry } from '~/types/weight'
-import type { UserProfile } from '~/types/profile'
+import type { Tables } from '~/types/database.types'
+
+type WeightEntry = Tables<'weight_entries'>
+type UserProfile = Tables<'user_profiles'>
 import type { EChartsOption } from 'echarts'
 
 const props = defineProps<{
@@ -21,9 +23,12 @@ const props = defineProps<{
 }>()
 
 const { getProfile } = useProfile()
-const { data: profile } = await useAsyncData<UserProfile>('user-profile', () => getProfile())
+const { data: profile } = await useAsyncData<UserProfile>('user-profile', () => getProfile(), {
+  default: () => undefined,
+  server: false
+})
 
-const chartOptions = computed<EChartsOption>(() => {
+const chartOptions = computed(() => {
   if (props.entries.length === 0) return {}
 
   // Define body fat ranges based on gender

@@ -52,7 +52,9 @@
 </template>
 
 <script setup lang="ts">
-import type { WeightEntry } from '~/types/weight'
+import type { Tables } from '~/types/database.types'
+
+type WeightEntry = Tables<'weight_entries'>
 import { formatDate } from '~/utils/date'
 
 interface Props {

@@ -2,7 +2,7 @@ import type { AppError, ErrorType } from '~/types/errors'
 
 export const useErrorHandler = () => {
   const errors = ref<AppError[]>([])
-  const isOnline = ref(navigator.onLine)
+  const isOnline = ref(process.client ? navigator.onLine : true)
 
   // Listen for online/offline events
   if (process.client) {
@@ -24,7 +24,7 @@ export const useErrorHandler = () => {
     }
     
     // Send to monitoring service in production
-    if (process.prod) {
+    if (process.env.NODE_ENV === 'production') {
       sendToMonitoring(error)
     }
   }

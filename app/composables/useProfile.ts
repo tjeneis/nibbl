@@ -1,8 +1,10 @@
-import type { UserProfile } from '~/types/profile'
+import type { Database, Tables } from '~/types/database.types'
 import { AuthenticationError, CustomError } from '~/types/errors'
 
+type UserProfile = Tables<'user_profiles'>
+
 export const useProfile = () => {
-  const client = useSupabaseClient<any>()
+  const client = useSupabaseClient<Database>()
   const user = useSupabaseUser()
   const { handleApiError } = useErrorHandler()
 
