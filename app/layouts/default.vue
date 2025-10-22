@@ -8,7 +8,7 @@
       <VBtn
         :variant="mdAndUp ? 'text' : 'flat'"
         :size="mdAndUp ? 'default' : 'small'"
-        color="surface"
+        :color="getInvertedSurfaceColor()"
         @click="showAddDialog = true"
         :icon="mdAndUp ? undefined : 'mdi-plus'"
       >
@@ -42,12 +42,12 @@
 
 <script setup lang="ts">
 const { t } = useI18n()
-
 const showAddDialog = ref(false)
 const showProfileSetup = ref(false)
 const isNewProfile = ref(false)
 const { mdAndUp } = useDisplay()
 const { getProfile } = useProfile()
+const { getInvertedSurfaceColor } = useThemeColors()
 
 const handleEntrySaved = () => {
   showAddDialog.value = false

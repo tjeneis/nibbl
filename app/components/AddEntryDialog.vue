@@ -6,7 +6,7 @@
     transition="dialog-bottom-transition"
   >
     <VCard>
-      <VToolbar color="primary">
+      <VToolbar :color="getInvertedSurfaceColor()">
         <VToolbarTitle>{{ t('weight.newEntry') }}</VToolbarTitle>
         <VSpacer />
         <VToolbarItems>
@@ -117,7 +117,7 @@
             <VBtn
               @click="handleSubmit"
               block
-              color="primary"
+              :color="getInvertedSurfaceColor()"
               size="large"
               :loading="loading"
               :disabled="loading"
@@ -136,6 +136,7 @@ import type { Tables, TablesInsert } from '~/types/database.types'
 type WeightFormData = Omit<TablesInsert<'weight_entries'>, 'user_id' | 'id' | 'created_at' | 'updated_at'>
 
 const { t } = useI18n()
+const { getInvertedSurfaceColor } = useThemeColors()
 
 const props = defineProps<{
   modelValue: boolean

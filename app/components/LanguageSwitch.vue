@@ -30,7 +30,7 @@
 <script setup lang="ts">
 const { locale, locales } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
-const { global } = useTheme()
+const { getInvertedColor } = useThemeColors()
 
 const currentLocale = computed(() => locale.value)
 const availableLocales = computed(() => locales.value.filter(i => i.code !== locale.value))
@@ -46,6 +46,6 @@ const computedColor = computed(() => {
   }
   
   // Otherwise, invert based on theme
-  return global.name.value === 'dark' ? 'white' : 'black'
+  return getInvertedColor()
 })
 </script>

@@ -1,8 +1,18 @@
 import type { Gender } from "~/types/common"
 
+/**
+ * Composable for health metrics calculations and status evaluations
+ * Provides functions to calculate BMI, body fat, muscle mass, and other health indicators
+ * with appropriate status labels and color coding for UI display
+ */
 export const useHealthMetrics = () => {
   const { t } = useI18n()
 
+  /**
+   * Get BMI status label based on BMI value
+   * @param bmi - Body Mass Index value
+   * @returns Localized status string (underweight, normal, overweight, obese)
+   */
   const getBmiStatus = (bmi: number): string => {
     switch (true) {
       case bmi < 18.5:
@@ -16,6 +26,11 @@ export const useHealthMetrics = () => {
     }
   }
 
+  /**
+   * Get BMI color for UI display based on BMI value
+   * @param bmi - Body Mass Index value
+   * @returns Vuetify color name (warning, success, error)
+   */
   const getBmiColor = (bmi: number): string => {
     switch (true) {
       case bmi < 18.5:
@@ -29,6 +44,12 @@ export const useHealthMetrics = () => {
     }
   }
 
+  /**
+   * Get body fat status label based on percentage and gender
+   * @param fatPercentage - Body fat percentage
+   * @param gender - User's gender (affects thresholds)
+   * @returns Localized status string (essential, athletic, fitness, average, high)
+   */
   const getBodyFatStatus = (fatPercentage: number, gender: Gender): string => {
     const thresholds = gender === 'male' 
       ? { essential: 6, athletic: 14, fitness: 18, average: 25 }
@@ -48,6 +69,12 @@ export const useHealthMetrics = () => {
     }
   }
 
+  /**
+   * Get body fat color for UI display based on percentage and gender
+   * @param fatPercentage - Body fat percentage
+   * @param gender - User's gender (affects thresholds)
+   * @returns Vuetify color name (warning, success, info, error)
+   */
   const getBodyFatColor = (fatPercentage: number, gender: Gender): string => {
     const thresholds = gender === 'male' 
       ? { essential: 6, athletic: 14, fitness: 18, average: 25 }
@@ -67,6 +94,12 @@ export const useHealthMetrics = () => {
     }
   }
 
+  /**
+   * Get muscle mass status label based on mass and gender
+   * @param muscleMass - Muscle mass in kg
+   * @param gender - User's gender (affects thresholds)
+   * @returns Localized status string (low, below average, average, above average, high)
+   */
   const getMuscleMassStatus = (muscleMass: number, gender: Gender): string => {
     const thresholds = gender === 'male' 
       ? { low: 30, belowAverage: 35, average: 40, aboveAverage: 45 }
@@ -86,6 +119,12 @@ export const useHealthMetrics = () => {
     }
   }
 
+  /**
+   * Get muscle mass color for UI display based on mass and gender
+   * @param muscleMass - Muscle mass in kg
+   * @param gender - User's gender (affects thresholds)
+   * @returns Vuetify color name (error, warning, info, success)
+   */
   const getMuscleMassColor = (muscleMass: number, gender: Gender): string => {
     const thresholds = gender === 'male' 
       ? { low: 30, belowAverage: 35, average: 40, aboveAverage: 45 }
@@ -105,6 +144,12 @@ export const useHealthMetrics = () => {
     }
   }
 
+  /**
+   * Get body water status label based on percentage and gender
+   * @param waterPercentage - Body water percentage
+   * @param gender - User's gender (affects thresholds)
+   * @returns Localized status string (low, below average, normal, high)
+   */
   const getBodyWaterStatus = (waterPercentage: number, gender: Gender): string => {
     const thresholds = gender === 'male' 
       ? { low: 50, belowAverage: 55, normal: 65 }
@@ -122,6 +167,12 @@ export const useHealthMetrics = () => {
     }
   }
 
+  /**
+   * Get body water color for UI display based on percentage and gender
+   * @param waterPercentage - Body water percentage
+   * @param gender - User's gender (affects thresholds)
+   * @returns Vuetify color name (error, warning, success, info)
+   */
   const getBodyWaterColor = (waterPercentage: number, gender: Gender): string => {
     const thresholds = gender === 'male' 
       ? { low: 50, belowAverage: 55, normal: 65 }
@@ -139,6 +190,11 @@ export const useHealthMetrics = () => {
     }
   }
 
+  /**
+   * Get physique level status label based on level (1-9 scale)
+   * @param level - Physique level (1-9 scale)
+   * @returns Localized status string (very low, low, average, good, very good, excellent)
+   */
   const getPhysiqueLevelStatus = (level: number): string => {
     switch (true) {
       case level < 1:
@@ -156,6 +212,11 @@ export const useHealthMetrics = () => {
     }
   }
 
+  /**
+   * Get physique level color for UI display based on level
+   * @param level - Physique level (1-9 scale)
+   * @returns Vuetify color name (error, warning, info, success)
+   */
   const getPhysiqueLevelColor = (level: number): string => {
     switch (true) {
       case level < 1:
@@ -173,6 +234,11 @@ export const useHealthMetrics = () => {
     }
   }
 
+  /**
+   * Get visceral fat status label based on level
+   * @param level - Visceral fat level
+   * @returns Localized status string (healthy, moderate, high, very high)
+   */
   const getVisceralFatStatus = (level: number): string => {
     switch (true) {
       case level < 5:
@@ -186,6 +252,11 @@ export const useHealthMetrics = () => {
     }
   }
 
+  /**
+   * Get visceral fat color for UI display based on level
+   * @param level - Visceral fat level
+   * @returns Vuetify color name (success, info, warning, error)
+   */
   const getVisceralFatColor = (level: number): string => {
     switch (true) {
       case level < 5:
@@ -199,12 +270,24 @@ export const useHealthMetrics = () => {
     }
   }
 
+  /**
+   * Get metabolic age status compared to chronological age
+   * @param age - Metabolic age
+   * @param chronologicalAge - Actual chronological age
+   * @returns Formatted difference string (e.g., "+2", "-3", "at age")
+   */
   const getMetabolicAgeStatus = (age: number, chronologicalAge: number): string => {
     const diff = age - chronologicalAge
     if (Math.abs(diff) < 1) return t('healthMetrics.atAge')
     return diff > 0 ? `+${diff.toFixed(0)}` : `${diff.toFixed(0)}`
   }
 
+  /**
+   * Get metabolic age color for UI display based on difference from chronological age
+   * @param age - Metabolic age
+   * @param chronologicalAge - Actual chronological age
+   * @returns Vuetify color name (success, info, warning, error)
+   */
   const getMetabolicAgeColor = (age: number, chronologicalAge: number): string => {
     const diff = age - chronologicalAge
     switch (true) {
@@ -221,12 +304,24 @@ export const useHealthMetrics = () => {
     }
   }
 
+  /**
+   * Get weight status compared to goal weight
+   * @param currentWeight - Current weight in kg
+   * @param goalWeight - Goal weight in kg
+   * @returns Formatted difference string (e.g., "+2.5", "-1.0", "at goal")
+   */
   const getWeightStatus = (currentWeight: number, goalWeight: number): string => {
     const diff = currentWeight - goalWeight
     if (Math.abs(diff) < 0.5) return t('healthMetrics.atGoal')
     return diff > 0 ? `+${diff.toFixed(1)}` : `${diff.toFixed(1)}`
   }
 
+  /**
+   * Get weight color for UI display based on difference from goal weight
+   * @param currentWeight - Current weight in kg
+   * @param goalWeight - Goal weight in kg
+   * @returns Vuetify color name (success, error)
+   */
   const getWeightColor = (currentWeight: number, goalWeight: number): string => {
     const diff = currentWeight - goalWeight
     if (Math.abs(diff) < 0.5) return 'success'

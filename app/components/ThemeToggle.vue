@@ -13,6 +13,7 @@
 
 <script setup lang="ts">
 const { global } = useTheme()
+const { getInvertedColor, isDark } = useThemeColors()
 
 const props = defineProps<{
   color?: string
@@ -25,7 +26,7 @@ const computedColor = computed(() => {
   }
   
   // Otherwise, invert based on theme
-  return global.name.value === 'dark' ? 'white' : 'black'
+  return getInvertedColor()
 })
 
 function toggleTheme () {
@@ -33,8 +34,6 @@ function toggleTheme () {
     global.name.value = global.current.value.dark ? 'light' : 'dark'
   }
 }
-
-const isDark = computed(() => global.name.value === 'dark')
 
 onMounted(() => {
   const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')

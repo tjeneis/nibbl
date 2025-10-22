@@ -4,11 +4,21 @@ import { AuthenticationError, CustomError } from '~/types/errors'
 type WeightEntry = Tables<'weight_entries'>
 type WeightFormData = Omit<TablesInsert<'weight_entries'>, 'user_id' | 'id' | 'created_at' | 'updated_at'>
 
+/**
+ * Composable for weight entry management
+ * Provides CRUD operations for weight tracking data including authentication checks
+ * and error handling for Supabase operations
+ */
 export const useWeight = () => {
   const client = useSupabaseClient<Database>()
   const user = useSupabaseUser()
-  const { handleApiError } = useErrorHandler()
 
+  /**
+   * Add a new weight entry for the current user
+   * @param data - Weight entry data (excluding user_id, id, timestamps)
+   * @throws {AuthenticationError} When user is not authenticated
+   * @returns Promise<void>
+   */
   const addWeightEntry = async (data: WeightFormData) => {
     if (!user.value) {
       throw new AuthenticationError('User not authenticated', {
@@ -26,22 +36,18 @@ export const useWeight = () => {
         })
 
       if (error) {
-        throw handleApiError(error, {
-          component: 'useWeight',
-          action: 'addWeightEntry'
-        })
-      }
-    } catch (error) {
-      if (error instanceof CustomError) {
         throw error
       }
-      throw handleApiError(error, {
-        component: 'useWeight',
-        action: 'addWeightEntry'
-      })
+    } catch (error) {
+      throw error
     }
   }
 
+  /**
+   * Retrieve all weight entries for the current user
+   * @throws {AuthenticationError} When user is not authenticated
+   * @returns Promise<WeightEntry[]> Array of weight entries ordered by date
+   */
   const getWeightEntries = async () => {
     if (!user.value) {
       throw new AuthenticationError('User not authenticated', {
@@ -58,24 +64,22 @@ export const useWeight = () => {
         .order('date', { ascending: true })
 
       if (error) {
-        throw handleApiError(error, {
-          component: 'useWeight',
-          action: 'getWeightEntries'
-        })
+        throw error
       }
       
       return data as WeightEntry[]
     } catch (error) {
-      if (error instanceof CustomError) {
-        throw error
-      }
-      throw handleApiError(error, {
-        component: 'useWeight',
-        action: 'getWeightEntries'
-      })
+      throw error
     }
   }
 
+  /**
+   * Update an existing weight entry
+   * @param id - The ID of the weight entry to update
+   * @param data - Partial weight entry data to update
+   * @throws {AuthenticationError} When user is not authenticated
+   * @returns Promise<WeightEntry> The updated weight entry
+   */
   const updateWeightEntry = async (id: string, data: Partial<WeightFormData>) => {
     if (!user.value) {
       throw new AuthenticationError('User not authenticated', {
@@ -94,24 +98,21 @@ export const useWeight = () => {
         .single()
 
       if (error) {
-        throw handleApiError(error, {
-          component: 'useWeight',
-          action: 'updateWeightEntry'
-        })
+        throw error
       }
       
       return entry as WeightEntry
     } catch (error) {
-      if (error instanceof CustomError) {
-        throw error
-      }
-      throw handleApiError(error, {
-        component: 'useWeight',
-        action: 'updateWeightEntry'
-      })
+      throw error
     }
   }
 
+  /**
+   * Delete a weight entry
+   * @param id - The ID of the weight entry to delete
+   * @throws {AuthenticationError} When user is not authenticated
+   * @returns Promise<void>
+   */
   const deleteWeightEntry = async (id: string) => {
     if (!user.value) {
       throw new AuthenticationError('User not authenticated', {
@@ -128,19 +129,10 @@ export const useWeight = () => {
         .eq('user_id', user.value.sub)
 
       if (error) {
-        throw handleApiError(error, {
-          component: 'useWeight',
-          action: 'deleteWeightEntry'
-        })
-      }
-    } catch (error) {
-      if (error instanceof CustomError) {
         throw error
       }
-      throw handleApiError(error, {
-        component: 'useWeight',
-        action: 'deleteWeightEntry'
-      })
+    } catch (error) {
+      throw error
     }
   }
 
