@@ -108,11 +108,6 @@ export default defineNuxtConfig({
       { code: 'nl', name: 'Nederlands', file: 'nl.json' }
     ],
     defaultLocale: 'en',
-    strategy: 'prefix',
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: 'i18n_redirected',
-      redirectOn: 'root'
-    },
+    strategy: 'prefix'
   },
 })

@@ -47,4 +47,4 @@ const { data: entries, pending, refresh } = await useAsyncData<WeightEntry[]>(
 )
 
 const latestEntry = computed(() => entries.value?.[entries.value.length - 1])
-</script> 
+</script>
