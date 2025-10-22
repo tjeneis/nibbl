@@ -27,10 +27,10 @@ export default defineNuxtConfig({
   supabase: {
     redirect: true,
     redirectOptions: {
-      include: ['/nl/(/.*)?', '/en/(/.*)?'],
-      exclude: ['/en/login', '/en/confirm'],
-      login: '/en/login',
-      callback: '/en/confirm',
+      include: ['/nl', '/en'],
+      exclude: [],
+      login: '/login',
+      callback: '/confirm',
     }
   },
 
