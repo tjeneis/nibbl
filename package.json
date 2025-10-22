@@ -38,6 +38,10 @@
     "vuetify-nuxt-module": "^0.18.8"
   },
   "packageManager": "pnpm@10.19.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  },
   "devDependencies": {
     "@nuxt/test-utils": "^3.19.2",
     "@playwright/test": "^1.56.1",

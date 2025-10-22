@@ -1,19 +1,8 @@
 {
-  "buildCommand": "pnpm build",
-  "installCommand": "pnpm install --frozen-lockfile",
-  "framework": "nuxtjs",
   "crons": [
     {
       "path": "/api/ping",
       "schedule": "0 0 * * *"
     }
-  ],
-  "functions": {
-    "app/api/**/*.ts": {
-      "runtime": "nodejs20.x"
-    }
-  },
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 } 
