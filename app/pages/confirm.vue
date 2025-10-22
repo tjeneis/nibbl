@@ -19,6 +19,10 @@ definePageMeta({
   layout: 'login'
 })
 
+useHead({
+  title: () => t('navigation.signIn'),
+})
+
 const user = useSupabaseUser()
 const localePath = useLocalePath()
 

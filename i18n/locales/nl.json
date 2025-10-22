@@ -11,6 +11,8 @@
     "errorSigningIn": "Fout bij het inloggen:"
   },
   "navigation": {
+    "dashboard": "Dashboard",
+    "signIn": "Inloggen",
     "addEntry": "Voeg invoer toe",
     "editProfile": "Profiel bewerken",
     "lightMode": "Lichte modus",
@@ -58,6 +60,7 @@
     "bodyFat": "Vetpercentage",
     "muscleMass": "Spiermassa",
     "bodyWater": "Lichaamswater",
+    "boneMass": "Botmassa",
     "metabolicAge": "Stofwisselingsleeftijd",
     "physiqueLevel": "Lichaamstype niveau",
     "visceralFat": "Visceraal vet",
@@ -81,6 +84,8 @@
   },
   "charts": {
     "weightTrend": "Gewichtstrend",
+    "bodyFatTrend": "Vetpercentage Trend",
+    "bodyComposition": "Lichaamssamenstelling",
     "weight": "Gewicht",
     "goal": "Doel",
     "goalWeight": "Streefgewicht",

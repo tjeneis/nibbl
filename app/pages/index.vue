@@ -34,11 +34,16 @@ import type { Tables } from '~/types/database.types'
 
 type WeightEntry = Tables<'weight_entries'>
 
+const { t } = useI18n()
+const { getWeightEntries } = useWeight()
+
 definePageMeta({
   middleware: 'auth'
 })
 
-const { getWeightEntries } = useWeight()
+useHead({
+  title: () => t('navigation.dashboard'),
+})
 
 const { data: entries, pending, refresh } = await useAsyncData<WeightEntry[]>(
   'weight-entries',

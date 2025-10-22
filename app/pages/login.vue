@@ -14,11 +14,9 @@
          </div>
 
         <VBtn
-          color="surface"
-          size="large"
+          :color="getInvertedSurfaceColor()"
           :loading="loading"
           :disabled="loading"
-          class="font-weight-medium px-4"
           @click="handleSignIn"
           :text="t('auth.signIn')"
         />
@@ -35,6 +33,12 @@ definePageMeta({
 })
 
 const { t } = useI18n()
+const { getInvertedSurfaceColor } = useThemeColors()
+
+useHead({
+  title: () => t('navigation.signIn'),
+})
+
 const supabase = useSupabaseClient<Database>()
 const localePath = useLocalePath()
 const user = useSupabaseUser()

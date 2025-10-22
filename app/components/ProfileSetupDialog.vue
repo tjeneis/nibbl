@@ -61,7 +61,7 @@
         </VBtn>
         <VSpacer />
         <VBtn
-          color="primary"
+          :color="getInvertedSurfaceColor()"
           variant="flat"
           size="large"
           @click="handleSubmit"
@@ -94,6 +94,7 @@ const dialog = computed({
 })
 
 const { createProfile, updateProfile, getProfile } = useProfile()
+const { getInvertedSurfaceColor } = useThemeColors()
 const loading = ref(false)
 const height = ref<number>()
 const dateOfBirth = ref<string>()
@@ -115,8 +116,8 @@ onMounted(async () => {
       const profile = await getProfile()
       height.value = profile.height
       dateOfBirth.value = profile.date_of_birth
-      gender.value = profile.gender
-      goalWeight.value = profile.goal_weight
+      gender.value = profile.gender as Gender
+      goalWeight.value = profile.goal_weight as number
     } catch (error) {
       console.error('Error loading profile:', error)
     }
@@ -136,7 +137,7 @@ const handleSubmit = async () => {
         height: height.value,
         date_of_birth: dateOfBirth.value,
         gender: gender.value,
-        goal_weight: goalWeight.value
+        goal_weight: goalWeight.value as number | null
       })
     } else {
       await updateProfile({

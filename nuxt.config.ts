@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   app: {
     head: {
-      title: 'Nibbl',
+      titleTemplate: '%s - Nibbl',
       meta: [
         { name: 'color-scheme', content: 'light dark' }
       ],

@@ -11,6 +11,8 @@
     "errorSigningIn": "Error signing in:"
   },
   "navigation": {
+    "dashboard": "Dashboard",
+    "signIn": "Sign in",
     "addEntry": "Add entry",
     "editProfile": "Edit profile",
     "lightMode": "Light Mode",
@@ -57,6 +59,7 @@
     "bmi": "BMI",
     "bodyFat": "Body Fat",
     "muscleMass": "Muscle Mass",
+    "boneMass": "Bone Mass",
     "bodyWater": "Body Water",
     "metabolicAge": "Metabolic Age",
     "physiqueLevel": "Physique Level",
@@ -81,6 +84,8 @@
   },
   "charts": {
     "weightTrend": "Weight Trend",
+    "bodyFatTrend": "Body Fat Trend",
+    "bodyComposition": "Body Composition",
     "weight": "Weight",
     "goal": "Goal",
     "goalWeight": "Goal Weight",
