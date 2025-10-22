@@ -6,8 +6,7 @@
       <VSpacer />
       
       <VBtn
-        color="primary"
-        variant="flat"
+        variant="text"
         :size="mdAndUp ? 'default' : 'small'"
         @click="showAddDialog = true"
         :icon="mdAndUp ? undefined : 'mdi-plus'"
@@ -19,8 +18,6 @@
           {{ t('navigation.addEntry') }}
         </template>
       </VBtn>
-
-      <LanguageSwitch />
 
       <UserMenu />
     </VContainer>

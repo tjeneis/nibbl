@@ -1,6 +1,6 @@
 <template>
   <VCard>
-    <VCardTitle>{{ t('history.weightHistory') }}</VCardTitle>
+    <VCardTitle class="pt-6 px-6">{{ t('history.weightHistory') }}</VCardTitle>
     <VCardText>
       <VDataTable
         :headers="headers"

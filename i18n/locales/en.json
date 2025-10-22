@@ -86,22 +86,56 @@
     "goalWeight": "Goal Weight",
     "weightKg": "Weight (kg)"
   },
+  "error": {
+    "title": "Oops! Something went wrong",
+    "defaultMessage": "An unexpected error occurred. Please try again.",
+    "networkMessage": "Please check your internet connection and try again.",
+    "authMessage": "Your session has expired. Please sign in again.",
+    "retry": "Try Again",
+    "goHome": "Go Home"
+  },
   "healthMetrics": {
     "underweight": "Underweight",
-    "normal": "Normal",
+    "normalWeight": "Normal weight",
     "overweight": "Overweight",
     "obese": "Obese",
     "essential": "Essential",
-    "athletes": "Athletes",
+    "athletic": "Athletic",
     "fitness": "Fitness",
     "average": "Average",
     "aboveAverage": "Above Average",
-    "excellent": "Excellent",
+    "belowAverage": "Below Average",
     "low": "Low",
     "high": "High",
     "veryHigh": "Very High",
-    "belowGoal": "Below Goal",
+    "veryLow": "Very Low",
+    "good": "Good",
+    "veryGood": "Very Good",
+    "excellent": "Excellent",
+    "healthy": "Healthy",
+    "moderate": "Moderate",
+    "normal": "Normal",
+    "atAge": "At Age",
     "atGoal": "At Goal",
+    "belowGoal": "Below Goal",
     "aboveGoal": "Above Goal"
+  },
+  "$vuetify": {
+    "noDataText": "No data available",
+    "dataFooter": {
+      "itemsPerPageText": "Items per page:",
+      "itemsPerPageAll": "All",
+      "pageText": "{0}-{1} of {2}",
+      "firstPage": "First page",
+      "prevPage": "Previous page",
+      "nextPage": "Next page",
+      "lastPage": "Last page"
+    },
+    "open": "Open",
+    "pagination": {
+      "ariaLabel": {
+        "root": "Pagination Navigation"
+      }
+    }
   }
 }

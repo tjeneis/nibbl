@@ -1,162 +1,229 @@
 import type { Gender } from "~/types/profile"
 
 export const useHealthMetrics = () => {
+  const { t } = useI18n()
+
   const getBmiStatus = (bmi: number): string => {
-    if (bmi < 18.5) return 'Underweight'
-    if (bmi < 25) return 'Normal weight'
-    if (bmi < 30) return 'Overweight'
-    return 'Obese'
+    switch (true) {
+      case bmi < 18.5:
+        return t('healthMetrics.underweight')
+      case bmi < 25:
+        return t('healthMetrics.normalWeight')
+      case bmi < 30:
+        return t('healthMetrics.overweight')
+      default:
+        return t('healthMetrics.obese')
+    }
   }
 
   const getBmiColor = (bmi: number): string => {
-    if (bmi < 18.5) return 'warning'
-    if (bmi < 25) return 'success'
-    if (bmi < 30) return 'warning'
-    return 'error'
+    switch (true) {
+      case bmi < 18.5:
+        return 'warning'
+      case bmi < 25:
+        return 'success'
+      case bmi < 30:
+        return 'warning'
+      default:
+        return 'error'
+    }
   }
 
   const getBodyFatStatus = (fatPercentage: number, gender: Gender): string => {
-    if (gender === 'male') {
-      if (fatPercentage < 6) return 'Essential'
-      if (fatPercentage < 14) return 'Athletic'
-      if (fatPercentage < 18) return 'Fitness'
-      if (fatPercentage < 25) return 'Average'
-      return 'High'
-    } else {
-      if (fatPercentage < 14) return 'Essential'
-      if (fatPercentage < 21) return 'Athletic'
-      if (fatPercentage < 25) return 'Fitness'
-      if (fatPercentage < 32) return 'Average'
-      return 'High'
+    const thresholds = gender === 'male' 
+      ? { essential: 6, athletic: 14, fitness: 18, average: 25 }
+      : { essential: 14, athletic: 21, fitness: 25, average: 32 }
+
+    switch (true) {
+      case fatPercentage < thresholds.essential:
+        return t('healthMetrics.essential')
+      case fatPercentage < thresholds.athletic:
+        return t('healthMetrics.athletic')
+      case fatPercentage < thresholds.fitness:
+        return t('healthMetrics.fitness')
+      case fatPercentage < thresholds.average:
+        return t('healthMetrics.average')
+      default:
+        return t('healthMetrics.high')
     }
   }
 
   const getBodyFatColor = (fatPercentage: number, gender: Gender): string => {
-    if (gender === 'male') {
-      if (fatPercentage < 6) return 'warning'
-      if (fatPercentage < 14) return 'success'
-      if (fatPercentage < 18) return 'info'
-      if (fatPercentage < 25) return 'warning'
-      return 'error'
-    } else {
-      if (fatPercentage < 14) return 'warning'
-      if (fatPercentage < 21) return 'success'
-      if (fatPercentage < 25) return 'info'
-      if (fatPercentage < 32) return 'warning'
-      return 'error'
+    const thresholds = gender === 'male' 
+      ? { essential: 6, athletic: 14, fitness: 18, average: 25 }
+      : { essential: 14, athletic: 21, fitness: 25, average: 32 }
+
+    switch (true) {
+      case fatPercentage < thresholds.essential:
+        return 'warning'
+      case fatPercentage < thresholds.athletic:
+        return 'success'
+      case fatPercentage < thresholds.fitness:
+        return 'info'
+      case fatPercentage < thresholds.average:
+        return 'warning'
+      default:
+        return 'error'
     }
   }
 
   const getMuscleMassStatus = (muscleMass: number, gender: Gender): string => {
-    if (gender === 'male') {
-      if (muscleMass < 30) return 'Low'
-      if (muscleMass < 35) return 'Below Average'
-      if (muscleMass < 40) return 'Average'
-      if (muscleMass < 45) return 'Above Average'
-      return 'High'
-    } else {
-      if (muscleMass < 25) return 'Low'
-      if (muscleMass < 30) return 'Below Average'
-      if (muscleMass < 35) return 'Average'
-      if (muscleMass < 40) return 'Above Average'
-      return 'High'
+    const thresholds = gender === 'male' 
+      ? { low: 30, belowAverage: 35, average: 40, aboveAverage: 45 }
+      : { low: 25, belowAverage: 30, average: 35, aboveAverage: 40 }
+
+    switch (true) {
+      case muscleMass < thresholds.low:
+        return t('healthMetrics.low')
+      case muscleMass < thresholds.belowAverage:
+        return t('healthMetrics.belowAverage')
+      case muscleMass < thresholds.average:
+        return t('healthMetrics.average')
+      case muscleMass < thresholds.aboveAverage:
+        return t('healthMetrics.aboveAverage')
+      default:
+        return t('healthMetrics.high')
     }
   }
 
   const getMuscleMassColor = (muscleMass: number, gender: Gender): string => {
-    if (gender === 'male') {
-      if (muscleMass < 30) return 'error'
-      if (muscleMass < 35) return 'warning'
-      if (muscleMass < 40) return 'info'
-      if (muscleMass < 45) return 'success'
-      return 'success'
-    } else {
-      if (muscleMass < 25) return 'error'
-      if (muscleMass < 30) return 'warning'
-      if (muscleMass < 35) return 'info'
-      if (muscleMass < 40) return 'success'
-      return 'success'
+    const thresholds = gender === 'male' 
+      ? { low: 30, belowAverage: 35, average: 40, aboveAverage: 45 }
+      : { low: 25, belowAverage: 30, average: 35, aboveAverage: 40 }
+
+    switch (true) {
+      case muscleMass < thresholds.low:
+        return 'error'
+      case muscleMass < thresholds.belowAverage:
+        return 'warning'
+      case muscleMass < thresholds.average:
+        return 'info'
+      case muscleMass < thresholds.aboveAverage:
+        return 'success'
+      default:
+        return 'success'
     }
   }
 
   const getBodyWaterStatus = (waterPercentage: number, gender: Gender): string => {
-    if (gender === 'male') {
-      if (waterPercentage < 50) return 'Low'
-      if (waterPercentage < 55) return 'Below Average'
-      if (waterPercentage < 65) return 'Normal'
-      return 'High'
-    } else {
-      if (waterPercentage < 45) return 'Low'
-      if (waterPercentage < 50) return 'Below Average'
-      if (waterPercentage < 60) return 'Normal'
-      return 'High'
+    const thresholds = gender === 'male' 
+      ? { low: 50, belowAverage: 55, normal: 65 }
+      : { low: 45, belowAverage: 50, normal: 60 }
+
+    switch (true) {
+      case waterPercentage < thresholds.low:
+        return t('healthMetrics.low')
+      case waterPercentage < thresholds.belowAverage:
+        return t('healthMetrics.belowAverage')
+      case waterPercentage < thresholds.normal:
+        return t('healthMetrics.normal')
+      default:
+        return t('healthMetrics.high')
     }
   }
 
   const getBodyWaterColor = (waterPercentage: number, gender: Gender): string => {
-    if (gender === 'male') {
-      if (waterPercentage < 50) return 'error'
-      if (waterPercentage < 55) return 'warning'
-      if (waterPercentage < 65) return 'success'
-      return 'info'
-    } else {
-      if (waterPercentage < 45) return 'error'
-      if (waterPercentage < 50) return 'warning'
-      if (waterPercentage < 60) return 'success'
-      return 'info'
+    const thresholds = gender === 'male' 
+      ? { low: 50, belowAverage: 55, normal: 65 }
+      : { low: 45, belowAverage: 50, normal: 60 }
+
+    switch (true) {
+      case waterPercentage < thresholds.low:
+        return 'error'
+      case waterPercentage < thresholds.belowAverage:
+        return 'warning'
+      case waterPercentage < thresholds.normal:
+        return 'success'
+      default:
+        return 'info'
     }
   }
 
   const getPhysiqueLevelStatus = (level: number): string => {
-    if (level < 1) return 'Very Low'
-    if (level < 2) return 'Low'
-    if (level < 3) return 'Average'
-    if (level < 4) return 'Good'
-    if (level < 5) return 'Very Good'
-    return 'Excellent'
+    switch (true) {
+      case level < 1:
+        return t('healthMetrics.veryLow')
+      case level < 2:
+        return t('healthMetrics.low')
+      case level < 3:
+        return t('healthMetrics.average')
+      case level < 4:
+        return t('healthMetrics.good')
+      case level < 5:
+        return t('healthMetrics.veryGood')
+      default:
+        return t('healthMetrics.excellent')
+    }
   }
 
   const getPhysiqueLevelColor = (level: number): string => {
-    if (level < 1) return 'error'
-    if (level < 2) return 'warning'
-    if (level < 3) return 'info'
-    if (level < 4) return 'success'
-    if (level < 5) return 'success'
-    return 'success'
+    switch (true) {
+      case level < 1:
+        return 'error'
+      case level < 2:
+        return 'warning'
+      case level < 3:
+        return 'info'
+      case level < 4:
+        return 'success'
+      case level < 5:
+        return 'success'
+      default:
+        return 'success'
+    }
   }
 
   const getVisceralFatStatus = (level: number): string => {
-    if (level < 5) return 'Healthy'
-    if (level < 10) return 'Moderate'
-    if (level < 15) return 'High'
-    return 'Very High'
+    switch (true) {
+      case level < 5:
+        return t('healthMetrics.healthy')
+      case level < 10:
+        return t('healthMetrics.moderate')
+      case level < 15:
+        return t('healthMetrics.high')
+      default:
+        return t('healthMetrics.veryHigh')
+    }
   }
 
   const getVisceralFatColor = (level: number): string => {
-    if (level < 5) return 'success'
-    if (level < 10) return 'info'
-    if (level < 15) return 'warning'
-    return 'error'
+    switch (true) {
+      case level < 5:
+        return 'success'
+      case level < 10:
+        return 'info'
+      case level < 15:
+        return 'warning'
+      default:
+        return 'error'
+    }
   }
 
   const getMetabolicAgeStatus = (age: number, chronologicalAge: number): string => {
     const diff = age - chronologicalAge
-    if (Math.abs(diff) < 1) return 'At Age'
+    if (Math.abs(diff) < 1) return t('healthMetrics.atAge')
     return diff > 0 ? `+${diff.toFixed(0)}` : `${diff.toFixed(0)}`
   }
 
   const getMetabolicAgeColor = (age: number, chronologicalAge: number): string => {
     const diff = age - chronologicalAge
-    if (diff < -5) return 'success'
-    if (diff < 0) return 'info'
-    if (diff < 5) return 'warning'
-    if (diff < 10) return 'warning'
-    return 'error'
+    switch (true) {
+      case diff < -5:
+        return 'success'
+      case diff < 0:
+        return 'info'
+      case diff < 5:
+        return 'warning'
+      case diff < 10:
+        return 'warning'
+      default:
+        return 'error'
+    }
   }
 
   const getWeightStatus = (currentWeight: number, goalWeight: number): string => {
     const diff = currentWeight - goalWeight
-    if (Math.abs(diff) < 0.5) return 'At Goal'
+    if (Math.abs(diff) < 0.5) return t('healthMetrics.atGoal')
     return diff > 0 ? `+${diff.toFixed(1)}` : `${diff.toFixed(1)}`
   }
 
@@ -184,4 +251,4 @@ export const useHealthMetrics = () => {
     getWeightStatus,
     getWeightColor
   }
-} 
+}

@@ -10,7 +10,7 @@
         />
       </VBtn>
     </template>
-    <VList>
+    <VList min-width="230">
       <VListItem class="px-5 pb-3" :title="user?.user_metadata?.full_name" :subtitle="user?.email" />
       <VDivider />
       <VListItem @click="showProfileSetup = true" prepend-icon="mdi-account-edit" :title="t('navigation.editProfile')" />

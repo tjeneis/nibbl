@@ -86,22 +86,56 @@
     "goalWeight": "Streefgewicht",
     "weightKg": "Gewicht (kg)"
   },
+  "error": {
+    "title": "Oeps! Er is iets misgegaan",
+    "defaultMessage": "Er is een onverwachte fout opgetreden. Probeer het opnieuw.",
+    "networkMessage": "Controleer je internetverbinding en probeer het opnieuw.",
+    "authMessage": "Je sessie is verlopen. Log opnieuw in.",
+    "retry": "Probeer opnieuw",
+    "goHome": "Ga naar start"
+  },
   "healthMetrics": {
     "underweight": "Ondergewicht",
-    "normal": "Normaal",
+    "normalWeight": "Normaal gewicht",
     "overweight": "Overgewicht",
     "obese": "Obesitas",
     "essential": "Essentieel",
-    "athletes": "Atleten",
+    "athletic": "Atletisch",
     "fitness": "Fitness",
     "average": "Gemiddeld",
     "aboveAverage": "Boven gemiddeld",
-    "excellent": "Uitstekend",
+    "belowAverage": "Onder gemiddeld",
     "low": "Laag",
     "high": "Hoog",
     "veryHigh": "Zeer hoog",
-    "belowGoal": "Onder doel",
+    "veryLow": "Zeer laag",
+    "good": "Goed",
+    "veryGood": "Zeer goed",
+    "excellent": "Uitstekend",
+    "healthy": "Gezond",
+    "moderate": "Matig",
+    "normal": "Normaal",
+    "atAge": "Op leeftijd",
     "atGoal": "Op doel",
+    "belowGoal": "Onder doel",
     "aboveGoal": "Boven doel"
+  },
+  "$vuetify": {
+    "noDataText": "Geen gegevens beschikbaar",
+    "dataFooter": {
+      "itemsPerPageText": "Items per pagina:",
+      "itemsPerPageAll": "Alle",
+      "pageText": "{0}-{1} van {2}",
+      "firstPage": "Eerste pagina",
+      "prevPage": "Vorige pagina",
+      "nextPage": "Volgende pagina",
+      "lastPage": "Laatste pagina"
+    },
+    "open": "Openen",
+    "pagination": {
+      "ariaLabel": {
+        "root": "Paginering Navigatie"
+      }
+    }
   }
 }

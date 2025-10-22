@@ -4,9 +4,8 @@
       <VBtn
         v-bind="props"
         variant="text"
-        size="large"
-        class="px-0 px-md-3"
-        :color="color"
+        class="px-0"
+        :color="computedColor"
       >
         {{ currentLocale }}
         <template #append>
@@ -14,6 +13,7 @@
         </template>
       </VBtn>
     </template>
+    
     <VList>
       <VListItem
         v-for="locale in availableLocales"
@@ -30,11 +30,22 @@
 <script setup lang="ts">
 const { locale, locales } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
+const { global } = useTheme()
 
 const currentLocale = computed(() => locale.value)
 const availableLocales = computed(() => locales.value.filter(i => i.code !== locale.value))
 
-defineProps<{
+const props = defineProps<{
   color?: string
 }>()
+
+const computedColor = computed(() => {
+  // If color is explicitly provided, use it
+  if (props.color) {
+    return props.color
+  }
+  
+  // Otherwise, invert based on theme
+  return global.name.value === 'dark' ? 'white' : 'black'
+})
 </script>

@@ -18,6 +18,8 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@nuxtjs/supabase',
     'vuetify-nuxt-module',
+    '@nuxt/test-utils/module',
+    'nuxt-echarts'
   ],
 
   experimental: {

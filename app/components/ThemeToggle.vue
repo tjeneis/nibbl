@@ -2,7 +2,7 @@
   <VBtn
     icon
     variant="text"
-    :color="color"
+    :color="computedColor"
     @click="toggleTheme"
   >
     <VIcon>
@@ -14,9 +14,19 @@
 <script setup lang="ts">
 const { global } = useTheme()
 
-defineProps<{
+const props = defineProps<{
   color?: string
 }>()
+
+const computedColor = computed(() => {
+  // If color is explicitly provided, use it
+  if (props.color) {
+    return props.color
+  }
+  
+  // Otherwise, invert based on theme
+  return global.name.value === 'dark' ? 'white' : 'black'
+})
 
 function toggleTheme () {
   global.name.value = global.current.value.dark ? 'light' : 'dark'
