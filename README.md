@@ -13,7 +13,7 @@ A modern web application for tracking weight and body composition statistics, bu
 
 ## Prerequisites
 
-- Node.js 18 or later
+- Node.js 20 or later (tested on 20.x and 22.x)
 - pnpm package manager
 - Supabase account
 
@@ -87,14 +87,32 @@ create policy "Users can only access their own entries"
 pnpm dev
 ```
 
+## Testing
+
+The project includes comprehensive testing with automated CI/CD:
+
+```bash
+# Run all tests
+pnpm test:ci
+
+# Run specific test types
+pnpm test:unit      # Unit tests
+pnpm test:nuxt      # Component tests  
+pnpm test:e2e       # End-to-end tests
+```
+
+Tests run automatically on GitHub Actions before deployment, ensuring code quality and preventing broken deployments.
+
 ## Deployment
 
-The application can be deployed to Vercel:
+The application is deployed to Vercel with automated testing:
 
-1. Push your code to a Git repository
-2. Connect your repository to Vercel
-3. Add your environment variables in the Vercel dashboard
-4. Deploy!
+1. Push your code to GitHub
+2. GitHub Actions runs comprehensive tests (Node.js 20.x & 22.x)
+3. If tests pass, Vercel automatically deploys
+4. If tests fail, deployment is blocked
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment and testing information.
 
 ## Contributing
 

@@ -12,7 +12,7 @@ jobs:
     
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [20.x, 22.x]
     
     steps:
     - name: Checkout code
@@ -42,7 +42,12 @@ jobs:
           ${{ runner.os }}-pnpm-store-
           
     - name: Install dependencies
-      run: pnpm install --frozen-lockfile
+      run: |
+        pnpm install --frozen-lockfile
+        # Fix for oxc-parser native binding issues in CI
+        pnpm rebuild oxc-parser || true
+        # Alternative fix: reinstall oxc-parser if rebuild fails
+        pnpm add oxc-parser@latest --force || true
       
     - name: Run unit tests
       run: pnpm test:unit
@@ -82,7 +87,12 @@ jobs:
         version: 10.19.0
         
     - name: Install dependencies
-      run: pnpm install --frozen-lockfile
+      run: |
+        pnpm install --frozen-lockfile
+        # Fix for oxc-parser native binding issues in CI
+        pnpm rebuild oxc-parser || true
+        # Alternative fix: reinstall oxc-parser if rebuild fails
+        pnpm add oxc-parser@latest --force || true
       
     - name: Build application
       run: pnpm build

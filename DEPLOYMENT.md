@@ -34,12 +34,25 @@ The project includes three types of tests:
 
 The `.github/workflows/test.yml` file defines the automated testing process:
 
+#### Node.js Version Strategy
+
+The workflow tests on multiple Node.js versions for comprehensive compatibility:
+
+- **Node.js 20.x**: Current stable version, matches Vercel's default runtime
+- **Node.js 22.x**: Latest LTS version, ensures future compatibility
+
+This multi-version approach:
+- Catches version-specific bugs early
+- Validates dependency compatibility across versions
+- Ensures smooth transitions when upgrading Node.js
+- Tests performance differences between versions
+
 1. **Trigger Events**:
    - Push to `main` or `develop` branches
    - Pull requests to `main` or `develop` branches
 
 2. **Test Job**:
-   - Runs on Ubuntu with Node.js 18.x and 20.x
+   - Runs on Ubuntu with Node.js 20.x and 22.x
    - Installs dependencies using pnpm
    - Runs all three test suites sequentially
    - Uploads test results as artifacts
@@ -77,10 +90,11 @@ pnpm test:e2e:ui
 ### Configuration
 
 The `vercel.json` file is configured to:
-- Use pnpm for dependency management
-- Specify the correct build command
+- Use pnpm for dependency management with frozen lockfile
+- Specify the correct build command (`pnpm build`)
 - Set up cron jobs for scheduled tasks
-- Configure serverless functions
+- Configure serverless functions with Node.js 20.x runtime
+- Set production environment variables
 
 ### Deployment Process
 
@@ -118,6 +132,16 @@ If tests fail in GitHub Actions:
 3. Download test artifacts for detailed reports
 4. Fix issues locally and push again
 
+#### Common Issues
+
+**Native Binding Errors (oxc-parser)**
+If you see errors like "Cannot find native binding" or "Cannot find module '@oxc-parser/binding-linux-x64-gnu'", this is a known issue with Nuxt 4's oxc-parser dependency in CI environments. The workflow includes automatic fixes:
+
+- `pnpm rebuild oxc-parser` - Rebuilds native bindings
+- `pnpm add oxc-parser@latest --force` - Reinstalls if rebuild fails
+
+The `.npmrc` file also helps with dependency resolution in CI environments.
+
 ### Build Failures
 
 If the build fails on Vercel:
@@ -143,6 +167,8 @@ If tests fail locally:
 3. **Test Coverage**: Aim for good test coverage of critical functionality
 4. **Regular Updates**: Keep test dependencies up to date
 5. **Monitor Results**: Check test results regularly and fix failing tests promptly
+6. **Version Compatibility**: Test on multiple Node.js versions to ensure broad compatibility
+7. **CI/CD Integration**: Always run tests before deployment to catch issues early
 
 ## Additional Resources
 
