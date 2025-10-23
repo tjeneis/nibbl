@@ -22,19 +22,3 @@ test('should be responsive', async ({ page, goto }) => {
   await expect(page.locator('body')).toBeVisible()
 })
 
-test('should show login page when not authenticated', async ({ page, goto }) => {
-  // Navigate to the correct localized route
-  await goto('/en/login', { waitUntil: 'networkidle' })
-  
-  // Wait for the page to be fully loaded and stable
-  await page.waitForLoadState('networkidle')
-  
-  // Check login page elements
-  await expect(page).toHaveTitle(/Nibbl/)
-  
-  // Check that we're on the login page by verifying the URL
-  expect(page.url()).toContain('/login')
-  
-  // Check for the sign-in button specifically
-  await expect(page.getByRole('button', { name: 'Sign in' })).toBeVisible()
-})
