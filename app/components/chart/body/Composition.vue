@@ -38,7 +38,7 @@ const chartOptions = computed<EChartsOption>(() => {
   return {
     tooltip: {
       trigger: 'item',
-      formatter: '{b}: {c}kg ({d}%)'
+      formatter: '{c}kg ({d}%)'
     },
     legend: {
       orient: 'vertical',
