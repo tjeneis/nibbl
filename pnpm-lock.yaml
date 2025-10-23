@@ -75,6 +75,9 @@ importers:
       '@vue/test-utils':
         specifier: ^2.4.6
         version: 2.4.6
+      eslint:
+        specifier: ^9.38.0
+        version: 9.38.0(jiti@2.6.1)
       happy-dom:
         specifier: ^18.0.1
         version: 18.0.1
