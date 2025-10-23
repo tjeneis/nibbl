@@ -1,14 +1,11 @@
 import { describe, it, expect, vi } from 'vitest'
-import type { Gender } from '../../app/types/common'
+import { useHealthMetrics } from '../../app/composables/useHealthMetrics'
 
 // Mock i18n to return the key itself (simpler approach)
 const mockT = vi.fn((key: string) => key)
 
 // Mock the useI18n function globally
 global.useI18n = vi.fn(() => ({ t: mockT }))
-
-// Import the composable after mocking
-import { useHealthMetrics } from '../../app/composables/useHealthMetrics'
 
 describe('useHealthMetrics', () => {
   const { 

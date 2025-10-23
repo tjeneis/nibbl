@@ -20,7 +20,8 @@ export default defineNuxtConfig({
     '@nuxtjs/supabase',
     'vuetify-nuxt-module',
     '@nuxt/test-utils/module',
-    'nuxt-echarts'
+    'nuxt-echarts',
+    '@nuxt/eslint',
   ],
   
   echarts: {

@@ -11,7 +11,7 @@ export function calculateBMI(weight: number, height: number): number {
   return Number((weight / (heightInMeters * heightInMeters)).toFixed(1))
 }
 
-export function validateWeightEntry(data: any): { isValid: boolean; errors: string[] } {
+export function validateWeightEntry(data: Record<string, unknown>): { isValid: boolean; errors: string[] } {
   const errors: string[] = []
   
   if (!data.weight || data.weight <= 0) {

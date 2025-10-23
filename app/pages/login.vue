@@ -2,7 +2,7 @@
   <VRow class="fill-height" no-gutters>
     <VCol md="4" class="pa-6 pa-md-8 d-flex flex-column">
       <div class="d-flex flex-grow-1 flex-column align-start justify-center ga-6">
-        <Logo height="36" />
+        <AppLogo height="36" />
 
          <div class="d-flex flex-column ga-3">
            <h1 class="text-h4">
@@ -19,8 +19,8 @@
           :disabled="loading"
           class="px-4"
           size="large"
-          @click="handleSignIn"
           :text="t('auth.signIn')"
+          @click="handleSignIn"
         />
       </div>
     </VCol>

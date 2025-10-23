@@ -10,7 +10,7 @@
                 {{ t('error.title') }}
               </h4>
               <p>
-                {{ t('error.defaultMessage') }}
+                {{ errorMessage }}
               </p>
             </div>
 
@@ -18,8 +18,8 @@
               color="surface"
               variant="flat"
               class="font-weight-medium px-4"
-              @click="goHome"
               :text="t('error.goHome')"
+              @click="handleError"
             />
           </VCard>
         </VCol>
@@ -63,9 +63,6 @@ const errorMessage = computed(() => {
 
 const handleError = () => {
   clearError()
-}
-
-const goHome = () => {
   navigateTo(localePath('index'))
 }
 </script>

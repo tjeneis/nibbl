@@ -10,7 +10,7 @@
         <VToolbarTitle>{{ t('weight.newEntry') }}</VToolbarTitle>
         <VSpacer />
         <VToolbarItems>
-          <VBtn @click="dialog = false" :text="t('profile.cancel')" />
+          <VBtn :text="t('profile.cancel')" @click="dialog = false" />
         </VToolbarItems>
       </VToolbar>
 
@@ -115,13 +115,13 @@
 
           <VCol cols="12">
             <VBtn
-              @click="handleSubmit"
               block
               :color="getInvertedSurfaceColor()"
               size="large"
               :loading="loading"
               :disabled="loading"
               :text="t('weight.save')"
+              @click="handleSubmit"
             />
           </VCol>
         </VRow>
@@ -136,7 +136,7 @@ import type { TablesInsert } from '~/types/database.types'
 type WeightFormData = Omit<TablesInsert<'weight_entries'>, 'user_id' | 'id' | 'created_at' | 'updated_at'>
 
 const { t } = useI18n()
-const { closeDialog } = useAddEntry()
+const { openDialog: _openDialog } = useAddEntry()
 const { getInvertedSurfaceColor } = useThemeColors()
 
 const props = defineProps<{

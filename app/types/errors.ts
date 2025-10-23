@@ -36,7 +36,7 @@ export interface AppError {
   /** Optional error code for programmatic handling */
   code?: string | number
   /** Additional error details or data */
-  details?: any
+  details?: unknown
   /** Timestamp when the error occurred */
   timestamp: Date
   /** ID of the user who encountered the error (if applicable) */
@@ -64,7 +64,7 @@ export class CustomError extends Error {
   /** Optional error code for programmatic handling */
   public readonly code?: string | number
   /** Additional error details or data */
-  public readonly details?: any
+  public readonly details?: unknown
   /** Timestamp when the error occurred */
   public readonly timestamp: Date
   /** ID of the user who encountered the error (if applicable) */
@@ -85,7 +85,7 @@ export class CustomError extends Error {
     type: ErrorType,
     message: string,
     code?: string | number,
-    details?: any,
+    details?: unknown,
     userId?: string,
     context?: AppError['context']
   ) {
@@ -111,7 +111,7 @@ export class ValidationError extends CustomError {
    * @param details - Additional validation details (e.g., field names, values)
    * @param context - Contextual information about where the validation failed
    */
-  constructor(message: string, details?: any, context?: AppError['context']) {
+  constructor(message: string, details?: unknown, context?: AppError['context']) {
     super(ErrorType.VALIDATION, message, 'VALIDATION_ERROR', details, undefined, context)
     this.name = 'ValidationError'
   }
@@ -129,7 +129,7 @@ export class NetworkError extends CustomError {
    * @param details - Additional network error details
    * @param context - Contextual information about the network request
    */
-  constructor(message: string, code?: string | number, details?: any, context?: AppError['context']) {
+  constructor(message: string, code?: string | number, details?: unknown, context?: AppError['context']) {
     super(ErrorType.NETWORK, message, code, details, undefined, context)
     this.name = 'NetworkError'
   }

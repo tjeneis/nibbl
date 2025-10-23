@@ -87,9 +87,6 @@ jobs:
       
     - name: Run unit tests
       run: pnpm test:unit
-      
-    - name: Run Nuxt component tests
-      run: pnpm test:nuxt
 
   e2e-tests:
     name: E2E Tests

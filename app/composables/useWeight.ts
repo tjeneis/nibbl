@@ -1,5 +1,5 @@
 import type { Database, Tables, TablesInsert } from '~/types/database.types'
-import { AuthenticationError, CustomError } from '~/types/errors'
+import { AuthenticationError } from '~/types/errors'
 
 type WeightEntry = Tables<'weight_entries'>
 type WeightFormData = Omit<TablesInsert<'weight_entries'>, 'user_id' | 'id' | 'created_at' | 'updated_at'>
@@ -27,18 +27,14 @@ export const useWeight = () => {
       })
     }
 
-    try {
-      const { error } = await client
-        .from('weight_entries')
-        .insert({
-          ...data,
-          user_id: user.value.sub
-        })
+    const { error } = await client
+      .from('weight_entries')
+      .insert({
+        ...data,
+        user_id: user.value.sub
+      })
 
-      if (error) {
-        throw error
-      }
-    } catch (error) {
+    if (error) {
       throw error
     }
   }
@@ -56,21 +52,17 @@ export const useWeight = () => {
       })
     }
 
-    try {
-      const { data, error } = await client
-        .from('weight_entries')
-        .select('*')
-        .eq('user_id', user.value.sub)
-        .order('date', { ascending: true })
+    const { data, error } = await client
+      .from('weight_entries')
+      .select('*')
+      .eq('user_id', user.value.sub)
+      .order('date', { ascending: true })
 
-      if (error) {
-        throw error
-      }
-      
-      return data as WeightEntry[]
-    } catch (error) {
+    if (error) {
       throw error
     }
+    
+    return data as WeightEntry[]
   }
 
   /**
@@ -88,23 +80,19 @@ export const useWeight = () => {
       })
     }
 
-    try {
-      const { data: entry, error } = await client
-        .from('weight_entries')
-        .update(data)
-        .eq('id', id)
-        .eq('user_id', user.value.sub)
-        .select()
-        .single()
+    const { data: entry, error } = await client
+      .from('weight_entries')
+      .update(data)
+      .eq('id', id)
+      .eq('user_id', user.value.sub)
+      .select()
+      .single()
 
-      if (error) {
-        throw error
-      }
-      
-      return entry as WeightEntry
-    } catch (error) {
+    if (error) {
       throw error
     }
+    
+    return entry as WeightEntry
   }
 
   /**
@@ -121,17 +109,13 @@ export const useWeight = () => {
       })
     }
 
-    try {
-      const { error } = await client
-        .from('weight_entries')
-        .delete()
-        .eq('id', id)
-        .eq('user_id', user.value.sub)
+    const { error } = await client
+      .from('weight_entries')
+      .delete()
+      .eq('id', id)
+      .eq('user_id', user.value.sub)
 
-      if (error) {
-        throw error
-      }
-    } catch (error) {
+    if (error) {
       throw error
     }
   }

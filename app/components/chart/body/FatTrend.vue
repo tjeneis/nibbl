@@ -16,10 +16,10 @@
 
 <script setup lang="ts">
 import type { Tables } from '~/types/database.types'
+import type { EChartsOption } from 'echarts'
 
 type WeightEntry = Tables<'weight_entries'>
 type UserProfile = Tables<'user_profiles'>
-import type { EChartsOption } from 'echarts'
 
 const props = defineProps<{
   entries: WeightEntry[]

@@ -54,8 +54,8 @@
         <VBtn
           variant="flat"
           size="large"
-          @click="dialog = false"
           :disabled="loading"
+          @click="dialog = false"
         >
           {{ t('profile.cancel') }}
         </VBtn>
@@ -63,9 +63,9 @@
           :color="getInvertedSurfaceColor()"
           variant="flat"
           size="large"
-          @click="handleSubmit"
           :loading="loading"
           :disabled="loading || !height || !dateOfBirth || !gender"
+          @click="handleSubmit"
         >
           {{ isNewProfile ? t('profile.save') : t('profile.update') }}
         </VBtn>

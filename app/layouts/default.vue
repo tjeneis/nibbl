@@ -1,43 +1,45 @@
 <template>
-  <VAppBar>
-    <VContainer fluid class="d-flex align-center ga-3">
-      <Logo height="32" />
+  <div>
+    <VAppBar>
+      <VContainer fluid class="d-flex align-center ga-3">
+        <AppLogo height="32" />
 
-      <VSpacer />
-      
-      <VBtn
-        :variant="mdAndUp ? 'text' : 'flat'"
-        :size="mdAndUp ? 'default' : 'small'"
-        :color="getInvertedSurfaceColor()"
-        @click="openDialog"
-        :icon="mdAndUp ? undefined : 'mdi-plus'"
-      >
-        <template #prepend v-if="mdAndUp">
-          <VIcon icon="mdi-plus" />
-        </template>
-        <template #default v-if="mdAndUp">
-          {{ t('navigation.addEntry') }}
-        </template>
-      </VBtn>
+        <VSpacer />
+        
+        <VBtn
+          :variant="mdAndUp ? 'text' : 'flat'"
+          :size="mdAndUp ? 'default' : 'small'"
+          :color="getInvertedSurfaceColor()"
+          :icon="mdAndUp ? undefined : 'mdi-plus'"
+          @click="openDialog"
+        >
+          <template v-if="mdAndUp" #prepend>
+            <VIcon icon="mdi-plus" />
+          </template>
+          <template v-if="mdAndUp" #default>
+            {{ t('navigation.addEntry') }}
+          </template>
+        </VBtn>
 
-      <UserMenu />
-    </VContainer>
-  </VAppBar>
+        <UserMenu />
+      </VContainer>
+    </VAppBar>
 
-  <VMain>
-    <slot />
-  </VMain>
+    <VMain>
+      <slot />
+    </VMain>
 
-  <AddEntryDialog
-    v-model="showDialog"
-    @saved="handleEntrySaved"
-  />
+    <AddEntryDialog
+      v-model="showDialog"
+      @saved="handleEntrySaved"
+    />
 
-  <ProfileSetupDialog
-    v-model="showProfileSetup"
-    :is-new-profile="isNewProfile"
-    @saved="handleProfileSaved"
-  />
+    <ProfileSetupDialog
+      v-model="showProfileSetup"
+      :is-new-profile="isNewProfile"
+      @saved="handleProfileSaved"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -64,6 +66,7 @@ onMounted(async () => {
   try {
     await getProfile()
   } catch (error) {
+    console.error('Error getting profile:', error)
     // If profile doesn't exist, show setup dialog
     isNewProfile.value = true
     showProfileSetup.value = true

@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/valid-v-slot -->
 <template>
   <VCard>
     <VCardTitle class="pt-6 px-6">{{ t('history.weightHistory') }}</VCardTitle>
@@ -8,42 +9,42 @@
         :loading="loading"
         :sort-by="[{ key: 'date', order: 'desc' }]"
       >
-        <template v-slot:item.date="{ item }">
-          <div class="text-no-wrap">{{ formatDate(item.date) }}</div>
+        <template #item.date="slotProps">
+          <div class="text-no-wrap">{{ formatDate(slotProps.item.date) }}</div>
         </template>
-        <template v-slot:item.weight="{ item }">
-          {{ item.weight.toFixed(1) }} kg
+        <template #item.weight="slotProps">
+          {{ slotProps.item.weight.toFixed(1) }} kg
         </template>
-        <template v-slot:item.fat_percentage="{ item }">
-          {{ item.fat_percentage.toFixed(1) }}{{ t('stats.percent') }}
+        <template #item.fat_percentage="slotProps">
+          {{ slotProps.item.fat_percentage.toFixed(1) }}{{ t('stats.percent') }}
         </template>
-        <template v-slot:item.visceral_level="{ item }">
-          {{ item.visceral_level.toFixed(1) }}
+        <template #item.visceral_level="slotProps">
+          {{ slotProps.item.visceral_level.toFixed(1) }}
         </template>
-        <template v-slot:item.muscle_mass="{ item }">
-          {{ item.muscle_mass.toFixed(1) }} kg
+        <template #item.muscle_mass="slotProps">
+          {{ slotProps.item.muscle_mass.toFixed(1) }} kg
         </template>
-        <template v-slot:item.physique_level="{ item }">
-          {{ item.physique_level.toFixed(1) }}
+        <template #item.physique_level="slotProps">
+          {{ slotProps.item.physique_level.toFixed(1) }}
         </template>
-        <template v-slot:item.bone_mass="{ item }">
-          {{ item.bone_mass.toFixed(1) }} kg
+        <template #item.bone_mass="slotProps">
+          {{ slotProps.item.bone_mass.toFixed(1) }} kg
         </template>
-        <template v-slot:item.kcal_intake="{ item }">
-          {{ item.kcal_intake }} kcal
+        <template #item.kcal_intake="slotProps">
+          {{ slotProps.item.kcal_intake }} kcal
         </template>
-        <template v-slot:item.metabolic_age="{ item }">
-          {{ item.metabolic_age }} {{ t('stats.years') }}
+        <template #item.metabolic_age="slotProps">
+          {{ slotProps.item.metabolic_age }} {{ t('stats.years') }}
         </template>
-        <template v-slot:item.body_water_percentage="{ item }">
-          {{ item.body_water_percentage.toFixed(1) }}{{ t('stats.percent') }}
+        <template #item.body_water_percentage="slotProps">
+          {{ slotProps.item.body_water_percentage.toFixed(1) }}{{ t('stats.percent') }}
         </template>
-        <template v-slot:item.actions="{ item }">
+        <template #item.actions="slotProps">
           <VBtn
             icon="mdi-delete-outline"
             variant="text"
             size="small"
-            @click="handleDelete(item)"
+            @click="handleDelete(slotProps.item)"
           />
         </template>
       </VDataTable>
@@ -53,9 +54,9 @@
 
 <script setup lang="ts">
 import type { Tables } from '~/types/database.types'
+import { formatDate } from '~/utils/date'
 
 type WeightEntry = Tables<'weight_entries'>
-import { formatDate } from '~/utils/date'
 
 interface Props {
   entries: WeightEntry[]
@@ -66,7 +67,7 @@ interface Emits {
   (e: 'update'): void
 }
 
-const props = defineProps<Props>()
+const _props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
 const { deleteWeightEntry } = useWeight()

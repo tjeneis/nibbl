@@ -1,6 +1,6 @@
 <template>
   <VMenu location="bottom end">
-    <template v-slot:activator="{ props }">
+    <template #activator="{ props }">
       <VBtn
         v-bind="props"
         icon
@@ -13,9 +13,9 @@
     <VList min-width="230">
       <VListItem class="px-5 pb-3" :title="user?.user_metadata?.full_name" :subtitle="user?.email" />
       <VDivider />
-      <VListItem @click="showProfileSetup = true" prepend-icon="mdi-account-edit" :title="t('navigation.editProfile')" />
-      <VListItem @click="toggleTheme" :prepend-icon="isDark ? 'mdi-weather-sunny' : 'mdi-weather-night'" :title="isDark ? t('navigation.lightMode') : t('navigation.darkMode')" />
-      <VListItem @click="handleSignOut" prepend-icon="mdi-logout" :title="t('auth.signOut')" />
+      <VListItem prepend-icon="mdi-account-edit" :title="t('navigation.editProfile')" @click="showProfileSetup = true" />
+      <VListItem :prepend-icon="isDark ? 'mdi-weather-sunny' : 'mdi-weather-night'" :title="isDark ? t('navigation.lightMode') : t('navigation.darkMode')" @click="toggleTheme" />
+      <VListItem prepend-icon="mdi-logout" :title="t('auth.signOut')" @click="handleSignOut" />
     </VList>
   </VMenu>
 

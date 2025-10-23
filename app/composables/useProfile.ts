@@ -1,5 +1,5 @@
 import type { Database, Tables } from '~/types/database.types'
-import { AuthenticationError, CustomError } from '~/types/errors'
+import { AuthenticationError } from '~/types/errors'
 
 type UserProfile = Tables<'user_profiles'>
 
@@ -25,21 +25,17 @@ export const useProfile = () => {
       })
     }
 
-    try {
-      const { data, error } = await client
-        .from('user_profiles')
-        .select('*')
-        .eq('user_id', user.value.sub)
-        .single()
+    const { data, error } = await client
+      .from('user_profiles')
+      .select('*')
+      .eq('user_id', user.value.sub)
+      .single()
 
-      if (error) {
-        throw error
-      }
-      
-      return data as UserProfile
-    } catch (error) {
+    if (error) {
       throw error
     }
+    
+    return data as UserProfile
   }
 
   /**
@@ -56,22 +52,18 @@ export const useProfile = () => {
       })
     }
 
-    try {
-      const { data: profile, error } = await client
-        .from('user_profiles')
-        .update(data)
-        .eq('user_id', user.value.sub)
-        .select()
-        .single()
+    const { data: profile, error } = await client
+      .from('user_profiles')
+      .update(data)
+      .eq('user_id', user.value.sub)
+      .select()
+      .single()
 
-      if (error) {
-        throw error
-      }
-      
-      return profile as UserProfile
-    } catch (error) {
+    if (error) {
       throw error
     }
+    
+    return profile as UserProfile
   }
 
   /**
@@ -88,24 +80,20 @@ export const useProfile = () => {
       })
     }
 
-    try {
-      const { data: profile, error } = await client
-        .from('user_profiles')
-        .insert({
-          ...data,
-          user_id: user.value.sub
-        })
-        .select()
-        .single()
+    const { data: profile, error } = await client
+      .from('user_profiles')
+      .insert({
+        ...data,
+        user_id: user.value.sub
+      })
+      .select()
+      .single()
 
-      if (error) {
-        throw error
-      }
-      
-      return profile as UserProfile
-    } catch (error) {
+    if (error) {
       throw error
     }
+    
+    return profile as UserProfile
   }
 
   return {

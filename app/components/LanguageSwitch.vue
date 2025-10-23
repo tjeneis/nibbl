@@ -1,8 +1,8 @@
 <template>
   <VMenu location="bottom end">
-    <template v-slot:activator="{ props }">
+    <template #activator="{ props: activatorProps }">
       <VBtn
-        v-bind="props"
+        v-bind="activatorProps"
         variant="text"
         class="px-0"
         :color="computedColor"
@@ -16,12 +16,12 @@
     
     <VList>
       <VListItem
-        v-for="locale in availableLocales"
-        :key="locale.code"
-        :to="switchLocalePath(locale.code)"
-        :active="locale.code === currentLocale"
+        v-for="availableLocale in availableLocales"
+        :key="availableLocale.code"
+        :to="switchLocalePath(availableLocale.code)"
+        :active="availableLocale.code === currentLocale"
       >
-        <VListItemTitle>{{ locale.name }}</VListItemTitle>
+        <VListItemTitle>{{ availableLocale.name }}</VListItemTitle>
       </VListItem>
     </VList>
   </VMenu>

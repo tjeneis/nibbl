@@ -14,8 +14,8 @@
        v-if="showAction"
        :color="getInvertedSurfaceColor()"
        variant="tonal"
-       @click="openDialog"
        :text="actionText"
+       @click="openDialog"
      />
   </VSheet>
 </template>
@@ -28,7 +28,7 @@ interface Props {
   showAction?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), {
+const _props = withDefaults(defineProps<Props>(), {
   title: () => useI18n().t('emptyState.title'),
   description: () => useI18n().t('emptyState.description'),
   actionText: () => useI18n().t('emptyState.action'),
