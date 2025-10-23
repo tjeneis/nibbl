@@ -33,7 +33,7 @@ const { data: profile } = await useAsyncData<UserProfile>('user-profile', () => 
   server: false
 })
 
-const chartOptions = computed<EChartsOption>(() => {
+const chartOptions = computed(() => {
   if (props.entries.length === 0) return {}
 
   const series = [
@@ -76,17 +76,7 @@ const chartOptions = computed<EChartsOption>(() => {
   return {
     tooltip: {
       trigger: 'axis',
-      formatter: (params: Array<{ axisValue: string; seriesName: string; color: string; data: [string, number] | null }>) => {
-        let tooltip = `${params[0].axisValue}<br/>`
-        params.forEach((param: { seriesName: string; color: string; data: [string, number] | null }) => {
-          if (param.seriesName === t('charts.weight')) {
-            tooltip += `<span style='color:${param.color}'>●</span> ${t('charts.weight')}: ${param.data[1].toFixed(1)} ${t('stats.kg')}<br/>`
-          } else if (param.seriesName === t('charts.goalWeight') && param.data != null) {
-            tooltip += `<span style='color:${param.color}'>●</span> ${t('charts.goalWeight')}: ${param.data[1].toFixed(1)} ${t('stats.kg')}<br/>`
-          }
-        })
-        return tooltip
-      }
+      formatter: `{c}kg`
     },
     grid: {
       containLabel: true
@@ -116,6 +106,6 @@ const chartOptions = computed<EChartsOption>(() => {
       }
     },
     series
-  }
+  } as EChartsOption
 })
 </script>

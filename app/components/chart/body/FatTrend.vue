@@ -33,7 +33,7 @@ const { data: profile } = await useAsyncData<UserProfile>('user-profile', () => 
 
 const { t } = useI18n()
 
-const chartOptions = computed<EChartsOption>(() => {
+const chartOptions = computed(() => {
   if (props.entries.length === 0) return {}
 
   // Define body fat ranges based on gender
@@ -93,7 +93,7 @@ const chartOptions = computed<EChartsOption>(() => {
               yAxis: currentRange.max
             }
           ]
-        ] as any,
+        ],
         label: {
           show: true,
           position: 'inside' as const,
@@ -106,15 +106,7 @@ const chartOptions = computed<EChartsOption>(() => {
   return {
     tooltip: {
       trigger: 'axis',
-      formatter: (params: any) => {
-        let tooltip = `${params[0].axisValue}<br/>`
-        params.forEach((param: any) => {
-          if (param.seriesName === t('stats.bodyFat')) {
-            tooltip += `<span style='color:${param.color}'>●</span> ${t('stats.bodyFat')}: ${param.data[1].toFixed(1)}%<br/>`
-          }
-        })
-        return tooltip
-      }
+      formatter: `{c}%`
     },
     grid: {
       containLabel: true
@@ -138,6 +130,6 @@ const chartOptions = computed<EChartsOption>(() => {
       }
     },
     series
-  }
+  } as EChartsOption
 })
 </script>
