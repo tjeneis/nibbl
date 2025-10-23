@@ -32,9 +32,9 @@ test('should show login page when not authenticated', async ({ page, goto }) => 
   // Check login page elements
   await expect(page).toHaveTitle(/Nibbl/)
   
-  // Wait for the h1 element to be visible (contains the tagline)
-  await expect(page.locator('h1')).toBeVisible()
+  // Check for the AppLogo component (should always be present)
+  await expect(page.locator('[data-testid="app-logo"]')).toBeVisible()
   
-  // Check for the sign-in button specifically
+  // Check for the sign-in button specifically (more flexible selector)
   await expect(page.locator('button').filter({ hasText: /sign in|aanmelden/i })).toBeVisible()
 })
