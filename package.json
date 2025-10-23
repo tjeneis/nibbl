@@ -18,8 +18,8 @@
     "test:ci": "pnpm test:unit && pnpm test:nuxt && pnpm test:e2e",
     "test:watch": "vitest --watch",
     "test:run": "vitest run",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint": "npx eslint .",
+    "lint:fix": "npx eslint . --fix",
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
