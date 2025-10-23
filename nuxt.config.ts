@@ -14,6 +14,12 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   
   devtools: { enabled: false },
+  
+  nitro: {
+    experimental: {
+      wasm: false
+    }
+  },
 
   modules: [
     '@nuxtjs/i18n',

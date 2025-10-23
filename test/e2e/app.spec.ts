@@ -1,7 +1,7 @@
 import { expect, test } from '@nuxt/test-utils/playwright'
 
 test('should load the homepage', async ({ page, goto }) => {
-  await goto('/en/', { waitUntil: 'domcontentloaded' })
+  await goto('/en/', { waitUntil: 'networkidle' })
   
   // Wait for the page to load and check if the app loads
   await expect(page).toHaveTitle(/Nibbl/)
@@ -11,7 +11,7 @@ test('should load the homepage', async ({ page, goto }) => {
 })
 
 test('should be responsive', async ({ page, goto }) => {
-  await goto('/en/', { waitUntil: 'domcontentloaded' })
+  await goto('/en/', { waitUntil: 'networkidle' })
   
   // Test mobile viewport
   await page.setViewportSize({ width: 375, height: 667 })
