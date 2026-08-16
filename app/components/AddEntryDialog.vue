@@ -131,9 +131,10 @@
 </template>
 
 <script setup lang="ts">
-import type { TablesInsert } from '~/types/database.types'
+import type { Tables } from '~/types/database.types'
+import { createEntryFormData } from '~/utils/entry'
 
-type WeightFormData = Omit<TablesInsert<'weight_entries'>, 'user_id' | 'id' | 'created_at' | 'updated_at'>
+type WeightEntry = Tables<'weight_entries'>
 
 const { t } = useI18n()
 const { openDialog: _openDialog } = useAddEntry()
@@ -141,6 +142,7 @@ const { getInvertedSurfaceColor } = useThemeColors()
 
 const props = defineProps<{
   modelValue: boolean
+  lastEntry?: WeightEntry | null
 }>()
 
 const emit = defineEmits<{
@@ -156,17 +158,14 @@ const dialog = computed({
 const { addWeightEntry } = useWeight()
 const loading = ref(false)
 
-const formData = ref<WeightFormData>({
-  date: new Date().toISOString().split('T')[0] || '',
-  weight: 0,
-  fat_percentage: 0,
-  visceral_level: 0,
-  muscle_mass: 0,
-  physique_level: 0,
-  bone_mass: 0,
-  kcal_intake: 0,
-  metabolic_age: 0,
-  body_water_percentage: 0
+const formData = ref(createEntryFormData(props.lastEntry))
+
+// Reset the form every time the dialog opens so the fields reflect the most
+// recent entry instead of leftover input from a previous visit
+watch(dialog, (isOpen) => {
+  if (isOpen) {
+    formData.value = createEntryFormData(props.lastEntry)
+  }
 })
 
 const handleSubmit = async () => {

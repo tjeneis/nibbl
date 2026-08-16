@@ -29,7 +29,8 @@
 
     <AddEntryDialog
       v-model="showDialog"
-      @success="refresh"
+      :last-entry="latestEntry"
+      @saved="refresh"
     />
   </VContainer>
 </template>
