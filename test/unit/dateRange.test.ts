@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { filterByDateRange, getRangeStartDate } from '../../app/utils/date'
+import { filterByDateRange, getRangeStartDate, parseDate } from '../../app/utils/date'
 
 describe('getRangeStartDate', () => {
   const today = new Date(2026, 8, 22) // 22 Sep 2026
@@ -43,5 +43,18 @@ describe('filterByDateRange', () => {
       .toEqual(['2025-09-22', '2026-06-01', '2026-09-22'])
     expect(filterByDateRange(entries, '3m', today).map(e => e.date))
       .toEqual(['2026-09-22'])
+  })
+})
+
+describe('parseDate', () => {
+  it('parses YYYY-MM-DD as a local date', () => {
+    const date = parseDate('2025-08-12')
+    expect([date.getFullYear(), date.getMonth(), date.getDate()]).toEqual([2025, 7, 12])
+  })
+
+  it('can anchor a range to the latest entry', () => {
+    const entries = [{ date: '2025-06-14' }, { date: '2025-07-20' }, { date: '2025-08-12' }]
+    expect(filterByDateRange(entries, '1m', parseDate('2025-08-12')).map(e => e.date))
+      .toEqual(['2025-07-20', '2025-08-12'])
   })
 })

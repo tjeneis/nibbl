@@ -17,6 +17,18 @@ export const formatDate = (date: string | Date): string => {
   const year = d.getFullYear()
   return `${day}-${month}-${year}`
 } 
+/**
+ * Parse a YYYY-MM-DD date string as a local date (new Date() would parse it as UTC midnight)
+ * @param date - Date string in YYYY-MM-DD format
+ * @returns The Date at local midnight
+ * @example
+ * parseDate('2024-01-15') // returns 15 Jan 2024 00:00 local time
+ */
+export const parseDate = (date: string): Date => {
+  const [year, month, day] = date.split('-').map(Number)
+  return new Date(year!, month! - 1, day!)
+}
+
 export const DATE_RANGES = ['1m', '3m', '6m', '1y', 'all'] as const
 export type DateRange = typeof DATE_RANGES[number]
 

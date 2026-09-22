@@ -6,19 +6,11 @@
       </VCol>
 
       <VCol cols="12" md="4">
-        <ChartWeightTrend
-          :entries="filteredEntries"
-          :filtered="isFilteredEmpty"
-          class="fill-height"
-        />
+        <ChartWeightTrend :entries="filteredEntries" class="fill-height" />
       </VCol>
 
       <VCol cols="12" md="4">
-        <ChartBodyFatTrend
-          :entries="filteredEntries"
-          :filtered="isFilteredEmpty"
-          class="fill-height"
-        />
+        <ChartBodyFatTrend :entries="filteredEntries" class="fill-height" />
       </VCol>
 
       <VCol cols="12" md="4">
@@ -49,7 +41,7 @@
 
 <script setup lang="ts">
 import type { Tables } from '~/types/database.types'
-import { DATE_RANGES, filterByDateRange, type DateRange } from '~/utils/date'
+import { DATE_RANGES, filterByDateRange, parseDate, type DateRange } from '~/utils/date'
 
 type WeightEntry = Tables<'weight_entries'>
 
@@ -77,9 +69,13 @@ const range = computed<DateRange>({
   set: value => { rangeCookie.value = value }
 })
 
-const filteredEntries = computed(() => filterByDateRange(entries.value ?? [], range.value))
-const isFilteredEmpty = computed(() => filteredEntries.value.length === 0 && (entries.value?.length ?? 0) > 0)
-
 // Latest stats and the add-entry prefill always use the most recent entry, regardless of range
 const latestEntry = computed(() => entries.value?.[entries.value.length - 1])
+
+// Ranges count back from the most recent entry, so a pause in tracking doesn't leave the charts empty
+const filteredEntries = computed(() => {
+  const latestDate = latestEntry.value?.date
+  if (!latestDate) return []
+  return filterByDateRange(entries.value, range.value, parseDate(latestDate))
+})
 </script>

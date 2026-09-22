@@ -94,8 +94,7 @@
   "emptyState": {
     "title": "Geen gegevens beschikbaar",
     "description": "Begin met het bijhouden van je voortgang door je eerste invoer toe te voegen.",
-    "action": "Voeg invoer toe",
-    "noEntriesInRange": "Geen invoer in deze periode. Kies een langere periode om meer te zien."
+    "action": "Voeg invoer toe"
   },
   "error": {
     "title": "Oeps! Er is iets misgegaan",

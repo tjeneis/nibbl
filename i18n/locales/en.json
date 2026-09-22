@@ -94,8 +94,7 @@
   "emptyState": {
     "title": "No data available",
     "description": "Start tracking your progress by adding your first entry.",
-    "action": "Add Entry",
-    "noEntriesInRange": "No entries in this period. Choose a longer range to see more."
+    "action": "Add Entry"
   },
   "error": {
     "title": "Oops! Something went wrong",
