@@ -8,6 +8,11 @@
         :height="300"
       />
       <ChartEmptyState
+        v-else-if="filtered"
+        :description="t('emptyState.noEntriesInRange')"
+        :show-action="false"
+      />
+      <ChartEmptyState
         v-else
       />
     </VCardText>
@@ -24,6 +29,8 @@ type UserProfile = Tables<'user_profiles'>
 
 const props = defineProps<{
   entries: WeightEntry[]
+  /** True when there are entries, but none within the selected date range */
+  filtered?: boolean
 }>()
 
 const { getProfile } = useProfile()

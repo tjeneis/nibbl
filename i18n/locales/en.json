@@ -94,7 +94,8 @@
   "emptyState": {
     "title": "No data available",
     "description": "Start tracking your progress by adding your first entry.",
-    "action": "Add Entry"
+    "action": "Add Entry",
+    "noEntriesInRange": "No entries in this period. Choose a longer range to see more."
   },
   "error": {
     "title": "Oops! Something went wrong",
@@ -129,6 +130,13 @@
     "atGoal": "At Goal",
     "belowGoal": "Below Goal",
     "aboveGoal": "Above Goal"
+  },
+  "dateRange": {
+    "1m": "1M",
+    "3m": "3M",
+    "6m": "6M",
+    "1y": "1Y",
+    "all": "All"
   },
   "$vuetify": {
     "noDataText": "No data available",

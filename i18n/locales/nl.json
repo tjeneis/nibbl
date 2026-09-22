@@ -94,7 +94,8 @@
   "emptyState": {
     "title": "Geen gegevens beschikbaar",
     "description": "Begin met het bijhouden van je voortgang door je eerste invoer toe te voegen.",
-    "action": "Voeg invoer toe"
+    "action": "Voeg invoer toe",
+    "noEntriesInRange": "Geen invoer in deze periode. Kies een langere periode om meer te zien."
   },
   "error": {
     "title": "Oeps! Er is iets misgegaan",
@@ -129,6 +130,13 @@
     "atGoal": "Op doel",
     "belowGoal": "Onder doel",
     "aboveGoal": "Boven doel"
+  },
+  "dateRange": {
+    "1m": "1M",
+    "3m": "3M",
+    "6m": "6M",
+    "1y": "1J",
+    "all": "Alles"
   },
   "$vuetify": {
     "noDataText": "Geen gegevens beschikbaar",
