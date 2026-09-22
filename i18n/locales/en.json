@@ -88,8 +88,7 @@
     "bodyComposition": "Body Composition",
     "weight": "Weight",
     "goal": "Goal",
-    "goalWeight": "Goal Weight",
-    "weightKg": "Weight (kg)"
+    "goalWeight": "Goal Weight"
   },
   "emptyState": {
     "title": "No data available",

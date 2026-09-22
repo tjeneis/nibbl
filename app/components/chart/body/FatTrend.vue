@@ -17,7 +17,8 @@
 <script setup lang="ts">
 import type { Tables } from '~/types/database.types'
 import type { EChartsOption } from 'echarts'
-import { formatDate } from '~/utils/date'
+import { formatDate, parseDate } from '~/utils/date'
+import { getTimeAxis } from '~/utils/chart'
 
 type WeightEntry = Tables<'weight_entries'>
 type UserProfile = Tables<'user_profiles'>
@@ -32,7 +33,7 @@ const { data: profile } = await useAsyncData<UserProfile>('user-profile', () => 
   server: false
 })
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 const chartOptions = computed(() => {
   if (props.entries.length === 0) return {}
@@ -64,8 +65,10 @@ const chartOptions = computed(() => {
     {
       name: t('stats.bodyFat'),
       type: 'line' as const,
-      data: props.entries.map(entry => [entry.date, entry.fat_percentage]),
+      data: props.entries.map(entry => [parseDate(entry.date).getTime(), entry.fat_percentage]),
       smooth: true,
+      // Keep the curve from looping back in time between entries that are close together
+      smoothMonotone: 'x' as const,
       symbol: 'circle',
       lineStyle: {
         width: 3,
@@ -104,26 +107,21 @@ const chartOptions = computed(() => {
       trigger: 'axis',
       formatter: (params) => {
         const [point] = Array.isArray(params) ? params : [params]
-        const [date, value] = (point?.value ?? []) as [string, number]
-        return `${formatDate(date)}<br/>${value}%`
+        const [timestamp, value] = (point?.value ?? []) as [number, number]
+        return `${formatDate(new Date(timestamp))}<br/>${value}%`
       }
     },
     grid: {
+      // Line the y-axis labels up with the card title (title has 24px padding, card text 16px)
+      left: 8,
+      right: 24,
+      top: 16,
+      bottom: 8,
       containLabel: true
     },
-    xAxis: {
-      type: 'time',
-      axisLabel: {
-        formatter: {
-          year: '{yyyy}',
-          month: '{MMM} {yyyy}',
-          day: '{dd}-{MM}'
-        }
-      }
-    },
+    xAxis: getTimeAxis(props.entries, locale.value),
     yAxis: {
       type: 'value',
-      name: `${t('stats.bodyFat')} (%)`,
       min: Math.floor(Math.min(...props.entries.map(entry => entry.fat_percentage)) - 5),
       max: Math.ceil(Math.max(...props.entries.map(entry => entry.fat_percentage)) + 5),
       axisLabel: {
