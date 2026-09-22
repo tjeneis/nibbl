@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import type { Tables } from '~/types/database.types'
 import type { EChartsOption } from 'echarts'
+import { formatDate } from '~/utils/date'
 
 type WeightEntry = Tables<'weight_entries'>
 type UserProfile = Tables<'user_profiles'>
@@ -54,7 +55,7 @@ const chartOptions = computed(() => {
       ]
 
   // Find the range containing the latest body fat percentage
-  const latestFatPercentage = props.entries[0]?.fat_percentage
+  const latestFatPercentage = props.entries[props.entries.length - 1]?.fat_percentage
   const currentRange = latestFatPercentage != null 
     ? fatRanges.find(range => latestFatPercentage >= range.min && latestFatPercentage < range.max)
     : null
@@ -63,12 +64,7 @@ const chartOptions = computed(() => {
     {
       name: t('stats.bodyFat'),
       type: 'line' as const,
-      data: props.entries.map(entry => {
-        const date = new Date(entry.date)
-        const day = date.getDate().toString().padStart(2, '0')
-        const month = (date.getMonth() + 1).toString().padStart(2, '0')
-        return [`${day}-${month}`, entry.fat_percentage]
-      }),
+      data: props.entries.map(entry => [entry.date, entry.fat_percentage]),
       smooth: true,
       symbol: 'circle',
       lineStyle: {
@@ -106,13 +102,24 @@ const chartOptions = computed(() => {
   return {
     tooltip: {
       trigger: 'axis',
-      formatter: `{c}%`
+      formatter: (params) => {
+        const [point] = Array.isArray(params) ? params : [params]
+        const [date, value] = (point?.value ?? []) as [string, number]
+        return `${formatDate(date)}<br/>${value}%`
+      }
     },
     grid: {
       containLabel: true
     },
     xAxis: {
-      type: 'category'
+      type: 'time',
+      axisLabel: {
+        formatter: {
+          year: '{yyyy}',
+          month: '{MMM} {yyyy}',
+          day: '{dd}-{MM}'
+        }
+      }
     },
     yAxis: {
       type: 'value',

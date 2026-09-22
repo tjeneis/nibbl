@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import type { Tables } from '~/types/database.types'
 import type { EChartsOption } from 'echarts'
+import { formatDate } from '~/utils/date'
 
 type WeightEntry = Tables<'weight_entries'>
 type UserProfile = Tables<'user_profiles'>
@@ -40,12 +41,7 @@ const chartOptions = computed(() => {
     {
       name: t('charts.weight'),
       type: 'line' as const,
-      data: props.entries.map(entry => {
-        const date = new Date(entry.date)
-        const day = date.getDate().toString().padStart(2, '0')
-        const month = (date.getMonth() + 1).toString().padStart(2, '0')
-        return [`${day}-${month}`, entry.weight]
-      }),
+      data: props.entries.map(entry => [entry.date, entry.weight]),
       smooth: true,
       symbol: 'circle',
       lineStyle: {
@@ -76,13 +72,24 @@ const chartOptions = computed(() => {
   return {
     tooltip: {
       trigger: 'axis',
-      formatter: `{c}kg`
+      formatter: (params) => {
+        const [point] = Array.isArray(params) ? params : [params]
+        const [date, value] = (point?.value ?? []) as [string, number]
+        return `${formatDate(date)}<br/>${value}kg`
+      }
     },
     grid: {
       containLabel: true
     },
     xAxis: {
-      type: 'category'
+      type: 'time',
+      axisLabel: {
+        formatter: {
+          year: '{yyyy}',
+          month: '{MMM} {yyyy}',
+          day: '{dd}-{MM}'
+        }
+      }
     },
     yAxis: {
       type: 'value',
