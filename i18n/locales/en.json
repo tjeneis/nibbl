@@ -88,8 +88,7 @@
     "bodyComposition": "Body Composition",
     "weight": "Weight",
     "goal": "Goal",
-    "goalWeight": "Goal Weight",
-    "weightKg": "Weight (kg)"
+    "goalWeight": "Goal Weight"
   },
   "emptyState": {
     "title": "No data available",
@@ -129,6 +128,13 @@
     "atGoal": "At Goal",
     "belowGoal": "Below Goal",
     "aboveGoal": "Above Goal"
+  },
+  "dateRange": {
+    "1m": "1M",
+    "3m": "3M",
+    "6m": "6M",
+    "1y": "1Y",
+    "all": "All"
   },
   "$vuetify": {
     "noDataText": "No data available",

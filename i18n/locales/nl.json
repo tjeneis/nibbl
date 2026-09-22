@@ -88,8 +88,7 @@
     "bodyComposition": "Lichaamssamenstelling",
     "weight": "Gewicht",
     "goal": "Doel",
-    "goalWeight": "Streefgewicht",
-    "weightKg": "Gewicht (kg)"
+    "goalWeight": "Streefgewicht"
   },
   "emptyState": {
     "title": "Geen gegevens beschikbaar",
@@ -129,6 +128,13 @@
     "atGoal": "Op doel",
     "belowGoal": "Onder doel",
     "aboveGoal": "Boven doel"
+  },
+  "dateRange": {
+    "1m": "1M",
+    "3m": "3M",
+    "6m": "6M",
+    "1y": "1J",
+    "all": "Alles"
   },
   "$vuetify": {
     "noDataText": "Geen gegevens beschikbaar",
